@@ -10,7 +10,4 @@
 3. *ajustar* la **comanda** segons el stock al moment de la preparació.
 4. *mostrar un llistat setmanal global* per **productes** per fer la comanda.
 
-## Part de sistema ( a introduir en una segona fase ): 
-1. *generar* **rebuts** per cada **comanda**.
-2. *enviament* de **recordatoris** per mail als **socis** durant el periode hàbil amb opció de `text lliure` a introduir pel **gestor**.
-3. *enviament* d'**avisos** per mail quan el punt 3 de 'Part de gestió' s'executi.
+![class diagram](https://www.gliffy.com/go/publish/image/11209789/L.png)
