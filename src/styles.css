@@ -15,8 +15,8 @@
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-body > .container {
-    padding: 60px 15px 0;
+oms-root > .container {
+    padding: 90px 15px 0;
 }
 
 .footer > .container {
