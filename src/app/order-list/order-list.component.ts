@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../classes/product';
 import {ProductsService} from '../services/products.service';
+import {Response} from '@angular/http';
 
 @Component( {
     selector: 'oms-order-list',
@@ -11,11 +12,17 @@ import {ProductsService} from '../services/products.service';
 export class OrderListComponent implements OnInit {
     products: Product[];
 
-    constructor(private _productsService: ProductsService) {
-        this.products = this._productsService.getProducts();
-    }
+    constructor(private productsService: ProductsService) {}
 
     ngOnInit() {
+        this.productsService.getProducts()
+            .subscribe(
+                (data: any) => console.log(data)
+            );
+    }
+
+    onSubmit(username: string, email:string) {
+
     }
 
 }

@@ -28,3 +28,4 @@ typings/
 /app/*.map
 /coverage/
 /dist/
+/src/data/
