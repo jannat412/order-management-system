@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from '../classes/product';
 import {ProductsService} from '../services/products.service';
-import {Response} from '@angular/http';
+import {IProduct} from './product';
 
 @Component( {
     selector: 'oms-order-list',
@@ -10,14 +9,19 @@ import {Response} from '@angular/http';
     providers: [ProductsService]
 } )
 export class OrderListComponent implements OnInit {
-    products: Product[];
-
+    products: IProduct[];
+    listProductTitle: string = 'Llistat de productes';
+    currentCategory: string = '';
+    listFilter: string = '';
     constructor(private productsService: ProductsService) {}
 
     ngOnInit() {
         this.productsService.getProducts()
             .subscribe(
-                (data: any) => console.log(data)
+                (data: any[]) => {
+                    console.log(data);
+                    this.products = data;
+                }
             );
     }
 

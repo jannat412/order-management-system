@@ -1,16 +1,21 @@
 import {Injectable} from '@angular/core';
-import {Product} from '../classes/product';
-import {Http, Response} from '@angular/http';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import 'rxjs/Rx';
 
 @Injectable()
 export class ProductsService {
-    constructor(private http: Http) {
+    items: FirebaseListObservable<any[]>;
+
+    constructor(private af: AngularFire) {
+        this.items = af.database.list('/productes', {
+            query: {
+                orderByChild: 'category'
+            }
+        });
     }
 
     getProducts() {
-        return this.http.get('https://el-levat.firebaseio.com/productes.json')
-            .map((response: Response) => response.json());
+        return this.items;
     }
 
     // getProducts() {
