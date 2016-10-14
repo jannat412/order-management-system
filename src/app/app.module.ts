@@ -7,16 +7,20 @@ import {AngularFireModule} from 'angularfire2';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {OrderListComponent} from './products/order-list.component';
+import {OrderListComponent} from './products/order-list/order-list.component';
 
 import {ProductFilterPipe} from './products/product-filter.pipe';
+import {ProductTagsComponent} from './products/product-tags/product-tags.component';
+import {FilterListComponent} from './products/filter-list/filter-list.component';
 
 @NgModule( {
     declarations: [
         AppComponent,
         HeaderComponent,
         OrderListComponent,
-        ProductFilterPipe
+        ProductFilterPipe,
+        ProductTagsComponent,
+        FilterListComponent
     ],
     imports: [
         BrowserModule,

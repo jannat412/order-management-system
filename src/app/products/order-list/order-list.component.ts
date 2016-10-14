@@ -7,8 +7,7 @@ import {ICategory} from '../category';
 @Component( {
     selector: 'oms-order-list',
     templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.css'],
-    providers: [ProductsService]
+    styleUrls: ['./order-list.component.css']
 } )
 export class OrderListComponent implements OnInit {
     allTags: ITag[];
