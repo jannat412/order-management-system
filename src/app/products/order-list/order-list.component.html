@@ -19,11 +19,9 @@
                     <td><img src=""></td>
                     <td>{{product.name}}</td>
                     <td>
-                        <span class="label label-{{tag}}" *ngFor="let tag of product.tags">
-                            {{tag}}
-                        </span>
+                        <oms-product-tags [allTags]="allTags" [tags]="product.tags"></oms-product-tags>
                     </td>
-                    <td>{{product.description}}</td>
+                    <td><small>{{product.description}}</small></td>
                     <td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>
                     <td>{{product.starRating}}</td>
                 </tr>

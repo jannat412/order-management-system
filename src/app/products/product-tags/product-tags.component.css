@@ -1,0 +1,13 @@
+.label {
+    font-weight: normal;
+    display: inline-block;
+}
+.label-eco {
+    background-color: #538830;
+}
+.label-new {
+    background-color: #C21F39;
+}
+.label-just {
+    background-color: #5e4b4f;
+}

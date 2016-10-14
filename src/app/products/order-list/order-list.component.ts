@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductsService} from '../services/products.service';
-import {IProduct} from './product';
+import {ProductsService} from '../../services/products.service';
+import {IProduct} from '../product';
+import {ITag} from '../tag';
+import {ICategory} from '../category';
 
 @Component( {
     selector: 'oms-order-list',
@@ -9,28 +11,35 @@ import {IProduct} from './product';
     providers: [ProductsService]
 } )
 export class OrderListComponent implements OnInit {
-    categories: any[];
+    allTags: ITag[];
+    categories: ICategory[];
     products: IProduct[];
+
     listProductTitle: string = 'Llistat de productes';
-    currentCategory: string = '';
     listFilter: string = '';
+
     constructor(private productsService: ProductsService) {}
 
     ngOnInit() {
+        this.productsService.getTags()
+            .subscribe(
+                (data: any[]) => {
+                    this.allTags = data;
+                }
+            );
         this.productsService.getCategories()
             .subscribe(
                 (data: any[]) => {
-                    console.log(data);
                     this.categories = data;
                 }
             );
         this.productsService.getProducts()
             .subscribe(
                 (data: any[]) => {
-                    console.log(data);
                     this.products = data;
                 }
             );
+
     }
 
     getCategoryClass(product: IProduct): string {
