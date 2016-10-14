@@ -7,7 +7,8 @@
         <div class="table-responsive table-hover table-condensed" *ngIf="products && products.length">
             <table class="table">
                 <tbody>
-                <tr [ngClass]="getCategoryClass(product)" *ngFor="let product of products | productFilter:listFilter">
+                <tr [ngClass]="getCategoryClass(product)"
+                    *ngFor="let product of products | productFilter:listFilter">
                     <td><img src=""></td>
                     <td>{{product.name}}</td>
                     <td>
