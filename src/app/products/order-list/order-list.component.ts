@@ -54,8 +54,8 @@ export class OrderListComponent implements OnInit {
         return '';
     }
 
-    onSubmit(username: string, email:string) {
-
+    doFilter(str: string): void {
+        this.listFilter = str;
     }
 
 }

@@ -1,0 +1,9 @@
+<div class="form-inline">
+  <div class="form-group">
+    <label>Filtrar:</label>
+    <input [(ngModel)]="listFilter" (keyup)="filterName()" class="form-control" placeholder="comença a escriure" type="text">
+  </div>
+  <div>
+    <h4 *ngIf="listFilter">Filtrant per: {{listFilter}}</h4>
+  </div>
+</div>

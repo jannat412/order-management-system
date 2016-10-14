@@ -1,6 +1,7 @@
 export interface IProduct {
-    id: number;
+    $key: number;
     name: string;
+    comment: string;
     description: string;
     price: number;
     step: number;
