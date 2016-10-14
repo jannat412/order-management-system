@@ -4,14 +4,20 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ProductsService {
+    categories: FirebaseListObservable<any[]>;
     items: FirebaseListObservable<any[]>;
 
     constructor(private af: AngularFire) {
+        this.categories = af.database.list('/categories');
         this.items = af.database.list('/productes', {
             query: {
                 orderByChild: 'category'
             }
         });
+    }
+
+    getCategories() {
+        return this.categories;
     }
 
     getProducts() {

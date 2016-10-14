@@ -10,3 +10,17 @@
 .label-just {
     background-color: #5e4b4f;
 }
+/* categories classes */
+.chicken {
+    background-color: rgba(255, 207, 196, 0.25);
+}
+.fruit {
+    background-color: rgba(255, 196, 31, 0.25);
+}
+.vegetable {
+    background-color: rgba(56, 102, 33, 0.25);
+}
+.disabled {
+    background-color: rgba(139, 128, 104, 0.35);
+    opacity: .5;
+}

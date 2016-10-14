@@ -9,6 +9,7 @@ import {IProduct} from './product';
     providers: [ProductsService]
 } )
 export class OrderListComponent implements OnInit {
+    categories: any[];
     products: IProduct[];
     listProductTitle: string = 'Llistat de productes';
     currentCategory: string = '';
@@ -16,6 +17,13 @@ export class OrderListComponent implements OnInit {
     constructor(private productsService: ProductsService) {}
 
     ngOnInit() {
+        this.productsService.getCategories()
+            .subscribe(
+                (data: any[]) => {
+                    console.log(data);
+                    this.categories = data;
+                }
+            );
         this.productsService.getProducts()
             .subscribe(
                 (data: any[]) => {
@@ -23,6 +31,18 @@ export class OrderListComponent implements OnInit {
                     this.products = data;
                 }
             );
+    }
+
+    getCategoryClass(product: IProduct): string {
+        if(!product.active) {
+            return 'disabled';
+        }
+        for(let cat of this.categories) {
+            if (cat.$key === product.category) {
+                return cat.className;
+            }
+        }
+        return '';
     }
 
     onSubmit(username: string, email:string) {

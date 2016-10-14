@@ -12,10 +12,10 @@
                 <h3 *ngIf="listFilter">Filtrant per: {{listFilter}}</h3>
             </div>
         </div>
-        <div class="table-responsive" *ngIf="products && products.length">
+        <div class="table-responsive table-hover table-condensed" *ngIf="products && products.length">
             <table class="table">
                 <tbody>
-                <tr *ngFor="let product of products | productFilter:listFilter">
+                <tr [ngClass]="getCategoryClass(product)" *ngFor="let product of products | productFilter:listFilter">
                     <td><img src=""></td>
                     <td>{{product.name}}</td>
                     <td>

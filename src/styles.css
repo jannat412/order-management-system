@@ -2,8 +2,6 @@
 -------------------------------------------------- */
 
 .footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 30px;
@@ -14,7 +12,9 @@
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
+oms-root {
+    position: relative;
+}
 oms-root > .container {
     padding: 90px 15px 0;
 }
