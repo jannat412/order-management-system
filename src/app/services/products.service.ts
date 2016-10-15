@@ -9,24 +9,24 @@ export class ProductsService {
     items: FirebaseListObservable<any[]>;
 
     constructor(private af: AngularFire) {
-        this.tags = af.database.list('/tags');
-        this.categories = af.database.list('/categories');
-        this.items = af.database.list('/productes', {
-            query: {
-                orderByChild: 'category'
-            }
-        });
     }
 
     getTags() {
+        this.tags = this.af.database.list('/tags');
         return this.tags;
     }
 
     getCategories() {
+        this.categories = this.af.database.list('/categories');
         return this.categories;
     }
 
     getProducts() {
+        this.items = this.af.database.list('/productes', {
+            query: {
+                orderByChild: 'category'
+            }
+        });
         return this.items;
     }
 

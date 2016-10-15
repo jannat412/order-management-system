@@ -13,6 +13,7 @@ export class OrderListComponent implements OnInit {
     allTags: ITag[];
     categories: ICategory[];
     products: IProduct[];
+    errorMessage: string;
 
     listProductTitle: string = 'Llistat de productes';
     listFilter: string = '';
@@ -22,21 +23,20 @@ export class OrderListComponent implements OnInit {
     ngOnInit() {
         this.productsService.getTags()
             .subscribe(
-                (data: any[]) => {
-                    this.allTags = data;
-                }
+                (data: ITag[]) => this.allTags = data,
+                (error: any)  => this.errorMessage = <any>error
+
             );
         this.productsService.getCategories()
             .subscribe(
-                (data: any[]) => {
-                    this.categories = data;
-                }
+                (data: ICategory[]) => this.categories = data,
+                (error: any)  => this.errorMessage = <any>error
+
             );
         this.productsService.getProducts()
             .subscribe(
-                (data: any[]) => {
-                    this.products = data;
-                }
+                (data: IProduct[]) => this.products = data,
+                (error: any)  => this.errorMessage = <any>error
             );
 
     }
