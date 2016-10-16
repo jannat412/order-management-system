@@ -5,6 +5,8 @@ import {HttpModule} from '@angular/http';
 
 import {AngularFireModule} from 'angularfire2';
 
+import {OrderManagementRoutingModule} from './app-routing.module';
+
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {OrderListComponent} from './products/order-list/order-list.component';
@@ -12,6 +14,7 @@ import {OrderListComponent} from './products/order-list/order-list.component';
 import {ProductFilterPipe} from './products/product-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {FilterListComponent} from './products/filter-list/filter-list.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 
 @NgModule( {
     declarations: [
@@ -20,12 +23,14 @@ import {FilterListComponent} from './products/filter-list/filter-list.component'
         OrderListComponent,
         ProductFilterPipe,
         ProductTagsComponent,
-        FilterListComponent
+        FilterListComponent,
+        ProductDetailComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        OrderManagementRoutingModule,
         AngularFireModule.initializeApp( {
             apiKey: 'AIzaSyDlLSQRaaJHlo7FSEQwRjGr75Wq4oWmHtU',
             authDomain: 'el-llevat-24226.firebaseapp.com',

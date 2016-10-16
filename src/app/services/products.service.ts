@@ -4,9 +4,9 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ProductsService {
-    tags: FirebaseListObservable<any[]>;
-    categories: FirebaseListObservable<any[]>;
-    items: FirebaseListObservable<any[]>;
+    private tags: FirebaseListObservable<any[]>;
+    private categories: FirebaseListObservable<any[]>;
+    private items: FirebaseListObservable<any[]>;
 
     constructor(private af: AngularFire) {
     }
