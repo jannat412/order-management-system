@@ -6,10 +6,10 @@ import {ICategory} from '../category';
 
 @Component( {
     selector: 'oms-order-list',
-    templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.css']
+    templateUrl: 'products-list.component.html',
+    styleUrls: ['products-list.component.css']
 } )
-export class OrderListComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
     allTags: ITag[];
     categories: ICategory[];
     products: IProduct[];

@@ -9,7 +9,7 @@ import {OrderManagementRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {OrderListComponent} from './products/order-list/order-list.component';
+import {ProductsListComponent} from './products/products-list/products-list.component';
 
 import {ProductFilterPipe} from './products/product-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
@@ -20,7 +20,7 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
     declarations: [
         AppComponent,
         HeaderComponent,
-        OrderListComponent,
+        ProductsListComponent,
         ProductFilterPipe,
         ProductTagsComponent,
         FilterListComponent,
