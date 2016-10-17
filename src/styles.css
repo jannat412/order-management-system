@@ -1,6 +1,5 @@
 /* Sticky footer styles
 -------------------------------------------------- */
-
 .footer {
     width: 100%;
     /* Set the fixed height of the footer here */
@@ -37,4 +36,21 @@ oms-root > .container {
 }
 .icon-vertical-align {
     vertical-align: text-top;
+}
+
+/* input with clear option
+-------------------------------------------------- */
+/* Hide Internet Explorer default clear button
+using the ::-ms-clear CSS pseudo-element.*/
+::-ms-clear {
+    display: none;
+}
+.form-control-clear {
+    top: 3px;
+    right: 25px;
+    color: #555555;
+    display: none;
+}
+.with-clear input:valid + .form-control-clear {
+    display: inherit;
 }

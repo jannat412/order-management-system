@@ -11,4 +11,9 @@ export class FilterListComponent {
   filterName() {
     this.filterBy.emit(this.listFilter);
   }
+
+  clear() {
+    this.listFilter = '';
+    this.filterName();
+  }
 }

@@ -4,7 +4,8 @@
 
         <oms-filter-list (filterBy)="doFilter($event)"></oms-filter-list>
 
-        <div class="table-responsive table-hover table-condensed" *ngIf="products && products.length">
+        <div class="table-responsive table-hover table-condensed"
+             *ngIf="products && products.length">
             <table class="table">
                 <tbody>
                 <tr [ngClass]="getCategoryClass(product)"
@@ -12,7 +13,10 @@
                     <td><img src=""></td>
                     <td><a routerLink="/producte/{{product.id}}">{{product.name}}</a></td>
                     <td>
-                        <oms-product-tags [allTags]="allTags" [tags]="product.tags"></oms-product-tags>
+                        <oms-product-tags
+                                [allTags]="allTags"
+                                [tags]="product.tags">
+                        </oms-product-tags>
                     </td>
                     <td><small>{{product.comment}}</small></td>
                     <td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>

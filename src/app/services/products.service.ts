@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import 'rxjs/Rx';
+import {IProduct} from '../products/product';
 
 @Injectable()
 export class ProductsService {
     private tags: FirebaseListObservable<any[]>;
     private categories: FirebaseListObservable<any[]>;
     private items: FirebaseListObservable<any[]>;
+    private item: FirebaseObjectObservable<any>;
 
     constructor(private af: AngularFire) {
     }
@@ -28,6 +30,11 @@ export class ProductsService {
             }
         });
         return this.items;
+    }
+
+    getProduct(id: number) {
+        this.item = this.af.database.object('/productes/' + id);
+        return this.item;
     }
 
 }

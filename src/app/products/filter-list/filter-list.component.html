@@ -1,9 +1,13 @@
 <div class="form-inline">
-  <div class="form-group">
+  <div class="form-group with-clear">
     <label>Filtrar:</label>
-    <input [(ngModel)]="listFilter" (keyup)="filterName()" class="form-control" placeholder="comença a escriure" type="text">
+    <input [(ngModel)]="listFilter" (keyup)="filterName()"
+           class="form-control" required placeholder="comença a escriure" type="text">
+    <span class="form-control-clear glyphicon glyphicon-remove-sign"
+    (click)="clear()"></span>
   </div>
   <div>
-    <h4 class="alert alert-success" class="alert alert-success" *ngIf="listFilter">Filtrant per: {{listFilter}}</h4>
+    <h4 class="alert alert-success"
+        *ngIf="listFilter">Filtrant per: {{listFilter}}</h4>
   </div>
 </div>

@@ -1,4 +1,5 @@
 <div class="panel panel-primary">
   <div class="panel-heading">{{pageTitle}}</div>
+  {{product.name | async}}
   <button (click)="goBack()">Back to products list</button>
 </div>
