@@ -1,5 +1,33 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">{{pageTitle}}</div>
-  {{product.name}}
-  <button (click)="goBack()">Back to products list</button>
+    <div class="panel-heading text-capitalize">
+        {{product.name}}
+    </div>
+    <div class="row panel-body">
+        <div class="col-sm-4 col-xs-6">
+            <p class="alert" [ngClass]="{'alert-success': product.active, 'alert-danger': !product.active}">
+                <span class="glyphicon"
+                      [ngClass]="{'glyphicon-ok-circle': product.active, 'glyphicon-ban-circle': !product.active}"></span>
+                {{product.active ? 'Disponible' : 'No disponible'}}</p>
+            <ul>
+                <li><strong>Categoria:</strong> {{product.category}}</li>
+                <li><strong>Descripció:</strong> {{product.description}}</li>
+            </ul>
+            <oms-product-tags
+                    [allTags]="allTags"
+                    [tags]="product.tags">
+            </oms-product-tags>
+        </div>
+        <div class="col-sm-8 col-xs-6">
+
+            <img class="img-responsive img-thumbnail thumbnail"
+                 [src]="getImageUrl(product.imgName)"
+                 alt="{{product.name}}">
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-primary btn-sm" (click)="goBack()">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            Tornar al llistat de productes
+        </button>
+    </div>
 </div>

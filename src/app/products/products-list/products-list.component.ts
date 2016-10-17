@@ -10,31 +10,31 @@ import {ICategory} from '../category';
     styleUrls: ['products-list.component.css']
 } )
 export class ProductsListComponent implements OnInit {
-    allTags: ITag[];
-    categories: ICategory[];
-    products: IProduct[];
-    errorMessage: string;
+    private allTags: ITag[];
+    private categories: ICategory[];
+    private products: IProduct[];
+    private errorMessage: string;
     @ViewChild('filteredProducts') numFilteredProducts: IProduct[];
 
-    listProductTitle: string = 'Llistat de productes';
-    listFilter: string = '';
+    private listProductTitle: string = 'Llistat de productes';
+    private listFilter: string = '';
 
     constructor(private productsService: ProductsService) {}
 
     ngOnInit() {
         this.productsService.getTags()
             .subscribe(
-                (data: ITag[]) => this.allTags = data,
+                (data: ITag[]) => this.allTags = <ITag[]>data,
                 (error: any)  => this.errorMessage = <any>error
             );
         this.productsService.getCategories()
             .subscribe(
-                (data: ICategory[]) => this.categories = data,
+                (data: ICategory[]) => this.categories = <ICategory[]>data,
                 (error: any)  => this.errorMessage = <any>error
             );
         this.productsService.getProducts()
             .subscribe(
-                (data: IProduct[]) => this.products = data,
+                (data: IProduct[]) => this.products = <IProduct[]>data,
                 (error: any)  => this.errorMessage = <any>error
             );
 

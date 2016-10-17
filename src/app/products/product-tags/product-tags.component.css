@@ -1,6 +1,7 @@
 .label {
     font-weight: normal;
     display: inline-block;
+    margin: 1px;
 }
 .label-eco {
     background-color: #538830;

@@ -5,8 +5,8 @@ import {Component, Output, EventEmitter, Input} from '@angular/core';
     templateUrl: './filter-list.component.html'
 } )
 export class FilterListComponent {
-    listFilter: string;
-    @Output() filterBy: EventEmitter<string>;
+    private listFilter: string;
+    @Output() private filterBy: EventEmitter<string>;
 
     constructor() {
         this.filterBy = new EventEmitter<string>();

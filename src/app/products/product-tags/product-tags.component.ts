@@ -8,7 +8,7 @@ import {ITag} from '../tag';
 } )
 export class ProductTagsComponent {
     @Input() allTags: ITag[];
-    @Input() tags: any[];
+    @Input() private tags: any[];
 
     getLabelTag(currentTag: string): string {
         for (let tag of this.allTags) {

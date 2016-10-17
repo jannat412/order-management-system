@@ -59,3 +59,7 @@ using the ::-ms-clear CSS pseudo-element.*/
 .with-clear input:valid + .form-control-clear {
     display: inherit;
 }
+/* label size in details page */
+oms-product-detail .label {
+    font-size: 12px;
+}
