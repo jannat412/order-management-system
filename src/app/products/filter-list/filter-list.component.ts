@@ -6,7 +6,11 @@ import {Component, Output, EventEmitter, Input} from '@angular/core';
 })
 export class FilterListComponent {
   listFilter: string;
-  @Output() filterBy: EventEmitter<string> = new EventEmitter<string>();
+  @Output() filterBy: EventEmitter<string>;
+
+  constructor() {
+    this.filterBy = new EventEmitter<string>();
+  }
 
   filterName() {
     this.filterBy.emit(this.listFilter);

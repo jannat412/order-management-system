@@ -7,7 +7,6 @@
     background-color: #f5f5f5;
 }
 
-
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -40,6 +39,9 @@ oms-root > .container {
 
 /* input with clear option
 -------------------------------------------------- */
+.form-inline {
+    margin-bottom: 5px;
+}
 /* Hide Internet Explorer default clear button
 using the ::-ms-clear CSS pseudo-element.*/
 ::-ms-clear {
@@ -50,6 +52,9 @@ using the ::-ms-clear CSS pseudo-element.*/
     right: 25px;
     color: #555555;
     display: none;
+}
+.with-clear input {
+    padding-right: 25px;
 }
 .with-clear input:valid + .form-control-clear {
     display: inherit;
