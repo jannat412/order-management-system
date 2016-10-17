@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProductsService} from '../../services/products.service';
 import {IProduct} from '../product';
 import {ITag} from '../tag';
@@ -14,6 +14,7 @@ export class ProductsListComponent implements OnInit {
     categories: ICategory[];
     products: IProduct[];
     errorMessage: string;
+    @ViewChild('filteredProducts') numFilteredProducts: IProduct[];
 
     listProductTitle: string = 'Llistat de productes';
     listFilter: string = '';
@@ -25,13 +26,11 @@ export class ProductsListComponent implements OnInit {
             .subscribe(
                 (data: ITag[]) => this.allTags = data,
                 (error: any)  => this.errorMessage = <any>error
-
             );
         this.productsService.getCategories()
             .subscribe(
                 (data: ICategory[]) => this.categories = data,
                 (error: any)  => this.errorMessage = <any>error
-
             );
         this.productsService.getProducts()
             .subscribe(

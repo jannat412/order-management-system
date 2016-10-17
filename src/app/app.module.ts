@@ -14,7 +14,7 @@ import {ProductsListComponent} from './products/products-list/products-list.comp
 import {ProductFilterPipe} from './products/product-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {FilterListComponent} from './products/filter-list/filter-list.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 
 @NgModule( {
     declarations: [

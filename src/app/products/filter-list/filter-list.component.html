@@ -8,7 +8,7 @@
     (click)="clear()"></span>
   </div>
   <div>
-    <h4 class="alert alert-success"
+    <h4 [ngClass]="setClasses()"
         *ngIf="listFilter">Filtrant per: {{listFilter}}</h4>
   </div>
 </div>

@@ -1,23 +1,27 @@
 import {Component, Output, EventEmitter, Input} from '@angular/core';
 
-@Component({
-  selector: 'oms-filter-list',
-  templateUrl: './filter-list.component.html'
-})
+@Component( {
+    selector: 'oms-filter-list',
+    templateUrl: './filter-list.component.html'
+} )
 export class FilterListComponent {
-  listFilter: string;
-  @Output() filterBy: EventEmitter<string>;
+    listFilter: string;
+    @Output() filterBy: EventEmitter<string>;
 
-  constructor() {
-    this.filterBy = new EventEmitter<string>();
-  }
+    constructor() {
+        this.filterBy = new EventEmitter<string>();
+    }
 
-  filterName() {
-    this.filterBy.emit(this.listFilter);
-  }
+    filterName() {
+        this.filterBy.emit( this.listFilter );
+    }
 
-  clear() {
-    this.listFilter = '';
-    this.filterName();
-  }
+    setClasses() {
+        return 'alert alert-success';
+    }
+
+    clear() {
+        this.listFilter = '';
+        this.filterName();
+    }
 }

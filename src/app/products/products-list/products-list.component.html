@@ -6,12 +6,13 @@
 
         <div class="table-responsive table-hover table-condensed"
              *ngIf="products && products.length">
+            <!--<p>Products: {{numFilteredProducts.length}}</p>-->
             <table class="table">
                 <tbody>
-                <tr [ngClass]="getCategoryClass(product)"
+                <tr #filteredProducts [ngClass]="getCategoryClass(product)"
                     *ngFor="let product of products | productFilter:listFilter">
                     <td><img [src]="getThumbUrl(product.imgName)"></td>
-                    <td><a routerLink="/producte/{{product.id}}">{{product.name}}</a></td>
+                    <td><a routerLink="/producte/{{product.$key}}">{{product.name}}</a></td>
                     <td>
                         <oms-product-tags
                                 [allTags]="allTags"
