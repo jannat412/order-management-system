@@ -53,6 +53,10 @@ export class ProductsListComponent implements OnInit {
         return '';
     }
 
+    getThumbUrl(thumb: string): string {
+        return '/product-img/thumbs/' + thumb;
+    }
+
     doFilter(str: string): void {
         this.listFilter = str;
     }

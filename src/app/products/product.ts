@@ -1,6 +1,7 @@
 export interface IProduct {
     $key: number;
     name: string;
+    imgName: string;
     comment: string;
     description: string;
     price: number;
@@ -10,4 +11,5 @@ export interface IProduct {
     tags: string[];
     category: string;
     active: boolean;
+    visible: boolean;
 }
