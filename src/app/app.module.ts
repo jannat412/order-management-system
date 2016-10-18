@@ -16,6 +16,7 @@ import {ProductTagsComponent} from './products/product-tags/product-tags.compone
 import {FilterListComponent} from './products/filter-list/filter-list.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import { StyleActiveDirective } from './directives/style-active.directive';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule( {
     declarations: [
@@ -26,7 +27,8 @@ import { StyleActiveDirective } from './directives/style-active.directive';
         ProductTagsComponent,
         FilterListComponent,
         ProductDetailComponent,
-        StyleActiveDirective
+        StyleActiveDirective,
+        DropdownDirective
     ],
     imports: [
         BrowserModule,
