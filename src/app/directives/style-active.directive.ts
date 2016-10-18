@@ -1,13 +1,13 @@
 import {Directive, ElementRef, Input, Renderer, OnInit} from '@angular/core';
 
 @Directive({
-  selector: '[omsStyleActive]'
+  selector: '[isActive]'
 })
 export class StyleActiveDirective {
 
-  @Input('omsStyleActive') classActive: boolean;
-  @Input('omsStyleOk') classOk: string;
-  @Input('omsStyleKo') classKo: string;
+  @Input('isActive') classActive: boolean;
+  @Input('styleOk') classOk: string;
+  @Input('styleKo') classKo: string;
   constructor(private el: ElementRef, private renderer: Renderer){}
 
   ngOnInit() {

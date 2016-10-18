@@ -9,12 +9,17 @@
             <!--<p>Products: {{numFilteredProducts.length}}</p>-->
             <table class="table">
                 <tbody>
-                <tr [omsStyleActive]="product.active"
-                    [omsStyleKo]="'disabled'" #filteredProducts
+                <tr [isActive]="product.active"
+                    [styleKo]="'disabled'" #filteredProducts
                     [ngClass]="getCategoryClass(product)"
                     *ngFor="let product of products | productFilter:listFilter">
-                    <td><img [src]="getThumbUrl(product.imgName)" class="img-thumbnail"></td>
-                    <td><a routerLink="/producte/{{product.$key}}">{{product.name}}</a></td>
+
+                    <td></td>
+                    <td><img [src]="getThumbUrl(product.imgName)"
+                             class="img-thumbnail"></td>
+                    <td>
+                        <a routerLink="/producte/{{product.$key}}">{{product.name}}</a>
+                    </td>
                     <td>
                         <oms-product-tags
                                 [allTags]="allTags"
@@ -22,8 +27,11 @@
                         </oms-product-tags>
                     </td>
                     <td><small>{{product.comment}}</small></td>
-                    <td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>
-                    <td></td>
+                    <td>
+                        <span *ngIf="!product.active" class="label label-danger" >No disponible</span>
+                        <div *ngIf="product.active">{{product.price | currency:'EUR':true:'1.2-2'}}</div>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>

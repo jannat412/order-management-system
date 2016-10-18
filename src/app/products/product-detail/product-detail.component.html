@@ -5,13 +5,13 @@
     <div class="row panel-body">
         <div class="col-sm-6 col-md-8">
             <p class="alert"
-               [omsStyleActive]="product.active"
-               [omsStyleOk]="'alert-success'"
-               [omsStyleKo]="'alert-danger'">
+               [isActive]="product.active"
+               [styleOk]="'alert-success'"
+               [styleKo]="'alert-danger'">
                 <span class="glyphicon"
-                      [omsStyleActive]="product.active"
-                      [omsStyleOk]="'glyphicon-ok-circle'"
-                      [omsStyleKo]="'glyphicon-ban-circle'">
+                      [isActive]="product.active"
+                      [styleOk]="'glyphicon-ok-circle'"
+                      [styleKo]="'glyphicon-ban-circle'">
                 </span>
                 {{product.active ? 'Disponible' : 'No disponible'}}
             </p>
