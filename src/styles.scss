@@ -1,65 +1,72 @@
 /* Sticky footer styles
 -------------------------------------------------- */
 .footer {
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 30px;
-    background-color: #f5f5f5;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  background-color: #f5f5f5;
 }
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 oms-root {
-    position: relative;
-}
-oms-root > .container {
+  position: relative;
+  > .container {
     padding: 90px 15px 0;
+  }
 }
 
-.footer > .container {
+.footer {
+  > .container {
     padding-right: 15px;
     padding-left: 15px;
-}
-.footer ul {
+  }
+  ul {
     text-align: center;
     margin: 5px 0 0;
     padding: 0;
-}
-.footer li {
-    display: inline-block;
-    padding: 0 0.5em;
-}
-.footer a {
+    li {
+      display: inline-block;
+      padding: 0 0.5em;
+    }
+  }
+  a {
     font-size: 12px;
+  }
 }
+
 .icon-vertical-align {
-    vertical-align: text-top;
+  vertical-align: text-top;
 }
 
 /* input with clear option
 -------------------------------------------------- */
 .form-inline {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
+
 /* Hide Internet Explorer default clear button
 using the ::-ms-clear CSS pseudo-element.*/
 ::-ms-clear {
-    display: none;
+  display: none;
 }
+
 .form-control-clear {
-    top: 3px;
-    right: 25px;
-    color: #555555;
-    display: none;
+  top: 3px;
+  right: 25px;
+  color: #555555;
+  display: none;
 }
+
 .with-clear input {
-    padding-right: 25px;
-}
-.with-clear input:valid + .form-control-clear {
+  padding-right: 25px;
+  &:valid + .form-control-clear {
     display: inherit;
+  }
 }
+
 /* label size in details page */
 oms-product-detail .label {
-    font-size: 12px;
+  font-size: 12px;
 }

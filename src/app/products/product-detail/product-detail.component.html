@@ -4,10 +4,17 @@
     </div>
     <div class="row panel-body">
         <div class="col-sm-6 col-md-8">
-            <p class="alert" [ngClass]="{'alert-success': product.active, 'alert-danger': !product.active}">
+            <p class="alert"
+               [omsStyleActive]="product.active"
+               [omsStyleOk]="'alert-success'"
+               [omsStyleKo]="'alert-danger'">
                 <span class="glyphicon"
-                      [ngClass]="{'glyphicon-ok-circle': product.active, 'glyphicon-ban-circle': !product.active}"></span>
-                {{product.active ? 'Disponible' : 'No disponible'}}</p>
+                      [omsStyleActive]="product.active"
+                      [omsStyleOk]="'glyphicon-ok-circle'"
+                      [omsStyleKo]="'glyphicon-ban-circle'">
+                </span>
+                {{product.active ? 'Disponible' : 'No disponible'}}
+            </p>
             <ul>
                 <li><strong>Categoria:</strong> {{product.category}}</li>
                 <li><strong>Descripció:</strong> {{product.description}}</li>

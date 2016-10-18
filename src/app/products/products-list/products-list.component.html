@@ -9,7 +9,9 @@
             <!--<p>Products: {{numFilteredProducts.length}}</p>-->
             <table class="table">
                 <tbody>
-                <tr #filteredProducts [ngClass]="getCategoryClass(product)"
+                <tr [omsStyleActive]="product.active"
+                    [omsStyleKo]="'disabled'" #filteredProducts
+                    [ngClass]="getCategoryClass(product)"
                     *ngFor="let product of products | productFilter:listFilter">
                     <td><img [src]="getThumbUrl(product.imgName)" class="img-thumbnail"></td>
                     <td><a routerLink="/producte/{{product.$key}}">{{product.name}}</a></td>

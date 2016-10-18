@@ -7,7 +7,7 @@ import {ICategory} from '../category';
 @Component( {
     selector: 'oms-order-list',
     templateUrl: 'products-list.component.html',
-    styleUrls: ['products-list.component.css']
+    styleUrls: ['products-list.component.scss']
 } )
 export class ProductsListComponent implements OnInit {
     private allTags: ITag[];
@@ -41,9 +41,6 @@ export class ProductsListComponent implements OnInit {
     }
 
     getCategoryClass(product: IProduct): string {
-        if(!product.active) {
-            return 'disabled';
-        }
         for(let cat of this.categories) {
             if (cat.$key === product.category) {
                 return cat.className;

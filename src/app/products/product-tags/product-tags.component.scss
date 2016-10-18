@@ -1,14 +1,14 @@
 .label {
-    font-weight: normal;
-    display: inline-block;
-    margin: 0 1px 5px 1px;
-}
-.label-eco {
+  font-weight: normal;
+  display: inline-block;
+  margin: 0 1px 5px 1px;
+  &-eco {
     background-color: #538830;
-}
-.label-new {
+  }
+  &-new {
     background-color: #C21F39;
-}
-.label-just {
+  }
+  &-just {
     background-color: #5e4b4f;
+  }
 }

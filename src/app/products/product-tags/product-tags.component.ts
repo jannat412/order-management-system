@@ -4,7 +4,7 @@ import {ITag} from '../tag';
 @Component( {
     selector: 'oms-product-tags',
     templateUrl: './product-tags.component.html',
-    styleUrls: ['./product-tags.component.css']
+    styleUrls: ['product-tags.component.scss']
 } )
 export class ProductTagsComponent {
     @Input() allTags: ITag[];

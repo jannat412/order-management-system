@@ -30,3 +30,5 @@ typings/
 /dist/
 /src/data/
 /data/
+/*.log
+/firebase.help.md

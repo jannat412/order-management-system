@@ -1,7 +1,11 @@
-.navbar-brand {
+.navbar {
+  &-brand {
     height: auto;
     padding: 5px 15px;
-}
-.navbar-nav > li > a {
-    line-height: 35px;
+  }
+  &-nav {
+    a {
+      line-height: 35px;
+    }
+  }
 }

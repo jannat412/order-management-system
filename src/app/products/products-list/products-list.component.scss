@@ -1,15 +1,25 @@
 /* categories classes */
 .chicken {
-    background-color: rgba(255, 207, 196, 0.25);
+  background-color: rgba(255, 207, 196, 0.25);
+
 }
+
 .fruit {
-    background-color: rgba(255, 196, 31, 0.25);
+  background-color: rgba(255, 196, 31, 0.25);
+
 }
+
 .vegetable {
-    background-color: rgba(56, 102, 33, 0.25);
+  background-color: rgba(56, 102, 33, 0.25);
+
 }
+
 .disabled {
-    background-color: #eeeeee;
-    color: #555555;
+  background-color: #eeeeee;
+  color: #555555;
+  opacity: 0.7;
+  a {
+    color: inherit;
+  }
 
 }
