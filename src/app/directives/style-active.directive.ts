@@ -21,8 +21,8 @@ export class StyleActiveDirective implements OnInit {
         }
     }
 
-    applyClass(cls: string, isApplied: boolean) {
+    applyClass = (cls: string, isApplied: boolean): void => {
         this.renderer.setElementClass(
             this.el.nativeElement, cls, isApplied );
-    }
+    };
 }

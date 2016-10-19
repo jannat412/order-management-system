@@ -43,22 +43,22 @@ export class ProductDetailComponent implements OnInit {
         } )
     }
 
-    getImageUrl(image: string): string {
+    getImageUrl = (image: string): string => {
         let url = `/product-img/images/${image}`;
         return url;
-    }
+    };
 
-    getCategoryClass(): string {
+    getCategoryClass = (): string => {
         for(let cat of this.allCategories) {
             if (cat.$key === this.product.category) {
                 return cat.className;
             }
         }
         return '';
-    }
+    };
 
-    goBack(): void {
+    goBack = (): void => {
         this.location.back();
-    }
+    };
 
 }

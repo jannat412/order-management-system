@@ -40,22 +40,22 @@ export class ProductsListComponent implements OnInit {
 
     }
 
-    getCategoryClass(category: string): string {
+    getCategoryClass = (category: string): string => {
         for(let cat of this.categories) {
             if (cat.$key === category) {
                 return cat.className;
             }
         }
         return '';
-    }
+    };
 
-    getThumbUrl(thumb: string): string {
+    getThumbUrl = (thumb: string): string => {
         let url = `/product-img/thumbs/${thumb}`;
         return url;
-    }
+    };
 
-    doFilter(str: string): void {
+    doFilter = (str: string): void => {
         this.listFilter = str;
-    }
+    };
 
 }

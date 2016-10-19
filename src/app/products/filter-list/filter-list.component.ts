@@ -12,17 +12,13 @@ export class FilterListComponent {
         this.filterBy = new EventEmitter<string>();
     }
 
-    filterName() {
-        this.filterBy.emit( this.listFilter );
-    }
+    filterName = (): void => this.filterBy.emit( this.listFilter );
 
     /* TODO make success or error style if filtering return or not something*/
-    setClasses() {
-        return 'alert alert-success';
-    }
+    setClasses = (): string =>  'alert alert-success';
 
-    clear() {
+    clear = (): void => {
         this.listFilter = '';
         this.filterName();
-    }
+    };
 }
