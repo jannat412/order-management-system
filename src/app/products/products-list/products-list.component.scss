@@ -1,5 +1,11 @@
-/* categories classes */
-
+table td:nth-child(2) {
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  table td:nth-child(2) {
+    display: none;
+  }
+}
 
 .disabled {
   background-color: #eeeeee;

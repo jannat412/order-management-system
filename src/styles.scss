@@ -51,14 +51,19 @@ using the ::-ms-clear CSS pseudo-element.*/
 ::-ms-clear {
   display: none;
 }
-
 .form-control-clear {
   top: 3px;
   right: 25px;
   color: #555555;
   display: none;
 }
-
+@media (max-width: 767px) {
+  .form-control-clear {
+    float: right;
+    top: -24px;
+    right: 10px;
+  }
+}
 .with-clear input {
   padding-right: 25px;
   &:valid + .form-control-clear {
@@ -71,17 +76,15 @@ oms-product-detail .label {
   font-size: 12px;
 }
 
+/* categories classes for background color */
 .chicken {
   background-color: rgba(255, 207, 196, 0.25);
-
 }
 
 .fruit {
   background-color: rgba(255, 196, 31, 0.25);
-
 }
 
 .vegetable {
   background-color: rgba(56, 102, 33, 0.25);
-
 }

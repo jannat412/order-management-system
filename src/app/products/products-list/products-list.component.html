@@ -5,9 +5,9 @@
         <oms-filter-list (filterBy)="doFilter($event)"></oms-filter-list>
 
         <div class="table-responsive table-hover table-condensed"
-             *ngIf="products && products.length">
+             *ngIf="products?.length">
             <!--<p>Products: {{numFilteredProducts.length}}</p>-->
-            <table class="table">
+            <table class="table table-responsive">
                 <tbody>
                 <tr [isActive]="product.active"
                     [styleKo]="'disabled'" #filteredProducts
