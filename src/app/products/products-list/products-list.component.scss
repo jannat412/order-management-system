@@ -1,16 +1,26 @@
 table td:nth-child(2) {
   display: inline-block;
 }
+
 @media (max-width: 767px) {
   table td:nth-child(2) {
     display: none;
   }
 }
-
+table td:nth-child(6) {
+  width: 220px;
+}
 .disabled {
   background-color: #eeeeee;
   &, & a {
     color: #9d9d9d;
   }
+}
 
+.label {
+  font-size: 85%;
+  font-weight: normal;
+}
+.img-thumbnail {
+  max-width: none;
 }

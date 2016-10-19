@@ -19,6 +19,10 @@
                              class="img-thumbnail"></td>
                     <td>
                         <a routerLink="/producte/{{product.$key}}">{{product.name}}</a>
+                        <br>
+                        <p class="label label-primary">
+                            {{product.price | number:'1.2-2'}} € / {{product.unity}}
+                        </p>
                     </td>
                     <td>
                         <oms-product-tags
@@ -26,12 +30,14 @@
                                 [tags]="product.tags">
                         </oms-product-tags>
                     </td>
-                    <td><small>{{product.comment}}</small></td>
                     <td>
-                        <span *ngIf="!product.active" class="label label-danger" >No disponible</span>
-                        <div *ngIf="product.active">{{product.price | currency:'EUR':true:'1.2-2'}}</div>
+                        <small>{{product.comment}}</small>
                     </td>
-
+                    <td>
+                        <oms-products-count *ngIf="product.active"></oms-products-count>
+                        <span *ngIf="!product.active"
+                              class="label label-danger">No disponible</span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
