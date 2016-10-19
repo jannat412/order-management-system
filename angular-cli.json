@@ -41,7 +41,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "prefixInterfaces": false
+    "styleExt": "scss",
+    "prefixInterfaces": true
   }
 }

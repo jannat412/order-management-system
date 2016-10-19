@@ -15,8 +15,10 @@ import {ProductFilterPipe} from './products/product-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {FilterListComponent} from './products/filter-list/filter-list.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
-import { StyleActiveDirective } from './directives/style-active.directive';
-import { DropdownDirective } from './directives/dropdown.directive';
+import {StyleActiveDirective} from './directives/style-active.directive';
+import {DropdownDirective} from './directives/dropdown.directive';
+import {ProductsCountComponent} from './products/products-count/products-count.component';
+import {TouchspinComponent} from './directives/touchspin/touchspin.component';
 
 @NgModule( {
     declarations: [
@@ -28,7 +30,9 @@ import { DropdownDirective } from './directives/dropdown.directive';
         FilterListComponent,
         ProductDetailComponent,
         StyleActiveDirective,
-        DropdownDirective
+        DropdownDirective,
+        ProductsCountComponent,
+        TouchspinComponent
     ],
     imports: [
         BrowserModule,

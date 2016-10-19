@@ -1,0 +1,19 @@
+<div class="input-group">
+    <div class="input-group-btn">
+        <button class="btn btn-primary btn-sm"
+                type="button"
+                (click)="decrement()">
+            <span class="glyphicon glyphicon-minus"></span>
+        </button>
+    </div>
+    <input type="text" class="form-control input-sm" [value]="displayValue">
+    <div class="input-group-btn">
+        <button class="btn btn-primary btn-sm"
+                type="button"
+                (click)="increment()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+    <span class="input-group-addon" id="basic-addon2">0.00</span>
+</div><!-- /input-group -->
+
