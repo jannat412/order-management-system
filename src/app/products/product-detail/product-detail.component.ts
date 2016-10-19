@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import {IProduct} from '../product';
 import {ProductsService} from '../../services/products.service';
 import {ITag} from '../tag';
+import {ICategory} from '../category';
 
 @Component( {
     selector: 'oms-product-detail',
@@ -12,9 +13,9 @@ import {ITag} from '../tag';
 export class ProductDetailComponent implements OnInit {
     private pageTitle: string = 'Producte:';
     private product: IProduct;
-    private _productsService: ProductsService;
     private errorMessage: string;
     private allTags: ITag[];
+    private allCategories: ICategory[];
 
     constructor(private productsService: ProductsService,
                 private route: ActivatedRoute,
@@ -25,6 +26,11 @@ export class ProductDetailComponent implements OnInit {
         this.productsService.getTags()
             .subscribe(
                 (data: ITag[]) => this.allTags = <ITag[]>data,
+                (error: any)  => this.errorMessage = <any>error
+            );
+        this.productsService.getCategories()
+            .subscribe(
+                (data: ICategory[]) => this.allCategories = <ICategory[]>data,
                 (error: any)  => this.errorMessage = <any>error
             );
         this.route.params.forEach( (params: Params) => {
@@ -38,7 +44,17 @@ export class ProductDetailComponent implements OnInit {
     }
 
     getImageUrl(image: string): string {
-        return '/product-img/images/' + image;
+        let url = `/product-img/images/${image}`;
+        return url;
+    }
+
+    getCategoryClass(): string {
+        for(let cat of this.allCategories) {
+            if (cat.$key === this.product.category) {
+                return cat.className;
+            }
+        }
+        return '';
     }
 
     goBack(): void {

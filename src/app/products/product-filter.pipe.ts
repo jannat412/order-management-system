@@ -5,7 +5,7 @@ import {IProduct} from './product';
     name: 'productFilter'
 } )
 export class ProductFilterPipe implements PipeTransform {
-
+    /* TODO make filtering without being strict for accents */
     transform(value: IProduct[], args: string): IProduct[] {
         let filter: string = args ? args.toLocaleLowerCase() : null;
         return filter ? value.filter(

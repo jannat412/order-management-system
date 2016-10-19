@@ -1,4 +1,4 @@
-    import {Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFire} from 'angularfire2';
 import 'rxjs/Rx';
 
@@ -8,7 +8,7 @@ export class ProductsService {
     constructor(private af: AngularFire) {}
 
     getTags() {
-        return this.af.database.list('/tags');
+        return this.af.database.list( '/tags' );
     }
 
     getCategories() {
@@ -24,7 +24,8 @@ export class ProductsService {
     }
 
     getProduct(id: number) {
-        return this.af.database.object( '/productes/' + id );
+        let segment = `/productes/${id}`;
+        return this.af.database.object( segment );
     }
 
 }

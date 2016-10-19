@@ -40,9 +40,9 @@ export class ProductsListComponent implements OnInit {
 
     }
 
-    getCategoryClass(product: IProduct): string {
+    getCategoryClass(category: string): string {
         for(let cat of this.categories) {
-            if (cat.$key === product.category) {
+            if (cat.$key === category) {
                 return cat.className;
             }
         }
@@ -50,7 +50,8 @@ export class ProductsListComponent implements OnInit {
     }
 
     getThumbUrl(thumb: string): string {
-        return '/product-img/thumbs/' + thumb;
+        let url = `/product-img/thumbs/${thumb}`;
+        return url;
     }
 
     doFilter(str: string): void {

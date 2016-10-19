@@ -16,6 +16,7 @@ export class FilterListComponent {
         this.filterBy.emit( this.listFilter );
     }
 
+    /* TODO make success or error style if filtering return or not something*/
     setClasses() {
         return 'alert alert-success';
     }
