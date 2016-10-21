@@ -14,7 +14,7 @@ export class ProductsListComponent implements OnInit {
     private categories: ICategory[];
     private products: IProduct[];
     private errorMessage: string;
-    @ViewChild('filteredProducts') numFilteredProducts: IProduct[];
+    @ViewChild('filteredProducts') filteredProducts: any;
 
     private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
@@ -22,6 +22,7 @@ export class ProductsListComponent implements OnInit {
     constructor(private productsService: ProductsService) {}
 
     ngOnInit() {
+
         this.productsService.getTags()
             .subscribe(
                 (data: ITag[]) => this.allTags = <ITag[]>data,
@@ -37,7 +38,7 @@ export class ProductsListComponent implements OnInit {
                 (data: IProduct[]) => this.products = <IProduct[]>data,
                 (error: any)  => this.errorMessage = <any>error
             );
-
+        console.log(this.filteredProducts);
     }
 
     getCategoryClass = (category: string): string => {

@@ -9,16 +9,17 @@
             <!--<p>Products: {{numFilteredProducts.length}}</p>-->
             <table class="table table-responsive">
                 <tbody>
-                <tr [isActive]="product.active"
-                    [styleKo]="'disabled'" #filteredProducts
-                    [ngClass]="getCategoryClass(product.category)"
-                    *ngFor="let product of products | productFilter:listFilter">
+                <tr #filteredProducts
+                    *ngFor="let product of products | productFilter:listFilter"
+                    [isActive]="product.active"
+                    [styleKo]="'disabled'"
+                    [ngClass]="getCategoryClass(product.category)">
 
                     <td></td>
                     <td><img [src]="getThumbUrl(product.imgName)"
                              class="img-thumbnail"></td>
                     <td>
-                        <a routerLink="/producte/{{product.$key}}">{{product.name}}</a>
+                        <a [routerLink]="['/producte', product.$key]">{{product.name}}</a>
                         <br>
                         <p class="label label-primary">
                             {{product.price | number:'1.2-2'}} € / {{product.unity}}

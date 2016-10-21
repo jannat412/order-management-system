@@ -1,18 +1,12 @@
-import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 
-const routes: Routes = [
+const APP_ROUTES: Routes = [
     {path: '', redirectTo: '/comanda', pathMatch: 'full'},
     {path: 'comanda', component: ProductsListComponent},
-    {path: 'producte/:id', component: ProductDetailComponent}
+    {path: 'producte/:id', component: ProductDetailComponent},
+    {path: '**', redirectTo: '/comanda'}
 ];
 
-@NgModule( {
-    imports: [RouterModule.forRoot( routes )],
-    exports: [RouterModule],
-    providers: []
-} )
-export class OrderManagementRoutingModule {
-}
+export const routing = RouterModule.forRoot( APP_ROUTES );

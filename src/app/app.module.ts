@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AngularFireModule} from 'angularfire2';
 
-import {OrderManagementRoutingModule} from './app-routing.module';
+import {routing} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -38,7 +38,7 @@ import {TouchspinComponent} from './directives/touchspin/touchspin.component';
         BrowserModule,
         FormsModule,
         HttpModule,
-        OrderManagementRoutingModule,
+        routing,
         AngularFireModule.initializeApp( {
             apiKey: 'AIzaSyDlLSQRaaJHlo7FSEQwRjGr75Wq4oWmHtU',
             authDomain: 'el-llevat-24226.firebaseapp.com',
