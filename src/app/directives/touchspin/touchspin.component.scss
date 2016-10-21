@@ -1,3 +1,11 @@
-input[type="text"] {
+input[type="number"] {
   text-align: center;
+  width: 60px;
+  &:invalid {
+    background-color: #FFCCCC;
+  }
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }

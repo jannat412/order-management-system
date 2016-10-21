@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component( {
     selector: 'touchspin',
@@ -6,11 +6,11 @@ import {Component, Input} from '@angular/core';
     styleUrls: ['./touchspin.component.scss']
 } )
 export class TouchspinComponent {
-    value: number = 0;
-    displayValue: string = '0';
-    minimum: number = 0;
-    maximum: number = 100;
-    @Input() step: number = 0;
+    private value: number = 0;
+    @Output() private touchspinChange: EventEmitter<number> = new EventEmitter<number>();
+    private minimum: number = 0;
+    private maximum: number = 100;
+    @Input() private step: number = 1;
 
     decrement = (): void => {
         if (this.value > this.minimum) {
@@ -26,11 +26,7 @@ export class TouchspinComponent {
 
     updateValue = (calc: number): void => {
         this.value = Math.round( calc * 100 ) / 100;
-        this.displayValue = this.value.toFixed( 1 );
+        this.touchspinChange.emit( this.value );
     };
-
-    decimalPlaces() {
-
-    }
 
 }
