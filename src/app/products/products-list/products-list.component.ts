@@ -15,6 +15,7 @@ export class ProductsListComponent implements OnInit {
     private products: IProduct[];
     private errorMessage: string;
     @ViewChild('filteredProducts') filteredProducts: any;
+    private filterKey: string = 'name';
 
     private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
@@ -55,7 +56,8 @@ export class ProductsListComponent implements OnInit {
         return url;
     };
 
-    doFilter = (str: string): void => {
+    doFilter = (str: string, key: string): void => {
+        this.filterKey = key;
         this.listFilter = str;
     };
 

@@ -13,12 +13,13 @@ import {ProductsListComponent} from './products/products-list/products-list.comp
 
 import {ProductFilterPipe} from './products/product-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
-import {FilterListComponent} from './products/filter-list/filter-list.component';
+import {NameFilterInputComponent} from './products/name-filter-input/name-filter-input.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {StyleActiveDirective} from './directives/style-active.directive';
 import {DropdownDirective} from './directives/dropdown.directive';
 import {ProductsCountComponent} from './products/products-count/products-count.component';
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
+import { CategoryFilterMenuComponent } from './products/category-filter-menu/category-filter-menu.component';
 
 @NgModule( {
     declarations: [
@@ -27,12 +28,13 @@ import {TouchspinComponent} from './directives/touchspin/touchspin.component';
         ProductsListComponent,
         ProductFilterPipe,
         ProductTagsComponent,
-        FilterListComponent,
+        NameFilterInputComponent,
         ProductDetailComponent,
         StyleActiveDirective,
         DropdownDirective,
         ProductsCountComponent,
-        TouchspinComponent
+        TouchspinComponent,
+        CategoryFilterMenuComponent
     ],
     imports: [
         BrowserModule,

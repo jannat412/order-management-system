@@ -1,40 +1,43 @@
-<div class="panel panel-primary">
-    <div class="panel-heading text-capitalize">
-        {{product.name}}
-    </div>
-    <div class="row panel-body">
-        <div class="col-sm-6 col-md-8">
-            <p class="alert"
-               [isActive]="product.active"
-               [styleOk]="'alert-success'"
-               [styleKo]="'alert-danger'">
+<div class="main">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-capitalize">
+            {{product.name}}
+        </div>
+        <div class="row panel-body">
+            <div class="col-sm-6 col-md-8">
+                <p class="alert"
+                   [isActive]="product.active"
+                   [styleOk]="'alert-success'"
+                   [styleKo]="'alert-danger'">
                 <span class="glyphicon"
                       [isActive]="product.active"
                       [styleOk]="'glyphicon-ok-circle'"
                       [styleKo]="'glyphicon-ban-circle'">
                 </span>
-                {{product.active ? 'Disponible' : 'No disponible'}}
-            </p>
-            <ul>
-                <li><strong>Categoria:</strong> <span [ngClass]="getCategoryClass()">{{product.category}}</span></li>
-                <li><strong>Descripció:</strong> {{product.comment}}<br>{{product.description}}</li>
-            </ul>
-            <oms-product-tags
-                    [allTags]="allTags"
-                    [tags]="product.tags">
-            </oms-product-tags>
-        </div>
-        <div class="col-sm-6 col-md-4">
+                    {{product.active ? 'Disponible' : 'No disponible'}}
+                </p>
+                <ul>
+                    <li><strong>Categoria:</strong> <span [ngClass]="getCategoryClass()">{{product.category}}</span>
+                    </li>
+                    <li><strong>Descripció:</strong> {{product.comment}}<br>{{product.description}}</li>
+                </ul>
+                <oms-product-tags
+                        [allTags]="allTags"
+                        [tags]="product.tags">
+                </oms-product-tags>
+            </div>
+            <div class="col-sm-6 col-md-4">
 
-            <img class="img-responsive img-thumbnail thumbnail"
-                 [src]="getImageUrl(product.imgName)"
-                 alt="{{product.name}}">
+                <img class="img-responsive img-thumbnail thumbnail"
+                     [src]="getImageUrl(product.imgName)"
+                     alt="{{product.name}}">
+            </div>
         </div>
-    </div>
-    <div class="panel-footer">
-        <a class="btn btn-primary" [routerLink]="['/comanda']">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            Tornar al llistat de productes
-        </a>
+        <div class="panel-footer">
+            <a class="btn btn-primary" [routerLink]="['/comanda']">
+                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                Tornar al llistat de productes
+            </a>
+        </div>
     </div>
 </div>

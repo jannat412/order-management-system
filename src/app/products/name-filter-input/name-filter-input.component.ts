@@ -2,17 +2,17 @@ import {Component, Output, EventEmitter} from '@angular/core';
 
 @Component( {
     selector: 'oms-filter-list',
-    templateUrl: './filter-list.component.html'
+    templateUrl: 'name-filter-input.component.html'
 } )
-export class FilterListComponent {
+export class NameFilterInputComponent {
     private listFilter: string;
-    @Output() private filterBy: EventEmitter<string>;
+    @Output() private filterByName: EventEmitter<string>;
 
     constructor() {
-        this.filterBy = new EventEmitter<string>();
+        this.filterByName = new EventEmitter<string>();
     }
 
-    filterName = (): void => this.filterBy.emit( this.listFilter );
+    filterName = (): void => this.filterByName.emit( this.listFilter );
 
     /* TODO make success or error style if filtering return or not something*/
     setClasses = (): string =>  'alert alert-success';

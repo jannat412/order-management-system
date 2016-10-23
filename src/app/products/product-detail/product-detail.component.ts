@@ -56,6 +56,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return url;
     };
 
+    // TODO method duplicated (on products-list.component)
     getCategoryClass = (): string => {
         for (let cat of this.allCategories) {
             if (cat.$key === this.product.category) {

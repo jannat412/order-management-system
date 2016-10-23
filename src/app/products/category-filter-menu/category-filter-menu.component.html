@@ -1,0 +1,10 @@
+<ul class="nav nav-sidebar">
+    <li><a href="#">Mostrar només seleccionat</a></li>
+    <li><a (click)="onFilterByActive()">Amagar no disponibles</a></li>
+</ul>
+<ul class="nav nav-sidebar">
+    <li *ngFor="let category of categories">
+        <a (click)="onFilterByCategory(category.name)" [ngClass]="['label', category.className]">{{category.name}}
+        </a>
+    </li>
+</ul>
