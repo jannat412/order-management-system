@@ -11,19 +11,19 @@ export class CategoryFilterMenuComponent implements OnInit {
   private categories: ICategory[];
   private errorMessage: string;
   private listFilter: string;
-  @Output() private filterByCategory: EventEmitter<string>;
+  @Output() private filterBy: EventEmitter<string>;
   @Output() private filterByActive: EventEmitter<boolean>;
   activeFilterStatus: boolean = true;
 
   constructor(private productsService: ProductsService) {
-    this.filterByCategory = new EventEmitter<string>();
+    this.filterBy = new EventEmitter<string>();
     this.filterByActive = new EventEmitter<boolean>();
   }
 
-  filterName = (): void => this.filterByCategory.emit( this.listFilter );
+  filterName = (): void => this.filterBy.emit( this.listFilter );
 
-  onFilterByCategory = (category: string) => {
-    this.filterByCategory.emit( category );
+  onFilter = (category: string) => {
+    this.filterBy.emit( category );
   };
   onFilterByActive = () => {
     this.activeFilterStatus = !this.activeFilterStatus;

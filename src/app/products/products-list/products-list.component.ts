@@ -19,6 +19,7 @@ export class ProductsListComponent implements OnInit {
 
     private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
+    private categoryFilter: string = '';
 
     constructor(private productsService: ProductsService) {}
 
@@ -56,9 +57,12 @@ export class ProductsListComponent implements OnInit {
         return url;
     };
 
-    doFilter = (str: string, key: string): void => {
-        this.filterKey = key;
+    doFilter = (str: string): void => {
         this.listFilter = str;
+    };
+
+    doFilterCategory = (str: string): void => {
+        this.categoryFilter = str;
     };
 
 }

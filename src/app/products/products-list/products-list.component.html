@@ -4,17 +4,17 @@
             <div class=" panel-heading">{{listProductTitle}}</div>
             <div class="panel-body">
 
-                <oms-filter-list (filterByName)="doFilter($event, 'name')"></oms-filter-list>
-                <div class="table-responsive table-hover table-condensed"
-                     *ngIf="products?.length">
-                    <!--<p>Products: {{numFilteredProducts.length}}</p>-->
-                    <table class="table table-responsive">
-                        <tbody>
-                        <tr #filteredProducts
-                            *ngFor="let product of products | productFilter:filterKey:listFilter"
-                            [isActive]="product.active"
-                            [styleKo]="'disabled'"
-                            [ngClass]="getCategoryClass(product.category)">
+        <oms-name-filter-list (filterBy)="doFilter($event)"></oms-name-filter-list>
+
+        <div class="table-responsive table-hover table-condensed"
+             *ngIf="products?.length">
+            <!--<p>Products: {{numFilteredProducts.length}}</p>-->
+            <table class="table table-responsive">
+                <tbody>
+                <tr [isActive]="product.active"
+                    [styleKo]="'disabled'" #filteredProducts
+                    [ngClass]="getCategoryClass(product.category)"
+                    *ngFor="let product of products | productFilter:listFilter | productCategoryFilter:categoryFilter">
 
                             <td></td>
                             <td><img [src]="getThumbUrl(product.imgName)"
@@ -47,8 +47,7 @@
             </div>
         </div>
     </div>
-    <oms-category-filter-menu (filterByCategory)="doFilter($event, 'category')"
-                              (filterByActive)="doFilter($event, 'active')"
+    <oms-category-filter-menu (filterBy)="doFilterCategory($event)"
             class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar">
     </oms-category-filter-menu>
 </div>

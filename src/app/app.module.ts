@@ -12,14 +12,15 @@ import {HeaderComponent} from './header/header.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 
 import {ProductFilterPipe} from './products/product-filter.pipe';
+import {ProductCategoryFilterPipe} from './products/product-category-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {NameFilterInputComponent} from './products/name-filter-input/name-filter-input.component';
+import {CategoryFilterMenuComponent} from './products/category-filter-menu/category-filter-menu.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {StyleActiveDirective} from './directives/style-active.directive';
 import {DropdownDirective} from './directives/dropdown.directive';
 import {ProductsCountComponent} from './products/products-count/products-count.component';
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
-import { CategoryFilterMenuComponent } from './products/category-filter-menu/category-filter-menu.component';
 
 @NgModule( {
     declarations: [
@@ -27,14 +28,15 @@ import { CategoryFilterMenuComponent } from './products/category-filter-menu/cat
         HeaderComponent,
         ProductsListComponent,
         ProductFilterPipe,
+        ProductCategoryFilterPipe,
         ProductTagsComponent,
         NameFilterInputComponent,
+        CategoryFilterMenuComponent,
         ProductDetailComponent,
         StyleActiveDirective,
         DropdownDirective,
         ProductsCountComponent,
-        TouchspinComponent,
-        CategoryFilterMenuComponent
+        TouchspinComponent
     ],
     imports: [
         BrowserModule,

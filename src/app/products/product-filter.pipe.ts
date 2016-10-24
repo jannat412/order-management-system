@@ -5,18 +5,13 @@ import {IProduct} from './product';
     name: 'productFilter'
 } )
 export class ProductFilterPipe implements PipeTransform {
-    /* TODO make filtering without being strict for accents */
-    transform(value: IProduct[], key: string, args: any): IProduct[] {
-        let filter: any = args ?
-            (typeof args === 'boolean' ? args : args.toLocaleLowerCase()) : false;
+
+    transform(value: IProduct[], args: string): IProduct[] {
+        let filter: string = args ? args.toLocaleLowerCase() : null;
         return filter ? value.filter(
-            (product: IProduct) => {
-                if(typeof product[key] === 'string') {
-                    product[key].toLocaleLowerCase().indexOf( filter ) !== -1;
-                } else if(typeof product[key] === 'boolean') {
-                    product[key] === args;
-                }
-            }) : value;
+            (product: IProduct) => product.name
+                .toLocaleLowerCase()
+                .indexOf( filter ) !== -1 ) : value;
     }
 
 }
