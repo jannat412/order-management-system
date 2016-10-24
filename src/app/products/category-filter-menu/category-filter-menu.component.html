@@ -4,7 +4,12 @@
 </ul>
 <ul class="nav nav-sidebar">
     <li *ngFor="let category of categories">
-        <a (click)="onFilter(category.name)" [ngClass]="['label', category.className]">{{category.name}}
+        <a (click)="onFilter(category.name)" [ngClass]="[category.className]">{{category.name}}
         </a>
+    </li>
+</ul>
+<ul class="nav nav-sidebar">
+    <li>
+        <a *ngIf="listFilter.length" class="" (click)="onFilter('')">Totes les categories</a>
     </li>
 </ul>
