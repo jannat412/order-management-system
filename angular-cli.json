@@ -16,11 +16,9 @@
       "mobile": false,
       "styles": [
         "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss",
-        "variables.scss",
-        "styles.scss"
+        "styles/styles.scss"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
