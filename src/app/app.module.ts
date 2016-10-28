@@ -13,6 +13,7 @@ import {ProductsListComponent} from './products/products-list/products-list.comp
 
 import {ProductFilterPipe} from './products/product-filter.pipe';
 import {ProductCategoryFilterPipe} from './products/product-category-filter.pipe';
+import {ProductActiveFilterPipe} from './products/product-active-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {NameFilterInputComponent} from './products/name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from './products/category-filter-menu/category-filter-menu.component';
@@ -29,6 +30,7 @@ import {TouchspinComponent} from './directives/touchspin/touchspin.component';
         ProductsListComponent,
         ProductFilterPipe,
         ProductCategoryFilterPipe,
+        ProductActiveFilterPipe,
         ProductTagsComponent,
         NameFilterInputComponent,
         CategoryFilterMenuComponent,

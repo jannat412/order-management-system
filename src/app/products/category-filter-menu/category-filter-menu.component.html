@@ -1,15 +1,18 @@
 <ul class="nav nav-sidebar">
     <li><a href="#">Mostrar només seleccionat</a></li>
-    <li><a (click)="onFilterByActive()">Amagar no disponibles</a></li>
+    <li><a (click)="onFilterActive()">{{activeMessage}} no disponibles</a></li>
 </ul>
 <ul class="nav nav-sidebar">
-    <li *ngFor="let category of categories">
-        <a (click)="onFilter(category.name)" [ngClass]="[category.className]">{{category.name}}
+    <li [class.active]="listFilter === category.$key"
+        [ngClass]="[category.className]"
+        *ngFor="let category of categories">
+        <a (click)="onFilter(category.name)">
+            {{category.name}}
         </a>
     </li>
 </ul>
 <ul class="nav nav-sidebar">
-    <li>
-        <a *ngIf="listFilter.length" class="" (click)="onFilter('')">Totes les categories</a>
+    <li class="all">
+        <a *ngIf="listFilter.length" (click)="onFilter('')">Totes les categories</a>
     </li>
 </ul>

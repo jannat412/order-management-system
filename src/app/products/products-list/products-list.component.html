@@ -9,12 +9,12 @@
         <div class="table-responsive table-hover table-condensed"
              *ngIf="products?.length">
             <!--<p>Products: {{numFilteredProducts.length}}</p>-->
-            <table class="table table-responsive">
+            <table class="table table-striped">
                 <tbody>
                 <tr [isActive]="product.active"
                     [styleKo]="'disabled'" #filteredProducts
                     [ngClass]="getCategoryClass(product.category)"
-                    *ngFor="let product of products | productFilter:listFilter | productCategoryFilter:categoryFilter">
+                    *ngFor="let product of products | productFilter:listFilter | productCategoryFilter:categoryFilter | productActiveFilter:activefilter">
 
                             <td></td>
                             <td><img [src]="getThumbUrl(product.imgName)"
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <oms-category-filter-menu (filterBy)="doFilterCategory($event)"
+    <oms-category-filter-menu (filterByActive)="doFilterActive($event)" (filterBy)="doFilterCategory($event)"
             class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar">
     </oms-category-filter-menu>
 </div>

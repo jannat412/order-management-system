@@ -15,11 +15,11 @@ export class ProductsListComponent implements OnInit {
     private products: IProduct[];
     private errorMessage: string;
     @ViewChild('filteredProducts') filteredProducts: any;
-    private filterKey: string = 'name';
 
     private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
     private categoryFilter: string = '';
+    private activefilter: boolean = true;
 
     constructor(private productsService: ProductsService) {}
 
@@ -64,5 +64,11 @@ export class ProductsListComponent implements OnInit {
     doFilterCategory = (str: string): void => {
         this.categoryFilter = str;
     };
+
+    doFilterActive = (active: boolean): void => {
+        console.log('doFilterActive');
+        console.log(active);
+        this.activefilter = active;
+    }
 
 }

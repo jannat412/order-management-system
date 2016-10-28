@@ -12,23 +12,24 @@ export class CategoryFilterMenuComponent implements OnInit {
   private errorMessage: string;
   private listFilter: string = '';
   @Output() private filterBy: EventEmitter<string>;
-  // @Output() private filterByActive: EventEmitter<boolean>;
-  // activeFilterStatus: boolean = true;
+  @Output() private filterByActive: EventEmitter<boolean>;
+  activeFilterStatus: boolean = true;
+  activeMessage:string = 'Amagar';
 
   constructor(private productsService: ProductsService) {
     this.filterBy = new EventEmitter<string>();
-    // this.filterByActive = new EventEmitter<boolean>();
+    this.filterByActive = new EventEmitter<boolean>();
   }
 
   onFilter = (category: string) => {
     this.listFilter = category;
     this.filterBy.emit( this.listFilter );
   };
-  // onFilterByActive = () => {
-  //   this.activeFilterStatus = !this.activeFilterStatus;
-  //   this.filterByActive.emit( this.activeFilterStatus );
-  // };
-
+  onFilterActive = () => {
+    this.activeFilterStatus = !this.activeFilterStatus;
+    this.filterByActive.emit( this.activeFilterStatus );
+    this.activeMessage = this.activeFilterStatus ? 'Amagar' : 'Mostrar';
+  };
 
   ngOnInit() {
     this.productsService.getCategories()
