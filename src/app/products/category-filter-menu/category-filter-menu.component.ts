@@ -10,20 +10,20 @@ import {ICategory} from '../category';
 export class CategoryFilterMenuComponent implements OnInit {
   private categories: ICategory[];
   private errorMessage: string;
-  private listFilter: string = '';
-  @Output() private filterBy: EventEmitter<string>;
+  private categoryFilter: string = '';
+  @Output() private filterByCategory: EventEmitter<string>;
   @Output() private filterByActive: EventEmitter<boolean>;
   activeFilterStatus: boolean = true;
   activeMessage:string = 'Amagar';
 
   constructor(private productsService: ProductsService) {
-    this.filterBy = new EventEmitter<string>();
+    this.filterByCategory = new EventEmitter<string>();
     this.filterByActive = new EventEmitter<boolean>();
   }
 
-  onFilter = (category: string) => {
-    this.listFilter = category;
-    this.filterBy.emit( this.listFilter );
+  onFilterCategory = (category: string) => {
+    this.categoryFilter = category;
+    this.filterByCategory.emit( this.categoryFilter );
   };
   onFilterActive = () => {
     this.activeFilterStatus = !this.activeFilterStatus;

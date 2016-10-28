@@ -3,16 +3,16 @@
     <li><a (click)="onFilterActive()">{{activeMessage}} no disponibles</a></li>
 </ul>
 <ul class="nav nav-sidebar">
-    <li [class.active]="listFilter === category.$key"
+    <li [class.active]="categoryFilter === category.$key"
         [ngClass]="[category.className]"
         *ngFor="let category of categories">
-        <a (click)="onFilter(category.name)">
+        <a (click)="onFilterCategory(category.name)">
             {{category.name}}
         </a>
     </li>
 </ul>
 <ul class="nav nav-sidebar">
     <li class="all">
-        <a *ngIf="listFilter.length" (click)="onFilter('')">Totes les categories</a>
+        <a *ngIf="categoryFilter.length" (click)="onFilterCategory('')">Totes les categories</a>
     </li>
 </ul>

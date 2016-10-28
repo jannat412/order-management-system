@@ -22,6 +22,7 @@ import {StyleActiveDirective} from './directives/style-active.directive';
 import {DropdownDirective} from './directives/dropdown.directive';
 import {ProductsCountComponent} from './products/products-count/products-count.component';
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule( {
     declarations: [
@@ -38,7 +39,8 @@ import {TouchspinComponent} from './directives/touchspin/touchspin.component';
         StyleActiveDirective,
         DropdownDirective,
         ProductsCountComponent,
-        TouchspinComponent
+        TouchspinComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
