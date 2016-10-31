@@ -1,9 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {IProduct} from '../product';
+import {ActivatedRoute} from '@angular/router';
+
 import {ProductsService} from '../../services/products.service';
-import {ITag} from '../tag';
-import {ICategory} from '../category';
+import {IProduct} from '../models/product';
+import {ITag} from '../models/tag';
+import {ICategory} from '../models/category';
 import {Subscription} from 'rxjs';
 
 @Component( {

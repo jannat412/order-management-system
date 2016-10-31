@@ -1,6 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {ProductsService} from '../../services/products.service';
-import {ICategory} from '../category';
+import {ICategory} from '../models/category';
 
 @Component({
   selector: 'oms-category-filter-menu',

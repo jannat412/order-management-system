@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProductsService} from '../../services/products.service';
-import {IProduct} from '../product';
-import {ITag} from '../tag';
-import {ICategory} from '../category';
+import {IProduct} from '../models/product';
+import {ITag} from '../models/tag';
+import {ICategory} from '../models/category';
 
 @Component( {
     selector: 'oms-order-list',

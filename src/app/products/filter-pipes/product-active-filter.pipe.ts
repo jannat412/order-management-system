@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {IProduct} from './product';
+import {IProduct} from '../models/product';
 
 @Pipe( {
     name: 'productActiveFilter'
@@ -7,7 +7,6 @@ import {IProduct} from './product';
 export class ProductActiveFilterPipe implements PipeTransform {
 
     transform(value: IProduct[], all: boolean): IProduct[] {
-        console.log(all);
         return all ? value : value.filter(
             (product: IProduct) => {
                 return product.active;

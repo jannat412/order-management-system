@@ -1,12 +1,12 @@
 import {Component, OnInit, Input, Output} from '@angular/core';
-import {IProduct} from '../product';
+import {IProduct} from '../models/product';
 
 @Component( {
-    selector: 'oms-products-count',
-    templateUrl: './products-count.component.html',
-    styleUrls: ['products-count.component.scss']
+    selector: 'oms-product-count',
+    templateUrl: './product-count.component.html',
+    styleUrls: ['product-count.component.scss']
 } )
-export class ProductsCountComponent implements OnInit {
+export class ProductCountComponent implements OnInit {
     @Input() product: IProduct;
     @Output() step: number;
     quantity: number;
