@@ -14,33 +14,33 @@ export class ProductsListComponent implements OnInit {
     private categories: ICategory[];
     private products: IProduct[];
     private errorMessage: string;
-    @ViewChild('filteredProducts') filteredProducts: any;
+    @ViewChild( 'filteredProducts' ) filteredProducts: any;
 
     private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
     private categoryFilter: string = '';
     private activefilter: boolean = true;
 
-    constructor(private productsService: ProductsService) {}
+    constructor(private productsService: ProductsService) {
+    }
 
     ngOnInit() {
 
         this.productsService.getTags()
             .subscribe(
                 (data: ITag[]) => this.allTags = <ITag[]>data,
-                (error: any)  => this.errorMessage = <any>error
+                (error: any) => this.errorMessage = <any>error
             );
         this.productsService.getCategories()
             .subscribe(
                 (data: ICategory[]) => this.categories = <ICategory[]>data,
-                (error: any)  => this.errorMessage = <any>error
+                (error: any) => this.errorMessage = <any>error
             );
         this.productsService.getProducts()
             .subscribe(
                 (data: IProduct[]) => this.products = <IProduct[]>data,
-                (error: any)  => this.errorMessage = <any>error
+                (error: any) => this.errorMessage = <any>error
             );
-        console.log(this.filteredProducts);
     }
 
     getCategoryClass = (category: string): string => {
@@ -66,8 +66,6 @@ export class ProductsListComponent implements OnInit {
     };
 
     doFilterActive = (active: boolean): void => {
-        console.log('doFilterActive');
-        console.log(active);
         this.activefilter = active;
     }
 
