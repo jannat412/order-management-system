@@ -1,5 +1,7 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {ProductsService} from '../../services/products.service';
+
+import {CategoriesService} from '../../services/categories.service';
+
 import {ICategory} from '../../models/category';
 
 @Component({
@@ -16,7 +18,7 @@ export class CategoryFilterMenuComponent implements OnInit {
   activeFilterStatus: boolean = true;
   activeMessage:string = 'Amagar';
 
-  constructor(private productsService: ProductsService) {
+  constructor(private categoriesService: CategoriesService) {
     this.filterByCategory = new EventEmitter<string>();
     this.filterByActive = new EventEmitter<boolean>();
   }
@@ -32,7 +34,7 @@ export class CategoryFilterMenuComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.productsService.getCategories()
+    this.categoriesService.getCategories()
         .subscribe(
             (data: ICategory[]) => this.categories = <ICategory[]>data,
             (error: any)  => this.errorMessage = <any>error

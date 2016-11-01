@@ -1,8 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+
 import {ProductsService} from '../../services/products.service';
+import {CategoriesService} from '../../services/categories.service';
+import {TagsService} from '../../services/tags.service';
+
 import {IProduct} from '../../models/product';
 import {ITag} from '../../models/tag';
 import {ICategory} from '../../models/category';
+
 
 @Component( {
     selector: 'oms-order-list',
@@ -21,17 +26,18 @@ export class ProductsListComponent implements OnInit {
     private categoryFilter: string = '';
     private activefilter: boolean = true;
 
-    constructor(private productsService: ProductsService) {
-    }
+    constructor(private productsService: ProductsService,
+                private categoriesService: CategoriesService,
+                private tagsService: TagsService) {}
 
     ngOnInit() {
 
-        this.productsService.getTags()
+        this.tagsService.getTags()
             .subscribe(
                 (data: ITag[]) => this.allTags = <ITag[]>data,
                 (error: any) => this.errorMessage = <any>error
             );
-        this.productsService.getCategories()
+        this.categoriesService.getCategories()
             .subscribe(
                 (data: ICategory[]) => this.categories = <ICategory[]>data,
                 (error: any) => this.errorMessage = <any>error
@@ -44,7 +50,7 @@ export class ProductsListComponent implements OnInit {
     }
 
     getCategoryClass = (category: string): string => {
-        for(let cat of this.categories) {
+        for (let cat of this.categories) {
             if (cat.$key === category) {
                 return cat.className;
             }

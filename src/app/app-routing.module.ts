@@ -1,4 +1,5 @@
 import {Routes, RouterModule} from '@angular/router';
+
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 

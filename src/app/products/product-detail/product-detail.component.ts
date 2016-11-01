@@ -1,11 +1,14 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 import {ProductsService} from '../../services/products.service';
+import {CategoriesService} from '../../services/categories.service';
+import {TagsService} from '../../services/tags.service';
+
 import {IProduct} from '../../models/product';
 import {ITag} from '../../models/tag';
 import {ICategory} from '../../models/category';
-import {Subscription} from 'rxjs';
 
 @Component( {
     selector: 'oms-product-detail',
@@ -21,6 +24,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
 
     constructor(private productsService: ProductsService,
+                private categoriesService: CategoriesService,
+                private tagsService: TagsService,
                 private route: ActivatedRoute) {
     }
 
@@ -29,18 +34,20 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe(
             (param: any) => this.id = param['id']
         );
+
         this.productsService.getProduct( this.id )
             .subscribe(
                 (data: IProduct) => this.product = data,
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.productsService.getTags()
+        this.tagsService.getTags()
             .subscribe(
                 (data: ITag[]) => this.allTags = <ITag[]>data,
                 (error: any) => this.errorMessage = <any>error
             );
-        this.productsService.getCategories()
+
+        this.categoriesService.getCategories()
             .subscribe(
                 (data: ICategory[]) => this.allCategories = <ICategory[]>data,
                 (error: any) => this.errorMessage = <any>error
