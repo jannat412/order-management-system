@@ -24,6 +24,7 @@ import {ProductCountComponent} from './products/product-count/product-count.comp
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
 import {FooterComponent} from './footer/footer.component';
 import {FirebaseConfig} from '../config/firebase.config';
+import { CartComponent } from './orders/cart/cart.component';
 
 @NgModule( {
     declarations: [
@@ -41,7 +42,8 @@ import {FirebaseConfig} from '../config/firebase.config';
         DropdownDirective,
         ProductCountComponent,
         TouchspinComponent,
-        FooterComponent
+        FooterComponent,
+        CartComponent
     ],
     imports: [
         BrowserModule,

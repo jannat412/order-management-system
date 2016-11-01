@@ -1,7 +1,6 @@
 @import "variables";
 @import "mixins";
 
-
 /*
  * Base structure
  */
@@ -33,7 +32,7 @@ body {
  */
 
 /* Hide for mobile, show later */
-.sidebar {
+.sidebar > :nth-child(n+2) {
   display: none;
 }
 
@@ -44,12 +43,14 @@ body {
     bottom: 0;
     left: 0;
     z-index: 1000;
-    display: block;
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: $backgroundLightColor;
     border-right: 1px solid #eee;
+    & > :nth-child(n+2) {
+      display: block;
+    }
   }
 }
 
@@ -76,13 +77,20 @@ body {
     margin-top: 0;
   }
 }
-
+@media #{$max767} {
+  .main {
+    padding: 0 15px;
+  }
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 oms-root {
   position: relative;
+  & > .container-fluid {
+    margin-top: 25px;
+  }
 }
 
 .footer {
@@ -138,6 +146,13 @@ oms-order-list {
   @media #{$max767} {
     td:nth-child(2) {
       display: none;
+    }
+    h3 {
+      margin: 0;
+      font-size: 30px;
+    }
+    .panel-body {
+      padding: 10px;
     }
   }
   /* max 660px */
@@ -212,18 +227,23 @@ oms-product-detail .label {
 
   }
   .nav-sidebar > li {
-      &.#{$color} {
-          & > a {
-            color: #fff;
-            border-left: 10px solid $value;
-            background-color: darken($value, 20%);
-            transition: border-left 0.3s, background-color 0.2s;
-        }
-        &.active > a, & a:hover {
-          border-left: 20px solid darken($value, 10%);
-          background-color: darken($value, 30%);
-        }
+    &.#{$color} {
+      & > a {
+        color: #fff;
+        border-left: 10px solid $value;
+        background-color: darken($value, 20%);
+        transition: border-left 0.3s, background-color 0.2s;
       }
-
+      &.active > a, & a:hover {
+        border-left: 20px solid darken($value, 10%);
+        background-color: darken($value, 30%);
+      }
     }
+
+  }
+}
+
+oms-cart.sidebar {
+  z-index: 1001;
+  background-color: transparent;
 }
