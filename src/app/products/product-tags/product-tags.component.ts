@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ITag} from '../models/tag';
+import {ITag} from '../../models/tag';
 
 @Component( {
     selector: 'oms-product-tags',

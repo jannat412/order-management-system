@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output} from '@angular/core';
-import {IProduct} from '../models/product';
+import {IProduct} from '../../models/product';
 
 @Component( {
     selector: 'oms-product-count',

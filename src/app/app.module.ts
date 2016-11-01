@@ -11,18 +11,19 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 
-import {ProductFilterPipe} from './products/product-filter.pipe';
-import {ProductCategoryFilterPipe} from './products/product-category-filter.pipe';
-import {ProductActiveFilterPipe} from './products/product-active-filter.pipe';
+import {ProductFilterPipe} from './products/filter-pipes/product-filter.pipe';
+import {ProductCategoryFilterPipe} from './products/filter-pipes/product-category-filter.pipe';
+import {ProductActiveFilterPipe} from './products/filter-pipes/product-active-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {NameFilterInputComponent} from './products/name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from './products/category-filter-menu/category-filter-menu.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {StyleActiveDirective} from './directives/style-active.directive';
 import {DropdownDirective} from './directives/dropdown.directive';
-import {ProductsCountComponent} from './products/products-count/products-count.component';
+import {ProductCountComponent} from './products/product-count/product-count.component';
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
-import { FooterComponent } from './footer/footer.component';
+import {FooterComponent} from './footer/footer.component';
+import {FirebaseConfig} from '../config/firebase.config';
 
 @NgModule( {
     declarations: [
@@ -38,7 +39,7 @@ import { FooterComponent } from './footer/footer.component';
         ProductDetailComponent,
         StyleActiveDirective,
         DropdownDirective,
-        ProductsCountComponent,
+        ProductCountComponent,
         TouchspinComponent,
         FooterComponent
     ],
@@ -47,12 +48,7 @@ import { FooterComponent } from './footer/footer.component';
         FormsModule,
         HttpModule,
         routing,
-        AngularFireModule.initializeApp( {
-            apiKey: 'AIzaSyDlLSQRaaJHlo7FSEQwRjGr75Wq4oWmHtU',
-            authDomain: 'el-llevat-24226.firebaseapp.com',
-            databaseURL: 'https://el-llevat-24226.firebaseio.com',
-            storageBucket: ''
-        } )
+        AngularFireModule.initializeApp( FirebaseConfig )
     ],
     providers: [],
     bootstrap: [AppComponent]
