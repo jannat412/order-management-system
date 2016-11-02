@@ -14,31 +14,36 @@ export class ProductCountComponent implements OnInit {
     quantity: number = 0;
     total: number = 0;
 
-    constructor(private orderService: OrderService) {}
+    constructor(private orderService: OrderService) {
+    }
+
     ngOnInit() {
         this.step = this.product.step;
         this.getData();
+        this.isSelected();
     }
 
     getData() {
-        const line = this.orderService.getLineData(this.product.$key);
+        const line = this.orderService.getLineData( this.product.$key );
         this.quantity = line ? line.quantity : 0;
         this.total = line ? line.total : 0;
+    }
 
+    isSelected() {
+        this.product.selected = this.quantity > 0;
     }
 
     updateTotal = (qnty: number): void => {
         this.quantity = qnty;
         this.total = Math.round(
-            this.quantity * this.product.price * 100 ) / 100;
-        
-        this.product.selected = this.quantity > 0;
+                this.quantity * this.product.price * 100 ) / 100;
 
-        this.orderService.addProductLine({
+        this.orderService.addProductLine( {
             productKey: this.product.$key,
             quantity: this.quantity,
             total: this.total
-        });
+        } );
+        this.isSelected();
     };
 
 }

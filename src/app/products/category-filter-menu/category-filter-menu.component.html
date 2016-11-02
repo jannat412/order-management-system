@@ -1,15 +1,13 @@
 <ul class="nav nav-sidebar">
     <li><a class="alert alert-info" (click)="onFilterActive()">{{activeMessage}} no disponibles</a></li>
-
+    <li class="all">
+        <a *ngIf="categoryFilter.length" (click)="onFilterCategory('')">Totes les categories</a>
+    </li>
     <li [class.active]="categoryFilter === category.$key"
         [ngClass]="[category.className]"
         *ngFor="let category of categories">
         <a (click)="onFilterCategory(category.name)">
             {{category.name}}
         </a>
-    </li>
-
-    <li class="all">
-        <a *ngIf="categoryFilter.length" (click)="onFilterCategory('')">Totes les categories</a>
     </li>
 </ul>
