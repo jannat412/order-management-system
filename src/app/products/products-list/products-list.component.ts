@@ -7,6 +7,8 @@ import {TagsService} from '../../services/tags.service';
 import {IProduct} from '../../models/product';
 import {ITag} from '../../models/tag';
 import {ICategory} from '../../models/category';
+import {NameFilterInputComponent} from '../name-filter-input/name-filter-input.component';
+import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filter-menu.component';
 
 
 @Component( {
@@ -19,12 +21,17 @@ export class ProductsListComponent implements OnInit {
     private categories: ICategory[];
     private products: IProduct[];
     private errorMessage: string;
-    @ViewChild( 'filteredProducts' ) filteredProducts: any;
+
+    @ViewChild(NameFilterInputComponent)
+    private nameFilterComponent: NameFilterInputComponent;
+    @ViewChild(CategoryFilterMenuComponent)
+    private categoryFilterComponent: CategoryFilterMenuComponent;
 
     private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
     private categoryFilter: string = '';
-    private activefilter: boolean = true;
+    private activeFilter: boolean = true;
+    private selectedFilter: boolean = false;
 
     constructor(private productsService: ProductsService,
                 private categoriesService: CategoriesService,
@@ -72,7 +79,15 @@ export class ProductsListComponent implements OnInit {
     };
 
     doFilterActive = (active: boolean): void => {
-        this.activefilter = active;
+        this.activeFilter = active;
     };
+
+    doFilterSelected = (selected: boolean): void => {
+        // reset all filters
+        this.nameFilterComponent.clear();
+        this.categoryFilterComponent.onFilterCategory('');
+        this.categoryFilterComponent.onFilterActive(true);
+        this.selectedFilter = selected;
+    }
 
 }

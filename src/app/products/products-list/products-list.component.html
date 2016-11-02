@@ -14,17 +14,20 @@
             <div class="panel-body">
 
                 <oms-name-filter-list (filterBy)="doFilter($event)"></oms-name-filter-list>
-
+                <oms-products-selection (filterBySelected)="doFilterSelected($event)"></oms-products-selection>
                 <div class="table-responsive table-hover table-condensed"
                      *ngIf="products?.length">
-                    <!--<p>Products: {{numFilteredProducts.length}}</p>-->
                     <table class="table table-striped">
                         <tbody>
                         <tr [isActive]="product.active"
-                            [styleKo]="'disabled'" #filteredProducts
+                            [styleKo]="'disabled'"
                             [ngClass]="getCategoryClass(product.category)"
                             [class.selected]="product.selected"
-                            *ngFor="let product of products | productFilter:listFilter | productCategoryFilter:categoryFilter | productActiveFilter:activefilter">
+                            *ngFor="let product of products |
+                                    productFilter:listFilter |
+                                    productCategoryFilter:categoryFilter |
+                                    productActiveFilter:activeFilter |
+                                    productSelectedFilter:selectedFilter">
 
                             <td></td>
                             <td><img [src]="getThumbUrl(product.imgName)"
