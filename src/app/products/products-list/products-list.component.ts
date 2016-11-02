@@ -73,6 +73,6 @@ export class ProductsListComponent implements OnInit {
 
     doFilterActive = (active: boolean): void => {
         this.activefilter = active;
-    }
+    };
 
 }

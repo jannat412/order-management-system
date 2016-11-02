@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, Output} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 import {IProduct} from '../../models/product';
+import {OrderService} from '../../services/order.service';
 
 @Component( {
     selector: 'oms-product-count',
@@ -13,6 +14,7 @@ export class ProductCountComponent implements OnInit {
     quantity: number;
     total: number = 0;
 
+    constructor(private orderService: OrderService) {}
     ngOnInit() {
         this.step = this.product.step;
     }
@@ -21,6 +23,12 @@ export class ProductCountComponent implements OnInit {
         this.quantity = qnty;
         this.total = Math.round(
             this.quantity * this.product.price * 100 ) / 100;
+
+        this.orderService.addProductLine({
+            productKey: this.product.$key,
+            quantity: this.quantity,
+            total: this.total
+        });
     };
 
 }

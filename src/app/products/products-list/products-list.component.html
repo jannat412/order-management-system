@@ -45,7 +45,9 @@
                                 <small>{{product.comment}}</small>
                             </td>
                             <td>
-                                <oms-product-count [product]="product" *ngIf="product.active"></oms-product-count>
+                                <oms-product-count [product]="product"
+                                                   *ngIf="product.active">
+                                </oms-product-count>
                                 <span *ngIf="!product.active"
                                       class="label label-danger">No disponible</span>
                             </td>
