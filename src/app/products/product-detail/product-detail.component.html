@@ -1,57 +1,65 @@
-<div class="main">
-    <div class="panel panel-primary">
-        <div class="panel-heading text-capitalize">
-            {{product.name}}
-        </div>
-        <div class="row panel-body">
-            <div class="col-sm-6 col-md-8">
-                <p class="alert"
-                   [isActive]="product.active"
-                   [styleOk]="'alert-success'"
-                   [styleKo]="'alert-danger'">
+<div class="row">
+    <!-- sidebar -->
+    <div class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar">
+        <oms-cart></oms-cart>
+    </div>
+    <!-- products table -->
+    <div class="col-sm-9 col-md-10 main">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-capitalize">
+                {{product.name}}
+            </div>
+            <div class="row panel-body">
+                <div class="col-sm-6 col-md-8">
+                    <p class="alert"
+                       [isActive]="product.active"
+                       [styleOk]="'alert-success'"
+                       [styleKo]="'alert-danger'">
                 <span class="glyphicon"
                       [isActive]="product.active"
                       [styleOk]="'glyphicon-ok-circle'"
                       [styleKo]="'glyphicon-ban-circle'">
                 </span>
-                    {{product.active ? 'Disponible' : 'No disponible'}}
-                </p>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <strong>Categoria:</strong>
-                        <span [ngClass]="getCategoryClass()">{{product.category}}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Descripció:</strong> {{product.comment}}
-                        <br>{{product.description}}
-                    </li>
-                    <li class="list-group-item">
-                        <oms-product-tags
-                                [allTags]="allTags"
-                                [tags]="product.tags">
-                        </oms-product-tags>
-                    </li>
-                    <li class="list-group-item">
-                        <oms-product-count [product]="product"
-                                           *ngIf="product.active">
-                        </oms-product-count>
-                    </li>
-                </ul>
+                        {{product.active ? 'Disponible' : 'No disponible'}}
+                    </p>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Categoria:</strong>
+                            <span [ngClass]="getCategoryClass()">{{product.category}}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Descripció:</strong> {{product.comment}}
+                            <br>{{product.description}}
+                        </li>
+                        <li class="list-group-item">
+                            <oms-product-tags
+                                    [allTags]="allTags"
+                                    [tags]="product.tags">
+                            </oms-product-tags>
+                        </li>
+                        <li class="list-group-item">
+                            <oms-product-count [product]="product"
+                                               *ngIf="product.active">
+                            </oms-product-count>
+                        </li>
+                    </ul>
 
 
+                </div>
+                <div class="col-sm-6 col-md-4">
+
+                    <img class="img-responsive img-thumbnail thumbnail"
+                         [src]="getImageUrl(product.imgName)"
+                         alt="{{product.name}}">
+                </div>
             </div>
-            <div class="col-sm-6 col-md-4">
-
-                <img class="img-responsive img-thumbnail thumbnail"
-                     [src]="getImageUrl(product.imgName)"
-                     alt="{{product.name}}">
+            <div class="panel-footer">
+                <a class="btn btn-primary" [routerLink]="['/comanda']">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    Tornar al llistat de productes
+                </a>
             </div>
         </div>
-        <div class="panel-footer">
-            <a class="btn btn-primary" [routerLink]="['/comanda']">
-                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                Tornar al llistat de productes
-            </a>
-        </div>
+        <oms-footer></oms-footer>
     </div>
 </div>

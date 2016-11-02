@@ -12,4 +12,5 @@ export interface IProduct {
     category: string;
     active: boolean;
     visible: boolean;
+    selected?: boolean;
 }

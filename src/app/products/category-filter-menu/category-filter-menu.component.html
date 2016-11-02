@@ -1,8 +1,6 @@
 <ul class="nav nav-sidebar">
-    <li><a href="#">Mostrar només seleccionat</a></li>
-    <li><a (click)="onFilterActive()">{{activeMessage}} no disponibles</a></li>
-</ul>
-<ul class="nav nav-sidebar">
+    <li><a class="alert alert-info" (click)="onFilterActive()">{{activeMessage}} no disponibles</a></li>
+
     <li [class.active]="categoryFilter === category.$key"
         [ngClass]="[category.className]"
         *ngFor="let category of categories">
@@ -10,8 +8,7 @@
             {{category.name}}
         </a>
     </li>
-</ul>
-<ul class="nav nav-sidebar">
+
     <li class="all">
         <a *ngIf="categoryFilter.length" (click)="onFilterCategory('')">Totes les categories</a>
     </li>

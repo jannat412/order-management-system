@@ -22,15 +22,17 @@ export class ProductCountComponent implements OnInit {
 
     getData() {
         const line = this.orderService.getLineData(this.product.$key);
-        console.log(line);
         this.quantity = line ? line.quantity : 0;
         this.total = line ? line.total : 0;
+
     }
 
     updateTotal = (qnty: number): void => {
         this.quantity = qnty;
         this.total = Math.round(
             this.quantity * this.product.price * 100 ) / 100;
+        
+        this.product.selected = this.quantity > 0;
 
         this.orderService.addProductLine({
             productKey: this.product.$key,

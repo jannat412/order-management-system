@@ -235,8 +235,13 @@ oms-product-detail {
     td > .label-primary {
       background-color: darken($value, 30%);
     }
-
+    &.selected {
+      td:first-child {
+        background-color: darken($value, 30%);
+      }
+    }
   }
+
   .nav-sidebar > li {
     &.#{$color} {
       & > a {

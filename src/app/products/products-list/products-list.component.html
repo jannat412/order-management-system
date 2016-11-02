@@ -23,6 +23,7 @@
                         <tr [isActive]="product.active"
                             [styleKo]="'disabled'" #filteredProducts
                             [ngClass]="getCategoryClass(product.category)"
+                            [class.selected]="product.selected"
                             *ngFor="let product of products | productFilter:listFilter | productCategoryFilter:categoryFilter | productActiveFilter:activefilter">
 
                             <td></td>
