@@ -16,15 +16,29 @@
                 </span>
                     {{product.active ? 'Disponible' : 'No disponible'}}
                 </p>
-                <ul>
-                    <li><strong>Categoria:</strong> <span [ngClass]="getCategoryClass()">{{product.category}}</span>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Categoria:</strong>
+                        <span [ngClass]="getCategoryClass()">{{product.category}}</span>
                     </li>
-                    <li><strong>Descripció:</strong> {{product.comment}}<br>{{product.description}}</li>
+                    <li class="list-group-item">
+                        <strong>Descripció:</strong> {{product.comment}}
+                        <br>{{product.description}}
+                    </li>
+                    <li class="list-group-item">
+                        <oms-product-tags
+                                [allTags]="allTags"
+                                [tags]="product.tags">
+                        </oms-product-tags>
+                    </li>
+                    <li class="list-group-item">
+                        <oms-product-count [product]="product"
+                                           *ngIf="product.active">
+                        </oms-product-count>
+                    </li>
                 </ul>
-                <oms-product-tags
-                        [allTags]="allTags"
-                        [tags]="product.tags">
-                </oms-product-tags>
+
+
             </div>
             <div class="col-sm-6 col-md-4">
 
