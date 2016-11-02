@@ -15,7 +15,6 @@ export class CartComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log( 'init' );
         this.superTotal = this.orderService.getTotalAmount();
         this.subscription = this.orderService.pushTotalAmount.subscribe(
             data => this.superTotal = data
@@ -23,7 +22,6 @@ export class CartComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log( 'destroy' );
         this.subscription.unsubscribe();
     }
 }

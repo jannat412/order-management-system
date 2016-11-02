@@ -34,4 +34,8 @@ export class OrderService {
         this.pushTotalAmount.emit(this.getTotalAmount());
     }
 
+    getLineData(key: number): any {
+        return this.order[key] || null;
+    }
+
 }

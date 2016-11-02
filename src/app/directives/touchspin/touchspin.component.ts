@@ -6,7 +6,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
     styleUrls: ['./touchspin.component.scss']
 } )
 export class TouchspinComponent {
-    private value: number = 0;
+    @Input() private value: number = 0;
     @Output() private touchspinChange: EventEmitter<number> = new EventEmitter<number>();
     private minimum: number = 0;
     private maximum: number = 100;
