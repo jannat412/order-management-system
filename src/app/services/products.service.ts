@@ -7,7 +7,7 @@ export class ProductsService {
     constructor(private af: AngularFire) {}
 
     getProducts() {
-        return this.af.database.list( '/productes', {
+        return this.af.database.list( '/products', {
             query: {
                 orderByChild: 'category'
             }
@@ -15,7 +15,7 @@ export class ProductsService {
     }
 
     getProduct(id: number) {
-        let segment = `/productes/${id}`;
+        let segment = `/products/${id}`;
         return this.af.database.object( segment );
     }
 

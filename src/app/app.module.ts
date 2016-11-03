@@ -14,6 +14,7 @@ import {ProductsListComponent} from './products/products-list/products-list.comp
 import {ProductFilterPipe} from './products/filter-pipes/product-filter.pipe';
 import {ProductCategoryFilterPipe} from './products/filter-pipes/product-category-filter.pipe';
 import {ProductActiveFilterPipe} from './products/filter-pipes/product-active-filter.pipe';
+import {ProductSelectedFilterPipe} from './products/filter-pipes/product-selected-filter.pipe';
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {NameFilterInputComponent} from './products/name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from './products/category-filter-menu/category-filter-menu.component';
@@ -25,6 +26,7 @@ import {TouchspinComponent} from './directives/touchspin/touchspin.component';
 import {FooterComponent} from './footer/footer.component';
 import {FirebaseConfig} from '../config/firebase.config';
 import { CartComponent } from './orders/cart/cart.component';
+import { ProductsSelectionComponent } from './products/products-selection/products-selection.component';
 
 @NgModule( {
     declarations: [
@@ -34,6 +36,7 @@ import { CartComponent } from './orders/cart/cart.component';
         ProductFilterPipe,
         ProductCategoryFilterPipe,
         ProductActiveFilterPipe,
+        ProductSelectedFilterPipe,
         ProductTagsComponent,
         NameFilterInputComponent,
         CategoryFilterMenuComponent,
@@ -43,7 +46,8 @@ import { CartComponent } from './orders/cart/cart.component';
         ProductCountComponent,
         TouchspinComponent,
         FooterComponent,
-        CartComponent
+        CartComponent,
+        ProductsSelectionComponent
     ],
     imports: [
         BrowserModule,
