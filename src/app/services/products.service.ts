@@ -1,22 +1,22 @@
 import {Injectable} from '@angular/core';
-import {AngularFire} from 'angularfire2';
+import {AngularFireDatabase} from 'angularfire2';
 
 @Injectable()
 export class ProductsService {
 
-    constructor(private af: AngularFire) {}
+    constructor(private db: AngularFireDatabase) {}
 
     getProducts() {
-        return this.af.database.list( '/products', {
+        return this.db.list( '/products', {
             query: {
-                orderByChild: 'category'
+                orderByChild: 'name'
             }
         } );
     }
 
     getProduct(id: number) {
         let segment = `/products/${id}`;
-        return this.af.database.object( segment );
+        return this.db.object( segment );
     }
 
 }
