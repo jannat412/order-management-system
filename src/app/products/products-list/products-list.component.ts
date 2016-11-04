@@ -49,7 +49,7 @@ export class ProductsListComponent implements OnInit {
                 (data: ICategory[]) => this.categories = <ICategory[]>data,
                 (error: any) => this.errorMessage = <any>error
             );
-        this.productsService.getProducts()
+        this.productsService.getProductsByCategory()
             .subscribe(
                 (data: IProduct[]) => this.products = <IProduct[]>data,
                 (error: any) => this.errorMessage = <any>error

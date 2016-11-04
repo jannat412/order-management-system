@@ -35,11 +35,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             (param: any) => this.id = param['id']
         );
 
-        this.productsService.getProduct( this.id )
-            .subscribe(
-                (data: IProduct) => this.product = data,
-                (error: any) => this.errorMessage = <any>error
-            );
+        // this.productsService.getProduct( this.id )
+        //     .subscribe(
+        //         (data: IProduct) => this.product = data,
+        //         (error: any) => this.errorMessage = <any>error
+        //     );
 
         this.tagsService.getTags()
             .subscribe(
