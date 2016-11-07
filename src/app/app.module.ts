@@ -3,12 +3,14 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
-import {AngularFireModule} from 'angularfire2';
+import {AngularFireModule, WindowLocation} from 'angularfire2';
+import {FirebaseConfig} from '../config/firebase.config';
 
 import {routing} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 
 import {ProductFilterPipe} from './products/filter-pipes/product-filter.pipe';
@@ -23,8 +25,7 @@ import {StyleActiveDirective} from './directives/style-active.directive';
 import {DropdownDirective} from './directives/dropdown.directive';
 import {ProductCountComponent} from './products/product-count/product-count.component';
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
-import {FooterComponent} from './footer/footer.component';
-import {FirebaseConfig} from '../config/firebase.config';
+
 import { CartComponent } from './orders/cart/cart.component';
 import { ProductsSelectionComponent } from './products/products-selection/products-selection.component';
 
@@ -56,7 +57,12 @@ import { ProductsSelectionComponent } from './products/products-selection/produc
         routing,
         AngularFireModule.initializeApp( FirebaseConfig )
     ],
-    providers: [],
+    providers: [{
+        provide: WindowLocation, useValue: {
+            protocol: 'http' // Change to HTTP if you prefer.
+        }
+    }]
+    ,
     bootstrap: [AppComponent]
 } )
 export class AppModule {

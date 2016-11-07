@@ -10,6 +10,7 @@ body {
   padding-top: 50px;
 }
 
+
 /*
  * Global add-ons
  */
@@ -159,7 +160,7 @@ oms-order-list {
   /* max 660px */
   @media #{$max660} {
     td:nth-child(3) {
-      max-width: 100px;
+      max-width: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -171,8 +172,16 @@ oms-order-list {
   }
   /* max 510px */
   @media #{$max510} {
+    td:nth-child(1) {
+      width: 10px;
+    }
     td:nth-child(4) {
       display: none;
+    }
+    td:nth-child(6) {
+      min-width: initial;
+      max-width: initial;
+      float: right;
     }
   }
 }
