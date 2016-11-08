@@ -16,11 +16,11 @@ import {ICategory} from '../../models/category';
 } )
 export class ProductDetailComponent implements OnInit, OnDestroy {
     private pageTitle: string = 'Producte:';
-    private id: number;
+    private key: string;
     private product: IProduct;
+    private category: ICategory;
+    private tags: ITag[];
     private errorMessage: string;
-    private allTags: ITag[];
-    private allCategories: ICategory[];
     private subscription: Subscription;
 
     constructor(private productsService: ProductsService,
@@ -32,24 +32,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.subscription = this.route.params.subscribe(
-            (param: any) => this.id = param['id']
+            (param: any) => this.key = param['key']
         );
 
-        this.productsService.getProduct( this.id )
+        this.productsService.getProduct( this.key )
             .subscribe(
                 (data: IProduct) => this.product = data,
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.tagsService.getTags()
+        this.tagsService.getTagsForProduct( this.product.$key )
             .subscribe(
-                (data: ITag[]) => this.allTags = <ITag[]>data,
+                (data: ITag[]) => this.tags = <ITag[]>data,
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.categoriesService.getCategories()
+        this.categoriesService.getCategoryForProduct( this.product.categoryKey )
             .subscribe(
-                (data: ICategory[]) => this.allCategories = <ICategory[]>data,
+                (data: ICategory) => this.category = <ICategory>data,
                 (error: any) => this.errorMessage = <any>error
             );
 
@@ -64,14 +64,5 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return url;
     };
 
-    // TODO method duplicated (on products-list.component)
-    getCategoryClass = (): string => {
-        for (let cat of this.allCategories) {
-            if (cat.$key === this.product.category) {
-                return cat.className;
-            }
-        }
-        return '';
-    };
 
 }

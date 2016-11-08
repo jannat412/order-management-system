@@ -6,7 +6,7 @@ import {ProductsListComponent} from './products/products-list/products-list.comp
 const APP_ROUTES: Routes = [
     {path: '', redirectTo: '/comanda', pathMatch: 'full'},
     {path: 'comanda', component: ProductsListComponent},
-    {path: 'producte/:id', component: ProductDetailComponent},
+    {path: 'producte/:key', component: ProductDetailComponent},
     {path: '**', redirectTo: '/comanda'}
 ];
 

@@ -1,16 +1,14 @@
 export interface IProduct {
-    $key: number;
+    $key: string;
     name: string;
-    imgName: string;
-    comment: string;
-    description: string;
+    categoryKey: string;
+    imgName?: string;
+    comment?: string;
+    description?: string;
     price: number;
     step: number;
     unity: string;
     decimal: number;
-    tags: string[];
-    category: string;
     active: boolean;
-    visible: boolean;
     selected?: boolean;
 }

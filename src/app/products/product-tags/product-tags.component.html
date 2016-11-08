@@ -1,4 +1,5 @@
-<span [ngClass]="['label', 'label-' + tag]"
-      *ngFor="let tag of tags">
-    {{getLabelTag(tag)}}
-</span>
+<span *ngFor="let tag of tags"
+      [ngClass]="['label', 'label-' + tag.name]">
+        {{tag.description}}
+    </span>
+

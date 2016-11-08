@@ -1,13 +1,24 @@
 import {Injectable} from '@angular/core';
-import {AngularFire} from 'angularfire2';
+import {AngularFireDatabase} from 'angularfire2';
+import {Observable} from 'rxjs';
+import {ICategory} from '../models/category';
 
 @Injectable()
 export class CategoriesService {
 
-    constructor(private af: AngularFire) {}
+    constructor(private db: AngularFireDatabase) {}
 
-    getCategories() {
-        return this.af.database.list( '/categories' );
+    getCategories(): Observable<ICategory[]> {
+        return this.db.list( 'categories', {
+            query: {
+                orderByKey: true
+            }
+        } );
+    }
+
+    getCategoryForProduct(id: string): Observable<ICategory> {
+        let segment = `/categories/${id}`;
+        return this.db.object( segment );
     }
 
 }

@@ -6,7 +6,7 @@
     <li [class.active]="categoryFilter === category.$key"
         [ngClass]="[category.className]"
         *ngFor="let category of categories">
-        <a (click)="onFilterCategory(category.name)">
+        <a (click)="onFilterCategory(category.$key)">
             {{category.name}}
         </a>
     </li>

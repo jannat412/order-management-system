@@ -21,8 +21,8 @@ export class CategoryFilterMenuComponent implements OnInit {
     constructor(private categoriesService: CategoriesService) {
     }
 
-    onFilterCategory = (category: string) => {
-        this.categoryFilter = category;
+    onFilterCategory = (categoryKey: string) => {
+        this.categoryFilter = categoryKey;
         this.filterByCategory.emit( this.categoryFilter );
     };
     onFilterActive = (value?: boolean) => {

@@ -1,22 +1,28 @@
 import {Injectable} from '@angular/core';
-import {AngularFire} from 'angularfire2';
+import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+import {Observable} from 'rxjs';
+import {CategoriesService} from './categories.service';
+import {ICategory} from '../models/category';
+import {IProduct} from '../models/product';
 
 @Injectable()
 export class ProductsService {
+    categories: ICategory[];
 
-    constructor(private af: AngularFire) {}
+    constructor(private db: AngularFireDatabase) {}
 
-    getProducts() {
-        return this.af.database.list( '/products', {
+    getProducts(): Observable<IProduct[]> {
+        return this.db.list( 'products', {
             query: {
-                orderByChild: 'category'
+                orderByChild: 'categoryKey'
             }
         } );
     }
 
-    getProduct(id: number) {
-        let segment = `/products/${id}`;
-        return this.af.database.object( segment );
+
+    getProduct(key: string): Observable<IProduct> {
+        let segment = `/products/${key}`;
+        return this.db.object( segment );
     }
 
 }

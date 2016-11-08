@@ -2,10 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {ProductsService} from '../../services/products.service';
 import {CategoriesService} from '../../services/categories.service';
-import {TagsService} from '../../services/tags.service';
 
 import {IProduct} from '../../models/product';
-import {ITag} from '../../models/tag';
 import {ICategory} from '../../models/category';
 import {NameFilterInputComponent} from '../name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filter-menu.component';
@@ -17,7 +15,6 @@ import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filt
     styleUrls: ['products-list.component.scss']
 } )
 export class ProductsListComponent implements OnInit {
-    private allTags: ITag[];
     private categories: ICategory[];
     private products: IProduct[];
     private errorMessage: string;
@@ -34,16 +31,10 @@ export class ProductsListComponent implements OnInit {
     private selectedFilter: boolean = false;
 
     constructor(private productsService: ProductsService,
-                private categoriesService: CategoriesService,
-                private tagsService: TagsService) {}
+                private categoriesService: CategoriesService) {}
 
     ngOnInit() {
 
-        this.tagsService.getTags()
-            .subscribe(
-                (data: ITag[]) => this.allTags = <ITag[]>data,
-                (error: any) => this.errorMessage = <any>error
-            );
         this.categoriesService.getCategories()
             .subscribe(
                 (data: ICategory[]) => this.categories = <ICategory[]>data,
@@ -74,8 +65,8 @@ export class ProductsListComponent implements OnInit {
         this.listFilter = str;
     };
 
-    doFilterCategory = (str: string): void => {
-        this.categoryFilter = str;
+    doFilterCategory = (categoryKey: string): void => {
+        this.categoryFilter = categoryKey;
     };
 
     doFilterActive = (active: boolean): void => {
