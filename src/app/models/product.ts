@@ -1,5 +1,5 @@
 export interface IProduct {
-    $key: number;
+    $key: string;
     name: string;
     categoryKey: string;
     imgName?: string;
@@ -9,7 +9,6 @@ export interface IProduct {
     step: number;
     unity: string;
     decimal: number;
-    tags: string[];
     active: boolean;
     selected?: boolean;
 }

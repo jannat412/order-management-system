@@ -20,8 +20,8 @@ export class ProductsService {
     }
 
 
-    getProduct(id: number) {
-        let segment = `/products/${id}`;
+    getProduct(key: string): Observable<IProduct> {
+        let segment = `/products/${key}`;
         return this.db.object( segment );
     }
 

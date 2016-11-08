@@ -16,4 +16,9 @@ export class CategoriesService {
         } );
     }
 
+    getCategoryForProduct(id: string): Observable<ICategory> {
+        let segment = `/categories/${id}`;
+        return this.db.object( segment );
+    }
+
 }
