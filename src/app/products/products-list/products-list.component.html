@@ -21,7 +21,7 @@
                         <tbody>
                         <tr [isActive]="product.active"
                             [styleKo]="'disabled'"
-                            [ngClass]="getCategoryClass(product.category)"
+                            [ngClass]="getCategoryClass(product.categoryKey)"
                             [class.selected]="product.selected"
                             *ngFor="let product of products |
                                     productFilter:listFilter |
@@ -41,8 +41,7 @@
                             </td>
                             <td>
                                 <oms-product-tags
-                                        [allTags]="allTags"
-                                        [tags]="product.tags">
+                                        [productKey]="product.$key">
                                 </oms-product-tags>
                             </td>
                             <td>

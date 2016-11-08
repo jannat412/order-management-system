@@ -1,6 +1,7 @@
 export const FirebaseConfig = {
-    apiKey: 'AIzaSyDlLSQRaaJHlo7FSEQwRjGr75Wq4oWmHtU',
-    authDomain: 'el-llevat-24226.firebaseapp.com',
-    databaseURL: 'https://el-llevat-24226.firebaseio.com',
-    storageBucket: ''
+    apiKey: "AIzaSyAPtqItl2UtYscGTCBnnNUK9gdWOikXU1c",
+    authDomain: "llevat-b0d66.firebaseapp.com",
+    databaseURL: "https://llevat-b0d66.firebaseio.com",
+    storageBucket: "",
+    messagingSenderId: "100976955250"
 }

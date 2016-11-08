@@ -19,7 +19,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private id: number;
     private product: IProduct;
     private errorMessage: string;
-    private allTags: ITag[];
     private allCategories: ICategory[];
     private subscription: Subscription;
 
@@ -41,17 +40,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         //         (error: any) => this.errorMessage = <any>error
         //     );
 
-        this.tagsService.getTags()
-            .subscribe(
-                (data: ITag[]) => this.allTags = <ITag[]>data,
-                (error: any) => this.errorMessage = <any>error
-            );
+        // this.tagsService.getTags()
+        //     .subscribe(
+        //         (data: ITag[]) => this.allTags = <ITag[]>data,
+        //         (error: any) => this.errorMessage = <any>error
+        //     );
 
-        this.categoriesService.getCategories()
-            .subscribe(
-                (data: ICategory[]) => this.allCategories = <ICategory[]>data,
-                (error: any) => this.errorMessage = <any>error
-            );
+        // this.categoriesService.getCategories()
+        //     .subscribe(
+        //         (data: ICategory[]) => this.allCategories = <ICategory[]>data,
+        //         (error: any) => this.errorMessage = <any>error
+        //     );
 
     }
 
@@ -66,11 +65,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     // TODO method duplicated (on products-list.component)
     getCategoryClass = (): string => {
-        for (let cat of this.allCategories) {
-            if (cat.$key === this.product.category) {
-                return cat.className;
-            }
-        }
+        // for (let cat of this.allCategories) {
+        //     if (cat.$key === this.product.category) {
+        //         return cat.className;
+        //     }
+        // }
         return '';
     };
 
