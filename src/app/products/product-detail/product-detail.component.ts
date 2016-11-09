@@ -60,7 +60,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     getImageUrl = (image: string): string => {
-        let url = `/product-img/images/${image}`;
+        let url = `/assets/product-img/images/${image}`;
         return url;
     };
 

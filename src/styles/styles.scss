@@ -10,7 +10,6 @@ body {
   padding-top: 50px;
 }
 
-
 /*
  * Global add-ons
  */
@@ -268,8 +267,26 @@ oms-product-detail {
   }
 }
 
-oms-cart.sidebar {
-  z-index: 1001;
-  background-color: transparent;
+oms-cart {
+  @media #{$max767} {
+    position: fixed;
+    z-index: 10000;
+    right: 0;
+    top: 30px;
+    > .panel {
+      width: 130%;
+      -webkit-box-shadow: -3px 0px 7px 0px rgba(50, 50, 50, 0.51);
+      -moz-box-shadow: -3px 0px 7px 0px rgba(50, 50, 50, 0.51);
+      box-shadow: -3px 0px 7px 0px rgba(50, 50, 50, 0.51);
+      > * {
+        text-align: left;
+      }
+    }
+
+  }
+  .sidebar {
+    z-index: 1001;
+    background-color: transparent;
+  }
 }
 
