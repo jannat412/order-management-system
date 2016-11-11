@@ -290,3 +290,10 @@ oms-cart {
   }
 }
 
+/* input validation
+-------------------------------------------------- */
+input {
+  &.ng-invalid {
+    border-color: #a94442;
+  }
+}

@@ -30,7 +30,6 @@ typings/
 /src/**/*.map
 /coverage/
 /dist/
-/src/data/
 /data/
 /*.log
 /firebase.help.md

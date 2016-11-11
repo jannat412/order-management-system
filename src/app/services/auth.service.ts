@@ -1,0 +1,48 @@
+import {Injectable} from '@angular/core';
+import {User} from '../models/user';
+import {AngularFire, FirebaseAuthState} from 'angularfire2';
+import {Observable, Subject} from 'rxjs';
+import {Router} from '@angular/router';
+
+@Injectable()
+export class AuthService {
+
+    constructor(private af: AngularFire,
+                private router: Router) {
+    }
+
+    loginUser(user: User): Observable<FirebaseAuthState> {
+        return this.fromAuthPromise( this.af.auth.login( {
+            email: user.email,
+            password: user.password
+        } ) );
+    }
+
+    fromAuthPromise(promise): Observable<any> {
+        const subject = new Subject<any>();
+        promise
+            .then( res => {
+                    subject.next( res );
+                    subject.complete();
+                },
+                err => {
+                    subject.error( err );
+                    subject.complete();
+                } );
+        return subject.asObservable();
+    }
+
+    logoutUser() {
+        this.af.auth.logout();
+        this.router.navigate( ['/login'] );
+    }
+
+    isUserLogged(): Observable<boolean> {
+        return this.af.auth.map( (auth) => {
+            if (!auth) {
+                return false;
+            }
+            return true;
+        } );
+    }
+}

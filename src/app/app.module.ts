@@ -1,10 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AngularFireModule, WindowLocation} from 'angularfire2';
-import {FirebaseConfig} from '../config/firebase.config';
+import {FirebaseConfig, FirebaseAuthConfig} from '../config/firebase.config';
 
 import {routing} from './app-routing.module';
 
@@ -26,8 +26,11 @@ import {DropdownDirective} from './directives/dropdown.directive';
 import {ProductCountComponent} from './products/product-count/product-count.component';
 import {TouchspinComponent} from './directives/touchspin/touchspin.component';
 
-import { CartComponent } from './orders/cart/cart.component';
-import { ProductsSelectionComponent } from './products/products-selection/products-selection.component';
+import {CartComponent} from './orders/cart/cart.component';
+import {ProductsSelectionComponent} from './products/products-selection/products-selection.component';
+import {LoginComponent} from './auth/login/login.component';
+import {AuthGuard} from './services/auth.guard';
+import {AuthService} from './services/auth.service';
 
 @NgModule( {
     declarations: [
@@ -48,20 +51,25 @@ import { ProductsSelectionComponent } from './products/products-selection/produc
         TouchspinComponent,
         FooterComponent,
         CartComponent,
-        ProductsSelectionComponent
+        ProductsSelectionComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         routing,
-        AngularFireModule.initializeApp( FirebaseConfig )
+        AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig )
     ],
-    providers: [{
-        provide: WindowLocation, useValue: {
+    providers: [
+        AuthGuard,
+        AuthService,
+        {
+            provide: WindowLocation, useValue: {
             protocol: 'http' // Change to HTTP if you prefer.
         }
-    }]
+        }]
     ,
     bootstrap: [AppComponent]
 } )
