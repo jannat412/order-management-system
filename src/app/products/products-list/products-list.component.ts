@@ -24,7 +24,7 @@ export class ProductsListComponent implements OnInit {
     @ViewChild(CategoryFilterMenuComponent)
     private categoryFilterComponent: CategoryFilterMenuComponent;
 
-    private listProductTitle: string = 'Llistat de productes';
+    listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
     private categoryFilter: string = '';
     private activeFilter: boolean = true;

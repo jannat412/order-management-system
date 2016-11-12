@@ -5,12 +5,12 @@ import {Component, Output, EventEmitter, OnInit} from '@angular/core';
     templateUrl: './products-selection.component.html',
     styleUrls: ['./products-selection.component.scss']
 } )
-export class ProductsSelectionComponent extends OnInit {
+export class ProductsSelectionComponent implements OnInit {
     @Output() private filterBySelected: EventEmitter<boolean> = new EventEmitter<boolean>();
     private selectedFilterStatus: boolean = false;
     private activeMessage: string;
 
-    private onSelectedFilter = () => {
+    onSelectedFilter = () => {
         this.selectedFilterStatus = !this.selectedFilterStatus;
         this.filterBySelected.emit( this.selectedFilterStatus );
         this.activeMessage = this.getMessage();

@@ -15,7 +15,7 @@ import {ICategory} from '../../models/category';
     templateUrl: './product-detail.component.html'
 } )
 export class ProductDetailComponent implements OnInit, OnDestroy {
-    private pageTitle: string = 'Producte:';
+    pageTitle: string = 'Producte:';
     private key: string;
     private product: IProduct;
     private category: ICategory;

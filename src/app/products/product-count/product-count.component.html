@@ -1,7 +1,7 @@
 <div class="input-group">
-    <touchspin class="input-group" [step]="step" [value]="quantity"
+    <app-touchspin class="input-group" [step]="step" [value]="quantity"
                (touchspinChange)="updateTotal($event)">
-    </touchspin>
+    </app-touchspin>
     <span class="input-group-addon"
           id="basic-addon2">{{total| number:'1.2-2'}} €</span>
 </div>

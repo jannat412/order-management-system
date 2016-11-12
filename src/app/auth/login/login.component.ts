@@ -34,14 +34,20 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        // if user logged prevent on first loading
+        // to show the login page
+        this.authService.isUserLogged()
+            .subscribe( authStatus => {
+                if (authStatus) {
+                    this.router.navigate( ['/comanda'] );
+                }
+            } );
 
         let emailRegex = `([a-zA-Z0-9_.]{1}[a-zA-Z0-9_.]*)((@[a-zA-Z]{2}[a-zA-Z]*)[\\\.]([a-zA-Z]{2}|[a-zA-Z]{3}))`;
         this.loginForm = this.fb.group( {
             email: ['', Validators.compose( [Validators.required, Validators.pattern( emailRegex )] )],
             password: ['', Validators.required]
-        } )
-
+        } );
 
     }
-
 }

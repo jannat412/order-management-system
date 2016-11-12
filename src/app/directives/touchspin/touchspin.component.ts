@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component( {
-    selector: 'touchspin',
+    selector: 'app-touchspin',
     templateUrl: './touchspin.component.html',
     styleUrls: ['./touchspin.component.scss']
 } )

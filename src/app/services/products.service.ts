@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs';
-import {CategoriesService} from './categories.service';
 import {ICategory} from '../models/category';
 import {IProduct} from '../models/product';
 
