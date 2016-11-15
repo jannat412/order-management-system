@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
                 private router: Router) {
     }
 
-    onLoginFormSubmit() {
+    onLoginFormSubmit = () => {
         this.authService.loginUser( this.loginForm.value )
             .subscribe(
                 (data) => {
@@ -31,9 +31,9 @@ export class LoginComponent implements OnInit {
                     this.errorMessage = error;
                     this.showError = true;
                 } );
-    }
+    };
 
-    ngOnInit() {
+    ngOnInit = () => {
         // if user logged prevent on first loading
         // to show the login page
         this.authService.isUserLogged()
@@ -49,5 +49,5 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         } );
 
-    }
+    };
 }

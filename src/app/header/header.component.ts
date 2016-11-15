@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
+import {UserService} from '../services/user.service';
 
 @Component( {
     selector: 'oms-header',
@@ -10,19 +11,27 @@ import {Router} from '@angular/router';
 export class HeaderComponent implements OnInit {
 
     authInfo: boolean = false;
+    admin: boolean = false;
 
     constructor(private authService: AuthService,
+                private userService: UserService,
                 private router: Router) {
     }
 
-    isAuth() {
-        return this.authInfo;
-    }
+    isAuth = () => this.authInfo;
+    isAdmin = () => this.admin;
 
-    logout() {
+    checkAdmin = () => {
+        this.userService.getUserRole()
+            .subscribe( (role: string) => {
+                this.admin = role === 'admin';
+            });
+    };
+
+    logout = () => {
         this.authService.logoutUser();
         this.router.navigate( ['/login'] );
-    }
+    };
 
     ngOnInit() {
         this.authService.isUserLogged()
@@ -33,5 +42,7 @@ export class HeaderComponent implements OnInit {
                     this.router.navigate( ['/login'] );
                 }
             } );
+
+        this.checkAdmin();
     }
 }

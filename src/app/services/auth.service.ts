@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from '../models/user';
+import {IUser} from '../models/user';
 import {AngularFire, FirebaseAuthState} from 'angularfire2';
 import {Observable, Subject} from 'rxjs';
 import {Router} from '@angular/router';
@@ -11,14 +11,14 @@ export class AuthService {
                 private router: Router) {
     }
 
-    loginUser(user: User): Observable<FirebaseAuthState> {
+    loginUser = (user: IUser): Observable<FirebaseAuthState> => {
         return this.fromAuthPromise( this.af.auth.login( {
             email: user.email,
             password: user.password
         } ) );
-    }
+    };
 
-    fromAuthPromise(promise): Observable<any> {
+    fromAuthPromise = (promise): Observable<any> => {
         const subject = new Subject<any>();
         promise
             .then( res => {
@@ -30,19 +30,24 @@ export class AuthService {
                     subject.complete();
                 } );
         return subject.asObservable();
-    }
+    };
 
-    logoutUser() {
+    logoutUser = () => {
         this.af.auth.logout();
         this.router.navigate( ['/login'] );
-    }
+    };
 
-    isUserLogged(): Observable<boolean> {
+    isUserLogged = (): Observable<boolean> => {
         return this.af.auth.map( (auth) => {
             if (!auth) {
                 return false;
             }
             return true;
         } );
-    }
+    };
+
+    getUserId = (): Observable<string> => {
+        return this.af.auth
+            .map( auth => auth.uid );
+    };
 }

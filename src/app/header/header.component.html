@@ -15,6 +15,10 @@
                         <a *ngIf="isAuth()" charset="active"
                            [routerLink]="['/comanda']">Fer comanda</a>
                     </li>
+                    <li routerLinkActive="active">
+                        <a *ngIf="isAdmin()" charset="active"
+                           [routerLink]="['/admin']">Administració</a>
+                    </li>
                 </ul>
                 <ul *ngIf="isAuth()" class="nav navbar-nav navbar-right">
                     <li dropDown class="dropdown">

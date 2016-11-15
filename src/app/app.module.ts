@@ -31,6 +31,7 @@ import {ProductsSelectionComponent} from './products/products-selection/products
 import {LoginComponent} from './auth/login/login.component';
 import {AuthGuard} from './services/auth.guard';
 import {AuthService} from './services/auth.service';
+import {UserService} from './services/user.service';
 
 @NgModule( {
     declarations: [
@@ -65,6 +66,7 @@ import {AuthService} from './services/auth.service';
     providers: [
         AuthGuard,
         AuthService,
+        UserService,
         {
             provide: WindowLocation, useValue: {
             protocol: 'http' // Change to HTTP if you prefer.
