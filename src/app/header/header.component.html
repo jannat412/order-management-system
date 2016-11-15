@@ -16,7 +16,7 @@
                            [routerLink]="['/comanda']">Fer comanda</a>
                     </li>
                     <li routerLinkActive="active">
-                        <a *ngIf="isAdmin()" charset="active"
+                        <a *ngIf="isAdmin() && isAuth()" charset="active"
                            [routerLink]="['/admin']">Administració</a>
                     </li>
                 </ul>
