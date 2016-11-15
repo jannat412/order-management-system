@@ -34,7 +34,6 @@ export class AuthService {
 
     logoutUser = () => {
         this.af.auth.logout();
-        this.router.navigate( ['/login'] );
     };
 
     isUserLogged = (): Observable<boolean> => {
@@ -48,6 +47,8 @@ export class AuthService {
 
     getUserId = (): Observable<string> => {
         return this.af.auth
-            .map( auth => auth.uid );
+            .map( auth => {
+                return (auth && auth.uid) ? auth.uid : '';
+            } );
     };
 }

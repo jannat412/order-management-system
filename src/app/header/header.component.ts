@@ -2,16 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
+import {Subscription} from 'rxjs';
 
 @Component( {
     selector: 'oms-header',
     templateUrl: './header.component.html',
     styleUrls: ['header.component.scss']
 } )
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit{
 
     authInfo: boolean = false;
     admin: boolean = false;
+    private subscription: Subscription;
 
     constructor(private authService: AuthService,
                 private userService: UserService,
@@ -22,10 +24,14 @@ export class HeaderComponent implements OnInit {
     isAdmin = () => this.admin;
 
     checkAdmin = () => {
-        this.userService.getUserRole()
+        this.subscription = this.userService.getUserRole()
             .subscribe( (role: string) => {
-                this.admin = role === 'admin';
-            });
+                if (role) {
+                    this.admin = role === 'admin';
+                } else {
+                    this.admin = false;
+                }
+            } );
     };
 
     logout = () => {
@@ -40,9 +46,11 @@ export class HeaderComponent implements OnInit {
 
                 if (!this.isAuth()) {
                     this.router.navigate( ['/login'] );
+                } else {
+                    this.checkAdmin();
                 }
             } );
 
-        this.checkAdmin();
     }
+
 }

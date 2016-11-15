@@ -9,6 +9,7 @@ const APP_ROUTES: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'comanda', component: ProductsListComponent, canActivate: [AuthGuard]},
+    {path: 'admin', component: ProductsListComponent, canActivate: [AuthGuard]},
     {path: 'producte/:key', component: ProductDetailComponent, canActivate: [AuthGuard]},
     {path: '**', redirectTo: '/login'}
 ];

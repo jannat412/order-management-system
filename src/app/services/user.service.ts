@@ -13,8 +13,11 @@ export class UserService {
     getUserRole = (): Observable<string> => {
         return this.authService.getUserId()
             .switchMap( uid => {
-                return this.db.object( `/users/${uid}/role` )
-                    .map(role => role.$value);
+                if(uid) {
+                    return this.db.object( `/users/${uid}/role` )
+                        .map(role => role.$value);
+                }
+                return '';
             } )
 
     }
