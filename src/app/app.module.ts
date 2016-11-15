@@ -33,6 +33,8 @@ import {AuthGuard} from './services/auth.guard';
 import {AuthService} from './services/auth.service';
 import {UserService} from './services/user.service';
 
+import {AdminModule} from './admin/admin.module';
+
 @NgModule( {
     declarations: [
         AppComponent,
@@ -61,7 +63,8 @@ import {UserService} from './services/user.service';
         ReactiveFormsModule,
         HttpModule,
         routing,
-        AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig )
+        AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig ),
+        AdminModule
     ],
     providers: [
         AuthGuard,
