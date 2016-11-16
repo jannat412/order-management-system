@@ -17,6 +17,7 @@ import {ProductFilterPipe} from './products/filter-pipes/product-filter.pipe';
 import {ProductCategoryFilterPipe} from './products/filter-pipes/product-category-filter.pipe';
 import {ProductActiveFilterPipe} from './products/filter-pipes/product-active-filter.pipe';
 import {ProductSelectedFilterPipe} from './products/filter-pipes/product-selected-filter.pipe';
+
 import {ProductTagsComponent} from './products/product-tags/product-tags.component';
 import {NameFilterInputComponent} from './products/name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from './products/category-filter-menu/category-filter-menu.component';
@@ -28,6 +29,7 @@ import {TouchspinComponent} from './directives/touchspin/touchspin.component';
 
 import {CartComponent} from './orders/cart/cart.component';
 import {ProductsSelectionComponent} from './products/products-selection/products-selection.component';
+
 import {LoginComponent} from './auth/login/login.component';
 import {AuthGuard} from './services/auth.guard';
 import {AuthService} from './services/auth.service';

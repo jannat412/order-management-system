@@ -40,7 +40,9 @@ export class ProductCountComponent implements OnInit {
 
         this.orderService.addProductLine( {
             productKey: this.product.$key,
+            name: this.product.name,
             quantity: this.quantity,
+            unity: this.product.unity,
             total: this.total
         } );
         this.isSelected();

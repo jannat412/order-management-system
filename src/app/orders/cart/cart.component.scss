@@ -1,0 +1,10 @@
+.shopping-list > li {
+  color: #636363;
+  border-bottom: 1px solid rgba(20, 195, 17, 0.56);
+  & .item {
+    font-weight: bold;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+}

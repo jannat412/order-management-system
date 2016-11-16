@@ -10,18 +10,26 @@ import {Subscription} from 'rxjs';
 export class CartComponent implements OnInit, OnDestroy {
     superTotal: number = 0;
     subscription: Subscription;
+    linesSubscription: Subscription;
+    productLines: any[] = [];
 
     constructor(private orderService: OrderService) {
     }
 
     ngOnInit() {
         this.superTotal = this.orderService.getTotalAmount();
+        this.productLines = this.orderService.orderListToArray();
+
         this.subscription = this.orderService.pushTotalAmount.subscribe(
             data => this.superTotal = data
+        );
+        this.linesSubscription = this.orderService.emittedOrder.subscribe(
+            data => this.productLines = data
         );
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.linesSubscription.unsubscribe();
     }
 }
