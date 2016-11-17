@@ -4,13 +4,12 @@ import {ProductDetailComponent} from './products/product-detail/product-detail.c
 import {ProductsListComponent} from './products/products-list/products-list.component';
 import {LoginComponent} from './auth/login/login.component';
 import {AuthGuard} from './services/auth.guard';
-import {AdminComponent} from './admin/admin.component';
 
 const APP_ROUTES: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'comanda', component: ProductsListComponent, canActivate: [AuthGuard]},
-    {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+    {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'},
     {path: 'producte/:key', component: ProductDetailComponent, canActivate: [AuthGuard]},
     {path: '**', redirectTo: '/login'}
 ];
