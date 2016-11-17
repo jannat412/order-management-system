@@ -80,7 +80,13 @@ body {
 
 @media #{$max767} {
   .main {
-    padding: 0 15px;
+    padding: 0;
+    .panel-primary {
+      border: none;
+    }
+    .panel-heading {
+      display: none;
+    }
   }
 }
 
@@ -152,17 +158,14 @@ oms-order-list {
       margin: 0;
       font-size: 30px;
     }
-    .panel-body {
-      padding: 10px;
-    }
   }
   /* max 660px */
   @media #{$max660} {
     td:nth-child(3) {
-      max-width: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      max-width: 120px;
     }
     td:nth-child(6) {
       min-width: initial;
@@ -171,6 +174,9 @@ oms-order-list {
   }
   /* max 510px */
   @media #{$max510} {
+    td:nth-child(3) {
+      width: auto;
+    }
     td:nth-child(1) {
       width: 10px;
     }
@@ -180,10 +186,18 @@ oms-order-list {
     td:nth-child(6) {
       min-width: initial;
       max-width: initial;
-      float: right;
+      width: 160px;
+    }
+    oms-name-filter-list {
+      display: none;
+    }
+    .panel-body {
+      padding: 0;
+
     }
   }
 }
+
 
 /* input with clear option
 -------------------------------------------------- */
@@ -232,6 +246,11 @@ oms-product-detail {
       display: list-item;
     }
   }
+  @media #{$max767} {
+    .panel-footer {
+      text-align: center;
+    }
+  }
 }
 
 /* categories classes for background color */
@@ -268,19 +287,19 @@ oms-product-detail {
 }
 
 oms-cart {
+  .shopping-list > li {
+    color: #636363;
+    border-bottom: 1px solid rgba(20, 195, 17, 0.56);
+    & .item {
+      font-weight: bold;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
   @media #{$max767} {
-    position: fixed;
-    z-index: 10000;
-    right: 0;
-    top: 30px;
-    > .panel {
-      width: 130%;
-      -webkit-box-shadow: -3px 0px 7px 0px rgba(50, 50, 50, 0.51);
-      -moz-box-shadow: -3px 0px 7px 0px rgba(50, 50, 50, 0.51);
-      box-shadow: -3px 0px 7px 0px rgba(50, 50, 50, 0.51);
-      > * {
-        text-align: left;
-      }
+    .panel-footer {
+      display: none;
     }
 
   }
@@ -288,6 +307,12 @@ oms-cart {
     z-index: 1001;
     background-color: transparent;
   }
+}
+oms-products-selection, oms-cart {
+  .panel-body {
+    padding: 10px;
+  }
+
 }
 
 /* input validation
