@@ -19,13 +19,17 @@ import {UserService} from './services/user.service';
 import {ProductsModule} from './products/products.module';
 import {AuthModule} from './auth/auth.module';
 import {AdminGuard} from './services/admin.guard';
+import {ConfigService} from './services/config.service';
+import { InactiveAppComponent } from './inactive-app/inactive-app.component';
+import {InactiveGuard} from './services/inactive.guard';
 
 @NgModule( {
     declarations: [
         AppComponent,
         HeaderComponent,
         DropdownDirective,
-        FooterComponent
+        FooterComponent,
+        InactiveAppComponent
     ],
     imports: [
         BrowserModule,
@@ -37,8 +41,10 @@ import {AdminGuard} from './services/admin.guard';
     providers: [
         AuthGuard,
         AdminGuard,
+        InactiveGuard,
         AuthService,
         UserService,
+        ConfigService,
         {
             provide: WindowLocation, useValue: {
             protocol: 'http' // Change to HTTP if you prefer.

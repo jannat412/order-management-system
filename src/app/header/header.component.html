@@ -12,7 +12,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li routerLinkActive="active">
-                        <a *ngIf="isAuth()" charset="active"
+                        <a *ngIf="isAuth() && isActive()" charset="active"
                            [routerLink]="['/comanda']">Fer comanda</a>
                     </li>
                     <li routerLinkActive="active">

@@ -1,3 +1,11 @@
-<p>
-  admin works!
-</p>
+<div class="panel panel-default" [class.panel-success]="isActive">
+    <div class="panel-heading strong text-center">
+        <h2>{{activeLabel}}</h2>
+    </div>
+    <div class="panel-body text-center">
+        <button (click)="toggleActivation()" type="button"
+                class="btn"
+                [class.btn-success]="!isActive">{{buttonLabel}}
+        </button>
+    </div>
+</div>
