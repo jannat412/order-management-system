@@ -10,16 +10,22 @@ export class UserService {
                 private authService: AuthService) {
     }
 
-    getUserRole = (): Observable<string> => {
+    private getUserRole = (): Observable<string> => {
         return this.authService.getUserId()
             .switchMap( uid => {
-                if(uid) {
+                if (uid) {
                     return this.db.object( `/users/${uid}/role` )
-                        .map(role => role.$value);
+                        .map( role => role.$value );
                 }
                 return '';
             } )
 
-    }
+    };
+
+    isUserAdmin = (): Observable<boolean> => {
+        return this.getUserRole().map( (role) => {
+            return role === 'admin';
+        } );
+    };
 
 }

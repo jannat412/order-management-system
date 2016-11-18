@@ -18,6 +18,7 @@ import {UserService} from './services/user.service';
 
 import {ProductsModule} from './products/products.module';
 import {AuthModule} from './auth/auth.module';
+import {AdminGuard} from './services/admin.guard';
 
 @NgModule( {
     declarations: [
@@ -35,6 +36,7 @@ import {AuthModule} from './auth/auth.module';
     ],
     providers: [
         AuthGuard,
+        AdminGuard,
         AuthService,
         UserService,
         {

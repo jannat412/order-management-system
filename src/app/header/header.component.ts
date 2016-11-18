@@ -35,9 +35,9 @@ export class HeaderComponent implements OnInit {
                 }
             } );
 
-        this.userService.getUserRole()
-            .subscribe( (role: string) => {
-                this.admin = (role && role === 'admin');
+        this.userService.isUserAdmin()
+            .subscribe( (admin: boolean) => {
+                this.admin = admin;
             } );
 
     }
