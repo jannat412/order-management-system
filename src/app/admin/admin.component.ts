@@ -14,6 +14,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     activeLabel: string = '';
     buttonLabel: string = '';
     errorMessage: any;
+    currentOrderDate: string;
 
     constructor(private configService: ConfigService) {
     }
@@ -26,7 +27,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     toggleActivation = () => {
         this.isActive = !this.isActive;
-        this.configService.setActive( this.isActive );
+        this.configService.setActive( this.isActive,  this.currentOrderDate);
     };
 
     ngOnInit() {
@@ -41,10 +42,17 @@ export class AdminComponent implements OnInit, OnDestroy {
                     this.errorMessage = <any>error
                 }
             );
+
+        this.configService.getCurrentOrderDate()
+            .subscribe(
+                (data) => {
+                    this.currentOrderDate = data.limitDate;
+                }
+            )
     }
 
     ngOnDestroy() {
-        this.configSubscription.unsubscribe();
+        this.configSubscription.unsubscribe()
     }
 
 }

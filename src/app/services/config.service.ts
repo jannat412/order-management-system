@@ -13,40 +13,46 @@ export class ConfigService {
             .map( active => active.$value );
     }
 
-    setActive(val: boolean) {
+    setActive(val: boolean, date: string) {
         const activeNode = this.db.object( '/config' );
         activeNode.update( {
             active: val
         } );
         if (val) {
-            this.createCurrentOrder();
+            this.createCurrentOrder( date );
         }
-        // check if the order exists
-        // if not - create new order with next thusday date
-        // update current order in config
     }
 
-    createCurrentOrder() {
-
-        const currentOrder = this.db.object( '/config/currentOrder' )
-            .map( currentOrder => {
-                let nextThursday = this.getNextThursday();
-                if(nextThursday !== currentOrder.$value) {
-                    const weekOrders = this.db.list('/weekOrders');
-                    weekOrders.push({date: nextThursday});
-                }
-            });
-        // 1. check if is the next thursday
-        // if it is not,
-        // a. create new order in orders
-        // b. update config.currentOrder with the $key of new order
+    getCurrentOrderDate(): Observable<any> {
+        return this.db.object( 'config/currentOrder' )
+            .map( currentOrder => this.db.object( `weekOrder/${currentOrder.$value}` ))
+                .switchMap( val => {
+                    return val;
+                } );
     }
 
-    getNextThursday() {
+    private createCurrentOrder(date: string) {
+        let nextThursday = ConfigService.getNextThursday();
+        if (nextThursday !== date) {
+            const weekOrder = this.db.list( '/weekOrder' );
+            weekOrder.push( {
+                limitDate: nextThursday
+            } )
+                .then( data => {
+                    const activeNode = this.db.object( '/config' );
+                    activeNode.update( {
+                        currentOrder: data.key
+                    } );
+                } );
+        }
+
+    }
+
+    private static getNextThursday() {
         const date = new Date();
         const day = date.getDay() || 7;
         date.setHours( 24 * (7 - day + 4) );
-        return new Date( date.getFullYear(), date.getMonth(), date.getDate() );
+        return new Date( date.getFullYear(), date.getMonth(), date.getDate() ).toString();
     }
 
 }
