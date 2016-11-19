@@ -26,6 +26,7 @@ export class OrderService {
         for (let key in this.order) {
             keys.push( {key: key, value: this.order[key]} );
         }
+        keys.sort( (a, b): any => a.value.name > b.value.name );
         return keys;
     }
 
@@ -38,8 +39,8 @@ export class OrderService {
             return sum + this.order[key].total;
         }, 0 );
 
-        this.emittedOrder.emit(this.orderListToArray());
-        this.pushTotalAmount.emit(this.getTotalAmount());
+        this.emittedOrder.emit( this.orderListToArray() );
+        this.pushTotalAmount.emit( this.getTotalAmount() );
     }
 
     getLineData(key: string): any {

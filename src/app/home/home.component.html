@@ -1,3 +1,12 @@
-<p>
-  home works!
-</p>
+<div class="panel panel-default text-center" [class.panel-success]="isActive">
+  <div class="panel-heading strong">
+    <div [innerHTML]="activeLabel"></div>
+    <p *ngIf="isActive">Entrega: dijous, {{currentOrderDate | date:'d/MM/y'}}</p>
+  </div>
+  <div *ngIf="isActive" class="panel-footer">
+    <a class="btn btn-success btn-lg" [routerLink]="['/comanda']">
+      <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
+      Iniciar la comanda
+    </a>
+  </div>
+</div>
