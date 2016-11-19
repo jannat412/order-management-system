@@ -22,6 +22,7 @@ import {AdminGuard} from './services/admin.guard';
 import {ConfigService} from './services/config.service';
 import { InactiveAppComponent } from './inactive-app/inactive-app.component';
 import {InactiveGuard} from './services/inactive.guard';
+import { HomeComponent } from './home/home.component';
 
 @NgModule( {
     declarations: [
@@ -29,7 +30,8 @@ import {InactiveGuard} from './services/inactive.guard';
         HeaderComponent,
         DropdownDirective,
         FooterComponent,
-        InactiveAppComponent
+        InactiveAppComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

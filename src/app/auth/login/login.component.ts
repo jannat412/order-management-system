@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 (data) => {
                     this.showError = false;
-                    this.router.navigate( ['/comanda'] );
+                    this.router.navigate( ['/home'] );
                 },
                 (error) => {
                     this.errorMessage = error;
@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         // if user logged prevent on first loading
-        // to show the login page
+        // to show the home page
         this.authService.isUserLogged()
             .subscribe( authStatus => {
                 if (authStatus) {
-                    this.router.navigate( ['/comanda'] );
+                    this.router.navigate( ['/home'] );
                 }
             } );
 
