@@ -1,16 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {ConfigService} from '../services/config.service';
+import {Subscription} from 'rxjs';
 
 @Component( {
     selector: 'oms-header',
     templateUrl: './header.component.html',
     styleUrls: ['header.component.scss']
 } )
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
+    configSubscription: Subscription;
+    adminSubscription: Subscription;
     authInfo: boolean = false;
     admin: boolean = false;
     active: boolean = false;
@@ -26,6 +29,8 @@ export class HeaderComponent implements OnInit {
     isActive = () => this.active;
 
     logout = () => {
+        this.configSubscription.unsubscribe();
+        this.adminSubscription.unsubscribe();
         this.authService.logoutUser();
         this.router.navigate( ['/login'] );
     };
@@ -36,19 +41,25 @@ export class HeaderComponent implements OnInit {
                 this.authInfo = authStatus;
                 if (!this.isAuth()) {
                     this.router.navigate( ['/login'] );
+
+                } else {
+                    this.configSubscription = this.configService.getActive()
+                        .subscribe(
+                            (data) => this.active = data
+                        );
+
+                    this.adminSubscription = this.userService.isUserAdmin()
+                        .subscribe( (admin: boolean) => {
+                            this.admin = admin;
+                        } );
+
                 }
             } );
+    }
 
-        this.userService.isUserAdmin()
-            .subscribe( (admin: boolean) => {
-                this.admin = admin;
-            } );
-
-        this.configService.getActive()
-            .subscribe(
-                (data) => this.active = data
-            );
-
+    ngOnDestroy() {
+        this.configSubscription.unsubscribe();
+        this.adminSubscription.unsubscribe();
     }
 
 }

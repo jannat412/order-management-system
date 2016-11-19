@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ConfigService} from '../services/config.service';
+import {Subscription} from 'rxjs';
 
 @Component( {
     selector: 'oms-admin',
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss']
 } )
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnDestroy {
 
+    configSubscription: Subscription;
     isActive: boolean = false;
     activeLabel: string = '';
     buttonLabel: string = '';
@@ -28,7 +30,7 @@ export class AdminComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.configService.getActive()
+        this.configSubscription = this.configService.getActive()
             .subscribe(
                 (data) => {
                     this.isActive = data;
@@ -39,6 +41,10 @@ export class AdminComponent implements OnInit {
                     this.errorMessage = <any>error
                 }
             );
+    }
+
+    ngOnDestroy() {
+        this.configSubscription.unsubscribe();
     }
 
 }
