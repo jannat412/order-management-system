@@ -1,5 +1,6 @@
 @import "variables";
 @import "mixins";
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Lemonada:600');
 
 /*
  * Base structure
@@ -8,12 +9,16 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
+  font-family: 'Lato', sans-serif;
 }
-
 /*
  * Global add-ons
  */
-
+h1 {
+  font-size: 1.7em;
+  margin-top: 10px;
+  font-family: 'Lemonada', cursive;
+}
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
@@ -84,9 +89,7 @@ body {
     .panel-primary {
       border: none;
     }
-    .panel-heading {
-      display: none;
-    }
+
   }
 }
 
@@ -158,6 +161,9 @@ oms-order-list {
       margin: 0;
       font-size: 30px;
     }
+    .panel-heading {
+      display: none;
+    }
   }
   /* max 660px */
   @media #{$max660} {
@@ -197,7 +203,6 @@ oms-order-list {
     }
   }
 }
-
 
 /* input with clear option
 -------------------------------------------------- */
@@ -247,7 +252,10 @@ oms-product-detail {
     }
   }
   @media #{$max767} {
-    .panel-footer {
+    .panel-primary {
+      margin: 0 10px;
+    }
+    .panel-footer, .panel-heading {
       text-align: center;
     }
   }
@@ -297,17 +305,19 @@ oms-cart {
       border-bottom: none;
     }
   }
+
   @media #{$max767} {
-    .panel-footer {
+    .currentOrderDate, .panel-footer {
       display: none;
     }
-
   }
+
   .sidebar {
     z-index: 1001;
     background-color: transparent;
   }
 }
+
 oms-products-selection, oms-cart {
   .panel-body {
     padding: 10px;
