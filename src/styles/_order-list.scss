@@ -1,0 +1,94 @@
+/* Products table cells responsiveness behavior
+-------------------------------------------------- */
+/*
+  td(1) => product selected
+  td(2) => product image
+  td(3) => product name and price
+  td(4) => product tags
+  td(5) => product comment
+  td(6) => touchspin and counter
+*/
+oms-order-list {
+
+  .disabled {
+    background-color: #eeeeee;
+    &, & a {
+      color: #9d9d9d;
+    }
+  }
+
+  .label {
+    font-size: 85%;
+    font-weight: normal;
+  }
+
+  .img-thumbnail {
+    max-width: none;
+  }
+  
+  td:nth-child(2) {
+    display: inline-block;
+  }
+  td:nth-child(6) {
+    min-width: 220px;
+  }
+  /* max 995px */
+  @media #{$maxTablet} {
+    td:nth-child(4) {
+      max-width: 70px;
+    }
+    td:nth-child(5) {
+      display: none;
+    }
+  }
+  /* max 767px */
+  @media #{$max767} {
+    td:nth-child(2) {
+      display: none;
+    }
+    h3 {
+      margin: 0;
+      font-size: 30px;
+    }
+    .main .panel-heading {
+      display: none;
+    }
+  }
+  /* max 660px */
+  @media #{$max660} {
+    td:nth-child(3) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 120px;
+    }
+    td:nth-child(6) {
+      min-width: initial;
+      max-width: 80px;
+    }
+  }
+  /* max 510px */
+  @media #{$max510} {
+    td:nth-child(3) {
+      width: auto;
+    }
+    td:nth-child(1) {
+      width: 10px;
+    }
+    td:nth-child(4) {
+      display: none;
+    }
+    td:nth-child(6) {
+      min-width: initial;
+      max-width: initial;
+      width: 160px;
+    }
+    oms-name-filter-list {
+      display: none;
+    }
+    .panel-body {
+      padding: 0;
+
+    }
+  }
+}

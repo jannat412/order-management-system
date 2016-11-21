@@ -1,0 +1,22 @@
+/* details page */
+oms-product-detail {
+  .label {
+    font-size: $mediumFontSize;
+  }
+  .list-group-item {
+    border: none;
+    padding: 20px 15px;
+    list-style: none;
+    & > * {
+      display: list-item;
+    }
+  }
+  @media #{$max767} {
+    .panel-primary {
+      margin: 0 10px;
+    }
+    .panel-footer, .panel-heading {
+      text-align: center;
+    }
+  }
+}

@@ -20,7 +20,6 @@ import {ProductsModule} from './products/products.module';
 import {AuthModule} from './auth/auth.module';
 import {AdminGuard} from './services/admin.guard';
 import {ConfigService} from './services/config.service';
-import { InactiveAppComponent } from './inactive-app/inactive-app.component';
 import {InactiveGuard} from './services/inactive.guard';
 import { HomeComponent } from './home/home.component';
 
@@ -30,7 +29,6 @@ import { HomeComponent } from './home/home.component';
         HeaderComponent,
         DropdownDirective,
         FooterComponent,
-        InactiveAppComponent,
         HomeComponent
     ],
     imports: [

@@ -1,0 +1,30 @@
+oms-cart {
+  .shopping-list > li {
+    color: #636363;
+    border-bottom: 1px solid rgba(20, 195, 17, 0.56);
+    & .item {
+      font-weight: bold;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @media #{$max767} {
+    .currentOrderDate, .panel-footer {
+      display: none;
+    }
+  }
+
+  .sidebar {
+    z-index: 1001;
+    background-color: transparent;
+  }
+}
+
+oms-products-selection, oms-cart {
+  .panel-body {
+    padding: 10px;
+  }
+
+}

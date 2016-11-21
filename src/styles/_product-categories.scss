@@ -1,0 +1,32 @@
+/* categories classes for background color */
+@each $color, $value in $productsColors {
+  tr.#{$color} {
+    td:first-child {
+      background-color: $value;
+    }
+    td > .label-primary {
+      background-color: darken($value, 30%);
+    }
+    &.selected {
+      td:first-child {
+        background-color: darken($value, 30%);
+      }
+    }
+  }
+
+  .nav-sidebar > li {
+    &.#{$color} {
+      & > a {
+        color: #fff;
+        border-left: 10px solid $value;
+        background-color: darken($value, 20%);
+        transition: border-left 0.3s, background-color 0.2s;
+      }
+      &.active > a, & a:hover {
+        border-left: 20px solid darken($value, 10%);
+        background-color: darken($value, 30%);
+      }
+    }
+
+  }
+}

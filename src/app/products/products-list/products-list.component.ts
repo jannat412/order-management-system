@@ -11,9 +11,7 @@ import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filt
 
 @Component( {
     selector: 'oms-order-list',
-    templateUrl: 'products-list.component.html',
-    styleUrls: ['products-list.component.scss'],
-
+    templateUrl: 'products-list.component.html'
 } )
 export class ProductsListComponent implements OnInit {
     private categories: ICategory[];

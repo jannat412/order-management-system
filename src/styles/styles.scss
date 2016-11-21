@@ -1,7 +1,15 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Lemonada:600');
-
+@import 'header';
+@import 'sidebar';
+@import 'cart';
+@import 'order-list';
+@import 'product-detail';
+@import 'product-categories';
+@import 'product-tags';
+@import 'product-count';
+@import 'footer';
 /*
  * Base structure
  */
@@ -25,57 +33,8 @@ h1 {
 }
 
 /*
- * Top navigation
- * Hide default border to remove 1px line.
- */
-.navbar-fixed-top {
-  border: 0;
-}
-
-/*
- * Sidebar
- */
-
-/* Hide for mobile, show later */
-.sidebar > :nth-child(n+2) {
-  display: none;
-}
-
-@media #{$min768} {
-  .sidebar {
-    position: fixed;
-    top: 51px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: $backgroundLightColor;
-    border-right: 1px solid #eee;
-    & > :nth-child(n+2) {
-      display: block;
-    }
-  }
-}
-
-/* Sidebar navigation */
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-  & > li > a {
-    padding-right: 20px;
-    padding-left: 20px;
-    cursor: pointer;
-  }
-
-}
-
-/*
  * Main content
  */
-
 .main {
   padding: 20px;
   .page-header {
@@ -103,105 +62,8 @@ oms-root {
   }
 }
 
-.footer {
-  > .container {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  ul {
-    text-align: center;
-    margin: 5px 0 0;
-    padding: 0;
-    li {
-      display: inline-block;
-      padding: 0 0.5em;
-    }
-  }
-  a {
-    font-size: $mediumFontSize;
-  }
-}
-
 .icon-vertical-align {
   vertical-align: text-top;
-}
-
-/* Products table cells responsiveness behavior
--------------------------------------------------- */
-/*
-  td(1) => product selected
-  td(2) => product image
-  td(3) => product name and price
-  td(4) => product tags
-  td(5) => product comment
-  td(6) => touchspin and counter
-*/
-oms-order-list {
-  td:nth-child(2) {
-    display: inline-block;
-  }
-  td:nth-child(6) {
-    min-width: 220px;
-  }
-  /* max 995px */
-  @media #{$maxTablet} {
-    td:nth-child(4) {
-      max-width: 70px;
-    }
-    td:nth-child(5) {
-      display: none;
-    }
-  }
-  /* max 767px */
-  @media #{$max767} {
-    td:nth-child(2) {
-      display: none;
-    }
-    h3 {
-      margin: 0;
-      font-size: 30px;
-    }
-    .panel-heading {
-      display: none;
-    }
-  }
-  /* max 660px */
-  @media #{$max660} {
-    td:nth-child(3) {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 120px;
-    }
-    td:nth-child(6) {
-      min-width: initial;
-      max-width: 80px;
-    }
-  }
-  /* max 510px */
-  @media #{$max510} {
-    td:nth-child(3) {
-      width: auto;
-    }
-    td:nth-child(1) {
-      width: 10px;
-    }
-    td:nth-child(4) {
-      display: none;
-    }
-    td:nth-child(6) {
-      min-width: initial;
-      max-width: initial;
-      width: 160px;
-    }
-    oms-name-filter-list {
-      display: none;
-    }
-    .panel-body {
-      padding: 0;
-
-    }
-  }
 }
 
 /* input with clear option
@@ -209,7 +71,6 @@ oms-order-list {
 .form-inline {
   margin-bottom: 5px;
 }
-
 /* Hide Internet Explorer default clear button
 using the ::-ms-clear CSS pseudo-element.*/
 ::-ms-clear {
@@ -237,94 +98,6 @@ using the ::-ms-clear CSS pseudo-element.*/
     display: inherit;
   }
 }
-
-/* details page */
-oms-product-detail {
-  .label {
-    font-size: $mediumFontSize;
-  }
-  .list-group-item {
-    border: none;
-    padding: 20px 15px;
-    list-style: none;
-    & > * {
-      display: list-item;
-    }
-  }
-  @media #{$max767} {
-    .panel-primary {
-      margin: 0 10px;
-    }
-    .panel-footer, .panel-heading {
-      text-align: center;
-    }
-  }
-}
-
-/* categories classes for background color */
-@each $color, $value in $productsColors {
-  tr.#{$color} {
-    td:first-child {
-      background-color: $value;
-    }
-    td > .label-primary {
-      background-color: darken($value, 30%);
-    }
-    &.selected {
-      td:first-child {
-        background-color: darken($value, 30%);
-      }
-    }
-  }
-
-  .nav-sidebar > li {
-    &.#{$color} {
-      & > a {
-        color: #fff;
-        border-left: 10px solid $value;
-        background-color: darken($value, 20%);
-        transition: border-left 0.3s, background-color 0.2s;
-      }
-      &.active > a, & a:hover {
-        border-left: 20px solid darken($value, 10%);
-        background-color: darken($value, 30%);
-      }
-    }
-
-  }
-}
-
-oms-cart {
-  .shopping-list > li {
-    color: #636363;
-    border-bottom: 1px solid rgba(20, 195, 17, 0.56);
-    & .item {
-      font-weight: bold;
-    }
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-
-  @media #{$max767} {
-    .currentOrderDate, .panel-footer {
-      display: none;
-    }
-  }
-
-  .sidebar {
-    z-index: 1001;
-    background-color: transparent;
-  }
-}
-
-oms-products-selection, oms-cart {
-  .panel-body {
-    padding: 10px;
-  }
-
-}
-
 /* input validation
 -------------------------------------------------- */
 input {

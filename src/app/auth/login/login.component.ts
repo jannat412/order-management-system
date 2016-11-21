@@ -5,8 +5,7 @@ import {Router} from '@angular/router';
 
 @Component( {
     selector: 'oms-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    templateUrl: './login.component.html'
 } )
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;

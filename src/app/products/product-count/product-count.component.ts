@@ -5,8 +5,7 @@ import {OrderService} from '../../services/order.service';
 
 @Component( {
     selector: 'oms-product-count',
-    templateUrl: './product-count.component.html',
-    styleUrls: ['product-count.component.scss']
+    templateUrl: './product-count.component.html'
 } )
 export class ProductCountComponent implements OnInit {
     @Input() product: IProduct;

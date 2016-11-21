@@ -6,8 +6,7 @@ import {ICategory} from '../../models/category';
 
 @Component( {
     selector: 'oms-category-filter-menu',
-    templateUrl: './category-filter-menu.component.html',
-    styleUrls: ['./category-filter-menu.component.scss']
+    templateUrl: './category-filter-menu.component.html'
 } )
 export class CategoryFilterMenuComponent implements OnInit {
     private categories: ICategory[];

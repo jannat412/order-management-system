@@ -2,8 +2,7 @@ import {Component, Output, EventEmitter, OnInit} from '@angular/core';
 
 @Component( {
     selector: 'oms-products-selection',
-    templateUrl: './products-selection.component.html',
-    styleUrls: ['./products-selection.component.scss']
+    templateUrl: './products-selection.component.html'
 } )
 export class ProductsSelectionComponent implements OnInit {
     @Output() private filterBySelected: EventEmitter<boolean> = new EventEmitter<boolean>();

@@ -5,8 +5,7 @@ import {TagsService} from '../../services/tags.service';
 
 @Component( {
     selector: 'oms-product-tags',
-    templateUrl: './product-tags.component.html',
-    styleUrls: ['product-tags.component.scss']
+    templateUrl: './product-tags.component.html'
 } )
 export class ProductTagsComponent implements OnInit {
     @Input() productKey: string;

@@ -5,8 +5,7 @@ import {ConfigService} from '../../services/config.service';
 
 @Component( {
     selector: 'oms-cart',
-    templateUrl: './cart.component.html',
-    styleUrls: ['./cart.component.scss']
+    templateUrl: './cart.component.html'
 } )
 export class CartComponent implements OnInit, OnDestroy {
     superTotal: number = 0;
@@ -42,6 +41,5 @@ export class CartComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.linesSubscription.unsubscribe();
-        this.currentDateSubscription.unsubscribe();
     }
 }
