@@ -19,6 +19,7 @@ import {FormsModule} from '@angular/forms';
 
 import {CartComponent} from './cart/cart.component';
 import {StyleActiveDirective} from '../directives/style-active.directive';
+import {SelectOnFocusDirective} from '../directives/select-on-focus.directive';
 
 @NgModule( {
     declarations: [
@@ -35,7 +36,8 @@ import {StyleActiveDirective} from '../directives/style-active.directive';
         TouchspinComponent,
         ProductsSelectionComponent,
         CartComponent,
-        StyleActiveDirective
+        StyleActiveDirective,
+        SelectOnFocusDirective
     ],
     imports: [
         CommonModule,
@@ -44,4 +46,5 @@ import {StyleActiveDirective} from '../directives/style-active.directive';
     ],
     providers: []
 } )
-export class ProductsModule {}
+export class ProductsModule {
+}

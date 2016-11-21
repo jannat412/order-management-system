@@ -7,10 +7,10 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 } )
 export class TouchspinComponent {
     @Input() private value: number = 0;
+    @Input() private step: number = 1;
     @Output() private touchspinChange: EventEmitter<number> = new EventEmitter<number>();
     private minimum: number = 0;
     private maximum: number = 100;
-    @Input() private step: number = 1;
 
     decrement = (): void => {
         if (this.value > this.minimum) {
@@ -26,6 +26,12 @@ export class TouchspinComponent {
 
     updateValue = (calc: number): void => {
         this.value = Math.round( calc * 100 ) / 100;
+        this.touchspinChange.emit( this.value );
+    };
+
+    onChange = (): void => {
+        // TODO detect invalid value
+        // TODO unify with updateValue
         this.touchspinChange.emit( this.value );
     };
 

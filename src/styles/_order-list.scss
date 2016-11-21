@@ -25,7 +25,7 @@ oms-order-list {
   .img-thumbnail {
     max-width: none;
   }
-  
+
   td:nth-child(2) {
     display: inline-block;
   }
@@ -50,8 +50,25 @@ oms-order-list {
       margin: 0;
       font-size: 30px;
     }
-    .main .panel-heading {
-      display: none;
+    .main {
+      .panel {
+        &-heading {
+          display: none;
+        }
+        &-body {
+          padding: 0;
+        }
+      }
+      oms-products-selection {
+        .panel {
+          &-success {
+            border: none;
+          }
+          &-body {
+            padding: 10px;
+          }
+        }
+      }
     }
   }
   /* max 660px */
@@ -86,9 +103,6 @@ oms-order-list {
     oms-name-filter-list {
       display: none;
     }
-    .panel-body {
-      padding: 0;
 
-    }
   }
 }
