@@ -37,4 +37,8 @@ export class LocalStorageService {
         }
     };
 
+    clearValue = (key) => {
+        this.ls.removeItem(key);
+    }
+
 }

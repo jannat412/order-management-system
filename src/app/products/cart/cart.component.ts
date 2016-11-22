@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {OrderService} from '../../services/order.service';
 import {Subscription} from 'rxjs';
 import {ConfigService} from '../../services/config.service';
-import {LocalStorageService} from '../../services/local-storage.service';
+import {OrderLocalStorageService} from '../../services/order-local-storage.service';
 
 @Component( {
     selector: 'oms-cart',
@@ -19,7 +19,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
     constructor(private orderService: OrderService,
                 private configService: ConfigService,
-                private localStorageService: LocalStorageService) {
+                private orderLocalStorageService: OrderLocalStorageService) {
     }
 
     ngOnInit() {
@@ -33,8 +33,8 @@ export class CartComponent implements OnInit, OnDestroy {
         this.linesSubscription = this.orderService.emittedOrder.subscribe(
             data => {
                 this.productLines = data;
-                this.localStorageService
-                    .saveValue(this.currentOrderKey, this.orderService.getOrder());
+                this.orderLocalStorageService
+                    .saveData(this.currentOrderKey, this.orderService.getOrder());
             }
         );
 
@@ -43,10 +43,11 @@ export class CartComponent implements OnInit, OnDestroy {
                 (data) => {
                     this.currentOrderKey = data.$key;
                     this.currentOrderDate = data.limitDate;
-                    let ls = this.localStorageService
-                        .getValue(this.currentOrderKey);
-                    if(ls) {
-                        this.orderService.setOrder(ls);
+                    let ls = this.orderLocalStorageService.getData();
+                    if(ls && ls.order === this.currentOrderKey && ls.data) {
+                        this.orderService.setOrder(ls.data);
+                    } else {
+                        this.orderLocalStorageService.clearData();
                     }
                 }
             )
