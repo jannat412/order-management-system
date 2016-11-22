@@ -9,13 +9,13 @@ export class LocalStorageService {
         this.ls = window.localStorage;
     }
 
-    existsKey = (key: string) => ls[key] !== 'undefined';
+    existsKey = (key: string) => this.ls[key] !== 'undefined';
 
     getValue = (key: string): any => {
         let returnValue;
 
         if (this.existsKey( key )) {
-            const value = ls[key];
+            const value = this.ls[key];
 
             try {
                 returnValue = JSON.parse( value );
@@ -33,7 +33,7 @@ export class LocalStorageService {
         if (typeof value === 'object') {
             this.ls[key] = JSON.stringify(value);
         } else {
-            this.ls[key] = val;
+            this.ls[key] = value;
         }
     };
 

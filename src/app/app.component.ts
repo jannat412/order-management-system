@@ -4,6 +4,7 @@ import {ProductsService} from './services/products.service';
 import {CategoriesService} from './services/categories.service';
 import {TagsService} from './services/tags.service';
 import {OrderService} from './services/order.service';
+import {LocalStorageService} from './services/local-storage.service';
 
 @Component( {
     selector: 'oms-root',
@@ -12,7 +13,8 @@ import {OrderService} from './services/order.service';
         ProductsService,
         CategoriesService,
         TagsService,
-        OrderService
+        OrderService,
+        LocalStorageService
     ]
 } )
 export class AppComponent {

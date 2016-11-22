@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {OrderService} from '../../services/order.service';
 import {Subscription} from 'rxjs';
 import {ConfigService} from '../../services/config.service';
+import {LocalStorageService} from '../../services/local-storage.service';
 
 @Component( {
     selector: 'oms-cart',
@@ -14,12 +15,15 @@ export class CartComponent implements OnInit, OnDestroy {
     currentDateSubscription: Subscription;
     productLines: any[] = [];
     currentOrderDate: string;
+    currentOrderKey: string;
 
     constructor(private orderService: OrderService,
-                private configService: ConfigService) {
+                private configService: ConfigService,
+                private localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
+
         this.superTotal = this.orderService.getTotalAmount();
         this.productLines = this.orderService.orderListToArray();
 
@@ -27,13 +31,23 @@ export class CartComponent implements OnInit, OnDestroy {
             data => this.superTotal = data
         );
         this.linesSubscription = this.orderService.emittedOrder.subscribe(
-            data => this.productLines = data
+            data => {
+                this.productLines = data;
+                this.localStorageService
+                    .saveValue(this.currentOrderKey, this.orderService.getOrder());
+            }
         );
 
         this.currentDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
+                    this.currentOrderKey = data.$key;
                     this.currentOrderDate = data.limitDate;
+                    let ls = this.localStorageService
+                        .getValue(this.currentOrderKey);
+                    if(ls) {
+                        this.orderService.setOrder(ls);
+                    }
                 }
             )
     }

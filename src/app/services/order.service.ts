@@ -6,6 +6,19 @@ export class OrderService {
     pushTotalAmount = new EventEmitter<number>();
     order = {};
     emittedOrder = new EventEmitter<any>();
+    lineDataEmitter = new EventEmitter<boolean>();
+
+    setOrder(obj) {
+        if(obj) {
+            this.order = obj || {};
+            this.lineDataEmitter.emit( true );
+            this.calculateTotalAmount();
+        }
+    }
+
+    getOrder(): any {
+        return this.order;
+    }
 
     addProductLine(productLine: any): void {
         if (productLine.quantity <= 0) {
@@ -41,6 +54,7 @@ export class OrderService {
 
         this.emittedOrder.emit( this.orderListToArray() );
         this.pushTotalAmount.emit( this.getTotalAmount() );
+
     }
 
     getLineData(key: string): any {
