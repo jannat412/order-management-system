@@ -43,6 +43,9 @@ oms-order-list {
   }
   /* max 767px */
   @media #{$max767} {
+    .table-responsive {
+      border: none;
+    }
     td:nth-child(2) {
       display: none;
     }
@@ -65,7 +68,7 @@ oms-order-list {
             border: none;
           }
           &-body {
-            padding: 10px;
+            padding: 0 20px;
           }
         }
       }

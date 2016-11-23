@@ -5,6 +5,7 @@ import {Directive, HostBinding, HostListener} from '@angular/core';
 })
 export class DropdownDirective {
   @HostBinding('class.open') isOpen: boolean = false;
+
   @HostListener('mouseenter') hasClicked() {
     this.isOpen = true;
   }

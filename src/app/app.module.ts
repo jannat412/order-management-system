@@ -22,12 +22,14 @@ import {AdminGuard} from './services/admin.guard';
 import {ConfigService} from './services/config.service';
 import {InactiveGuard} from './services/inactive.guard';
 import { HomeComponent } from './home/home.component';
+import {MenuCollapseDirective} from './directives/menu-collapse.directive';
 
 @NgModule( {
     declarations: [
         AppComponent,
         HeaderComponent,
         DropdownDirective,
+        MenuCollapseDirective,
         FooterComponent,
         HomeComponent
     ],
