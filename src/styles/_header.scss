@@ -31,7 +31,7 @@
         position: initial;
         float: left;
         max-height: 300px;
-        @include single-transition(max-height 0.15s ease-in);
+        @include single-transition(max-height 0.15s ease-out);
         width: 100%;
 
       }
@@ -43,7 +43,7 @@
       display: block;
       max-height: 0;
       overflow-y: hidden;
-      @include single-transition(max-height 0.3s ease-in);
+      @include single-transition(max-height 0.3s ease-out);
       &.in {
         max-height: 300px;
         @include single-transition(max-height 0.2s ease-out);

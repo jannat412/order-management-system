@@ -90,16 +90,26 @@ using the ::-ms-clear CSS pseudo-element.*/
   }
 }
 
-.with-clear input {
-  padding-right: 25px;
-  &:valid + .form-control-clear {
-    display: inherit;
+.with-clear {
+  @media #{$max767} {
+    margin: 0 20px;
   }
-}
-/* input validation
--------------------------------------------------- */
-input {
-  &.ng-invalid {
-    border-color: #a94442;
+  input {
+    padding-right: 25px;
+    &:valid + .form-control-clear {
+      display: inherit;
+    }
+  }
+  /* input validation
+  -------------------------------------------------- */
+  input {
+    &.ng-invalid {
+      border: 1px solid #a94442;
+      border-left: 10px solid #a94442;
+    }
+    &.ng-valid {
+      border: 1px solid #97c000;
+      border-left: 10px solid #97c000;
+    }
   }
 }

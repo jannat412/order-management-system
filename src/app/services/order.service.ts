@@ -8,19 +8,29 @@ export class OrderService {
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
 
-    setOrder(obj) {
-        if(obj) {
-            this.order = obj || {};
+    /**
+     * recover order from local storage
+     * @param obj
+     */
+    setOrder = (obj) => {
+        if (obj) {
+            this.order = obj;
             this.lineDataEmitter.emit( true );
             this.calculateTotalAmount();
         }
-    }
+    };
 
-    getOrder(): any {
-        return this.order;
-    }
+    /**
+     * return order
+     */
+    getOrder = (): any => this.order;
 
-    addProductLine(productLine: any): void {
+    /**
+     * add a product detail to order
+     * then recalculates total amount
+     * @param productLine
+     */
+    addProductLine = (productLine) => {
         if (productLine.quantity <= 0) {
             delete this.order[productLine.productKey];
         } else {
@@ -32,22 +42,30 @@ export class OrderService {
             };
         }
         this.calculateTotalAmount();
-    }
+    };
 
-    orderListToArray() {
+    /**
+     * generates the order list as an array
+     * @returns {Array}
+     */
+    orderListToArray = () => {
         let keys = [];
         for (let key in this.order) {
             keys.push( {key: key, value: this.order[key]} );
         }
         keys.sort( (a, b): any => a.value.name > b.value.name );
         return keys;
-    }
+    };
 
-    getTotalAmount(): number {
-        return this.totalAmount;
-    }
+    /**
+     * returns total amount
+     */
+    getTotalAmount = (): number => this.totalAmount;
 
-    calculateTotalAmount(): void {
+    /**
+     * calculates total amount and emits the new order list and total amount
+     */
+    calculateTotalAmount = (): void => {
         this.totalAmount = Object.keys( this.order ).reduce( (sum, key) => {
             return sum + this.order[key].total;
         }, 0 );
@@ -55,10 +73,12 @@ export class OrderService {
         this.emittedOrder.emit( this.orderListToArray() );
         this.pushTotalAmount.emit( this.getTotalAmount() );
 
-    }
+    };
 
-    getLineData(key: string): any {
-        return this.order[key] || null;
-    }
+    /**
+     * returns a given product item detail from order
+     * @param key
+     */
+    getLineData = (key: string): any => this.order[key] || null;
 
 }

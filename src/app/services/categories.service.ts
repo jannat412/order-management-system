@@ -8,6 +8,10 @@ export class CategoriesService {
 
     constructor(private db: AngularFireDatabase) {}
 
+    /**
+     * Products Categories Observable
+     * @returns {FirebaseListObservable<any[]>}
+     */
     getCategories(): Observable<ICategory[]> {
         return this.db.list( 'categories', {
             query: {
@@ -16,6 +20,11 @@ export class CategoriesService {
         } );
     }
 
+    /**
+     * Category for product
+     * @param id
+     * @returns {FirebaseObjectObservable<any>}
+     */
     getCategoryForProduct(id: string): Observable<ICategory> {
         let segment = `/categories/${id}`;
         return this.db.object( segment );

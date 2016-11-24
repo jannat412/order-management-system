@@ -10,18 +10,20 @@ export class ProductsService {
 
     constructor(private db: AngularFireDatabase) {}
 
-    getProducts(): Observable<IProduct[]> {
+    /**
+     * get list of products ordered by categories
+     * @returns {FirebaseListObservable<any[]>}
+     */
+    getProducts = (): Observable<IProduct[]> => {
         return this.db.list( 'products', {
-            query: {
-                orderByChild: 'categoryKey'
-            }
+            query: {orderByChild: 'categoryKey'}
         } );
-    }
+    };
 
-
-    getProduct(key: string): Observable<IProduct> {
-        let segment = `/products/${key}`;
-        return this.db.object( segment );
-    }
-
+    /**
+     * get a product item
+     * @param key
+     */
+    getProduct = (key: string): Observable<IProduct> =>
+        this.db.object( `/products/${key}` );
 }

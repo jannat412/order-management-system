@@ -6,18 +6,17 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class TagsService {
 
-    constructor(private db: AngularFireDatabase) {
-    }
+    constructor(private db: AngularFireDatabase) {}
 
-    getTagsForProduct(productKey: string): Observable<ITag[]> {
-
+    /**
+     * get tag labels for a product
+     * @param productKey
+     * @returns {Observable<R>}
+     */
+    getTagsForProduct = (productKey: string): Observable<ITag[]> => {
         return this.db.list( `tagsPerProduct/${productKey}` )
             .map( tags => tags
-                .map( tag => {
-                    return this.db.object( `tags/${tag.$key}` );
-                } ) )
+                .map( tag => this.db.object( `tags/${tag.$key}` )) )
             .flatMap( (tags) => Observable.combineLatest( tags ) );
-
-    }
-
+    };
 }

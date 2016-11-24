@@ -11,6 +11,11 @@ export class AuthService {
                 private router: Router) {
     }
 
+    /**
+     * login
+     * @param user
+     * @returns {Observable<any>}
+     */
     loginUser = (user: IUser): Observable<FirebaseAuthState> => {
         return this.fromAuthPromise( this.af.auth.login( {
             email: user.email,
@@ -18,7 +23,13 @@ export class AuthService {
         } ) );
     };
 
-    fromAuthPromise = (promise): Observable<any> => {
+    /**
+     * observe authentication user state
+     * private
+     * @param promise
+     * @returns {Observable<any>}
+     */
+    private fromAuthPromise = (promise): Observable<any> => {
         const subject = new Subject<any>();
         promise
             .then( res => {
@@ -32,19 +43,25 @@ export class AuthService {
         return subject.asObservable();
     };
 
-    logoutUser = () => {
-        this.af.auth.logout();
-    };
+    /**
+     * logout user
+     */
+    logoutUser = () => this.af.auth.logout();
 
+    /**
+     * check auth state
+     * @returns {Observable<R>}
+     */
     isUserLogged = (): Observable<boolean> => {
         return this.af.auth.map( (auth) => {
-            if (!auth) {
-                return false;
-            }
-            return true;
+            return !auth ? false : true;
         } );
     };
 
+    /**
+     * get user uid
+     * @returns {Observable<R>}
+     */
     getUserId = (): Observable<string> => {
         return this.af.auth
             .map( auth => {
