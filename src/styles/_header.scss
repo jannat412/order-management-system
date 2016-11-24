@@ -13,13 +13,13 @@
     @media #{$max767} {
       .dropdown-menu {
         position: initial;
-        transition: max-height 0.35s ease-out;
+        @include single-transition(max-height 0.25s ease-out);
         max-height: 0;
         display: inline-block;
         width: 100%;
         border: none;
         padding: 0;
-        box-shadow: none;
+        @include box-shadow(none);
         background-color: inherit;
         > li > a {
           padding: 5px 15px 5px 25px;
@@ -31,7 +31,7 @@
         position: initial;
         float: left;
         max-height: 300px;
-        transition: max-height 0.25s ease-in;
+        @include single-transition(max-height 0.15s ease-in);
         width: 100%;
 
       }
@@ -43,10 +43,10 @@
       display: block;
       max-height: 0;
       overflow-y: hidden;
-      transition: max-height 0.4s ease-in;
+      @include single-transition(max-height 0.3s ease-in);
       &.in {
         max-height: 300px;
-        transition: max-height 0.3s ease-out;
+        @include single-transition(max-height 0.2s ease-out);
       }
     }
 
