@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
 import {ITag} from '../models/tag';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class TagsService {

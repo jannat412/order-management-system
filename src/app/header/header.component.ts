@@ -3,7 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {ConfigService} from '../services/config.service';
-import {Subscription} from 'rxjs';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component( {
     selector: 'oms-header',
