@@ -5,7 +5,7 @@
         <span class="glyphicon glyphicon-minus"></span>
     </button>
 </div>
-<input #myValue [(ngModel)]="value"
+<input [(ngModel)]="value"
        (ngModelChange)="onChange(myValue)"
        selectOnFocus
        type="number" max="{{maximum}}" min="{{minimum}}" step="{{step}}"

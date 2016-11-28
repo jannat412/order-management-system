@@ -60,24 +60,24 @@ export class ProductsListComponent implements OnInit {
         return url;
     };
 
-    doFilter = (str: string): void => {
+    doFilter = (str: string) => {
         this.listFilter = str;
     };
 
-    doFilterCategory = (categoryKey: string): void => {
+    doFilterCategory = (categoryKey: string) => {
         this.categoryFilter = categoryKey;
     };
 
-    doFilterActive = (active: boolean): void => {
+    doFilterActive = (active: boolean) => {
         this.activeFilter = active;
     };
 
-    doFilterSelected = (selected: boolean): void => {
+    doFilterSelected = (selected: boolean) => {
         // reset all filters
         this.nameFilterComponent.clear();
         this.categoryFilterComponent.onFilterCategory('');
         this.categoryFilterComponent.onFilterActive(true);
         this.selectedFilter = selected;
-    }
+    };
 
 }

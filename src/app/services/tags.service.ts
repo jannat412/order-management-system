@@ -1,23 +1,24 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
 import {ITag} from '../models/tag';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class TagsService {
 
-    constructor(private db: AngularFireDatabase) {
-    }
+    constructor(private db: AngularFireDatabase) {}
 
-    getTagsForProduct(productKey: string): Observable<ITag[]> {
-
+    /**
+     * get tag labels for a product
+     * @param productKey
+     * @returns {Observable<R>}
+     */
+    getTagsForProduct = (productKey: string): Observable<ITag[]> => {
         return this.db.list( `tagsPerProduct/${productKey}` )
             .map( tags => tags
-                .map( tag => {
-                    return this.db.object( `tags/${tag.$key}` );
-                } ) )
+                .map( tag => this.db.object( `tags/${tag.$key}` )) )
             .flatMap( (tags) => Observable.combineLatest( tags ) );
-
-    }
-
+    };
 }

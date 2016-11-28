@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class ConfigService {
@@ -8,29 +10,40 @@ export class ConfigService {
     constructor(private db: AngularFireDatabase) {
     }
 
+    /**
+     * Is app Active
+     * @returns {Observable<R>}
+     */
     getActive(): Observable<any> {
         return this.db.object( 'config/active' )
             .map( active => active.$value );
     }
 
+    /**
+     * toggle on / off app
+     * @param val
+     * @param date
+     */
     setActive(val: boolean, date: string) {
         const activeNode = this.db.object( '/config' );
-        activeNode.update( {
-            active: val
-        } );
-        if (val) {
-            this.createCurrentOrder( date );
-        }
+        activeNode.update( {active: val} );
+        if (val) this.createCurrentOrder( date );
     }
 
+    /**
+     * get the limit date for the current order
+     * @returns {Observable<R>}
+     */
     getCurrentOrderDate(): Observable<any> {
         return this.db.object( 'config/currentOrder' )
-            .map( currentOrder => this.db.object( `weekOrder/${currentOrder.$value}` ))
-                .switchMap( val => {
-                    return val;
-                } );
+            .map( currentOrder => this.db.object( `weekOrder/${currentOrder.$value}` ) )
+            .switchMap( val => val );
     }
 
+    /**
+     * creates a new order entry and updates config.currentOrder accordling
+     * @param date
+     */
     private createCurrentOrder(date: string) {
         let nextThursday = ConfigService.getNextThursday();
         if (nextThursday !== date) {
@@ -48,6 +61,12 @@ export class ConfigService {
 
     }
 
+    /**
+     * private
+     * static
+     * calculates the date for the next thursday (limit date to order)
+     * @returns {string}
+     */
     private static getNextThursday() {
         const date = new Date();
         const day = date.getDay() || 7;

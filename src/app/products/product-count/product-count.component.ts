@@ -22,13 +22,13 @@ export class ProductCountComponent implements OnInit {
             data => data ? this.getData() : null
         );
         this.getData();
-        this.isSelected();
     }
 
     getData() {
         const line = this.orderService.getLineData( this.product.$key );
         this.quantity = line ? line.quantity : 0;
         this.total = line ? line.total : 0;
+        this.isSelected();
     }
 
     isSelected() {

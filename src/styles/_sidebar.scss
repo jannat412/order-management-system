@@ -6,9 +6,30 @@
 .sidebar > :nth-child(n+2) {
   display: none;
 }
-
+@media #{$max767} {
+  .sidebar {
+    position: fixed;
+    bottom: -20px;
+    z-index: 1000;
+    width: 100%;
+    padding: 0;
+    .panel-success {
+      & > .panel-heading {
+        color: #f5f5f5;
+        background-color: #5cb85c;
+        border-bottom: none;
+        @include border-top-right-radius(0);
+        @include border-top-left-radius(0);
+      }
+      & > .panel-body {
+        padding: 15px;
+      }
+    }
+  }
+}
 @media #{$min768} {
   .sidebar {
+    z-index: 1;
     position: fixed;
     top: 0;
     bottom: 0;
