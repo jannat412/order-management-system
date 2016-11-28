@@ -18,6 +18,9 @@ export class ProductCountComponent implements OnInit {
 
     ngOnInit() {
         this.step = this.product.step;
+        this.orderService.lineDataEmitter.subscribe(
+            data => data ? this.getData() : null
+        );
         this.getData();
         this.isSelected();
     }
