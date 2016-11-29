@@ -7,8 +7,7 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class ConfigService {
 
-    constructor(private db: AngularFireDatabase) {
-    }
+    constructor(private db: AngularFireDatabase) {}
 
     /**
      * Is app Active
@@ -31,11 +30,20 @@ export class ConfigService {
     }
 
     /**
+     * get the key for the current order active
+     * @returns {FirebaseObjectObservable<any>}
+     */
+    getCurrentOrderKey(): Observable<any> {
+        return this.db.object( 'config/currentOrder' )
+            .map( orderKey => orderKey.$value );;
+    }
+
+    /**
      * get the limit date for the current order
      * @returns {Observable<R>}
      */
     getCurrentOrderDate(): Observable<any> {
-        return this.db.object( 'config/currentOrder' )
+        return this.getCurrentOrderKey()
             .map( currentOrder => this.db.object( `weekOrder/${currentOrder.$value}` ) )
             .switchMap( val => val );
     }

@@ -22,6 +22,10 @@ export class CartComponent implements OnInit, OnDestroy {
                 private orderLocalStorageService: OrderLocalStorageService) {
     }
 
+    saveData = () => {
+        this.orderService.saveOrder();
+    };
+
     ngOnInit() {
 
         this.superTotal = this.orderService.getTotalAmount();

@@ -1,4 +1,8 @@
 import {Injectable, EventEmitter} from '@angular/core';
+import {database} from 'firebase';
+import {AngularFireDatabase} from 'angularfire2';
+import {ConfigService} from './config.service';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class OrderService {
@@ -7,6 +11,11 @@ export class OrderService {
     order = {};
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
+
+    constructor(private db: AngularFireDatabase,
+                private configService: ConfigService,
+                private authService: AuthService) {
+    }
 
     /**
      * recover order from local storage
@@ -80,5 +89,38 @@ export class OrderService {
      * @param key
      */
     getLineData = (key: string): any => this.order[key] || null;
+
+    /**
+     * push a new order to orders table
+     */
+    saveOrder = () => {
+        this.authService.getUserId()
+            .subscribe(
+                (uid) => {
+                    this.configService.getCurrentOrderKey()
+                        .subscribe(
+                            (data) => {
+                                const orders = this.db.list( '/orders' );
+                                orders.push( {
+                                    weekOrderKey: data,
+                                    order: this.getOrder(),
+                                    user: uid
+                                } )
+                                    .then( keyData => this.saveOrderPerUser( keyData, uid ) );
+                            } );
+                } );
+    };
+
+
+    /**
+     * creates a new row on  ordersPerUser table based on user key and order key
+     * @param keyData
+     * @param uid
+     */
+    private saveOrderPerUser = (keyData, uid) => {
+        const ordersPerUser = database().ref( `/ordersPerUser/${uid}` );
+        const ordersPerUserAssociation = ordersPerUser.child( keyData.key );
+        ordersPerUserAssociation.set( true );
+    };
 
 }
