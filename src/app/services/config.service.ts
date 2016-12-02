@@ -7,7 +7,8 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class ConfigService {
 
-    constructor(private db: AngularFireDatabase) {}
+    constructor(private db: AngularFireDatabase) {
+    }
 
     /**
      * Is app Active
@@ -35,7 +36,8 @@ export class ConfigService {
      */
     getCurrentOrderKey(): Observable<any> {
         return this.db.object( 'config/currentOrder' )
-            .map( orderKey => orderKey.$value );;
+            .map( orderKey => orderKey.$value );
+        ;
     }
 
     /**
@@ -44,8 +46,10 @@ export class ConfigService {
      */
     getCurrentOrderDate(): Observable<any> {
         return this.getCurrentOrderKey()
-            .map( currentOrder => this.db.object( `weekOrder/${currentOrder.$value}` ) )
-            .switchMap( val => val );
+            .map( currentOrder => {
+                return this.db.object( `weekOrder/${currentOrder}` )
+            } )
+            .flatMap( val => val );
     }
 
     /**

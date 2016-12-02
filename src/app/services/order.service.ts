@@ -3,6 +3,7 @@ import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {ConfigService} from './config.service';
 import {AuthService} from './auth.service';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class OrderService {
@@ -94,33 +95,77 @@ export class OrderService {
      * push a new order to orders table
      */
     saveOrder = () => {
-        this.authService.getUserId()
-            .subscribe(
-                (uid) => {
-                    this.configService.getCurrentOrderKey()
-                        .subscribe(
-                            (data) => {
-                                const orders = this.db.list( '/orders' );
-                                orders.push( {
-                                    weekOrderKey: data,
-                                    order: this.getOrder(),
-                                    user: uid
-                                } )
-                                    .then( keyData => this.saveOrderPerUser( keyData, uid ) );
+
+        this.authService.getUserId().subscribe(
+            (uid) => {
+                this.configService.getCurrentOrderKey().subscribe(
+                    (currentOrderKey) => {
+                        this.checkIfOrderExists( uid, currentOrderKey ).subscribe(
+                            (userOrder) => {
+                                if (userOrder) {
+                                    // update order
+                                    const order = this.db.object( `/orders/${userOrder}` );
+                                    order.update( {order: this.getOrder()} );
+                                } else {
+                                    // create order
+                                    this.createNewOrder( uid, currentOrderKey );
+                                }
+
                             } );
-                } );
+                    } );
+
+            } );
     };
 
+    /**
+     * check if order exists for user and current Order week, and if so, return the key of the order
+     * @param uid
+     * @param currentOrderKey
+     * @returns {Observable<R>}
+     */
+    private checkIfOrderExists = (uid, currentOrderKey): Observable<any> => {
+        return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey}` )
+            .map( (order) => order ? order.$value : false );
+    };
 
     /**
-     * creates a new row on  ordersPerUser table based on user key and order key
+     * pushes a new order
+     * @param uid
+     * @param currentOrderKey
+     */
+    private createNewOrder = (uid, currentOrderKey) => {
+        const orders = this.db.list( '/orders' );
+        orders.push( {
+            weekOrderKey: currentOrderKey,
+            order: this.getOrder(),
+            user: uid
+        } )
+            .then( keyData => {
+                this.saveOrderPerUser( keyData, currentOrderKey, uid );
+                this.saveOrderPerWeekOrder( keyData, currentOrderKey );
+            } );
+    };
+
+    /**
+     * creates a new row on ordersPerUser table based on user key and order key
      * @param keyData
      * @param uid
      */
-    private saveOrderPerUser = (keyData, uid) => {
+    private saveOrderPerUser = (keyData, currentOrderKey, uid) => {
         const ordersPerUser = database().ref( `/ordersPerUser/${uid}` );
-        const ordersPerUserAssociation = ordersPerUser.child( keyData.key );
-        ordersPerUserAssociation.set( true );
+        const ordersPerUserAssociation = ordersPerUser.child( currentOrderKey );
+        ordersPerUserAssociation.set( keyData.key );
     };
+
+    /**
+     * creates a new row on weekOrder orders table based on current order key and order key
+     * @param keyData
+     * @param currentOrderKey
+     */
+    private saveOrderPerWeekOrder = (keyData, currentOrderKey) => {
+        const orderPerWeekOrders = database().ref( `/weekOrder/${currentOrderKey}/orders` );
+        const ordersPerWeekAssociation = orderPerWeekOrders.child( keyData.key );
+        ordersPerWeekAssociation.set( true );
+    }
 
 }

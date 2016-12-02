@@ -38,7 +38,7 @@ export class CartComponent implements OnInit, OnDestroy {
             data => {
                 this.productLines = data;
                 this.orderLocalStorageService
-                    .saveData(this.currentOrderKey, this.orderService.getOrder());
+                    .saveData( this.currentOrderKey, this.orderService.getOrder() );
             }
         );
 
@@ -48,8 +48,8 @@ export class CartComponent implements OnInit, OnDestroy {
                     this.currentOrderKey = data.$key;
                     this.currentOrderDate = data.limitDate;
                     let ls = this.orderLocalStorageService.getData();
-                    if(ls && ls.order === this.currentOrderKey && ls.data) {
-                        this.orderService.setOrder(ls.data);
+                    if (ls && ls.order === this.currentOrderKey && ls.data) {
+                        this.orderService.setOrder( ls.data );
                     } else {
                         this.orderLocalStorageService.clearData();
                     }
