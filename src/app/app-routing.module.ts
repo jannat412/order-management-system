@@ -1,7 +1,7 @@
 import {Routes, RouterModule} from '@angular/router';
 
-import {ProductDetailComponent} from './products/product-detail/product-detail.component';
-import {ProductsListComponent} from './products/products-list/products-list.component';
+import {ProductDetailComponent} from './order/product-detail/product-detail.component';
+import {ProductsListComponent} from './order/products-list/products-list.component';
 import {LoginComponent} from './auth/login/login.component';
 import {AuthGuard} from './services/auth.guard';
 import {InactiveGuard} from './services/inactive.guard';

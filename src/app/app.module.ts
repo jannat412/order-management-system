@@ -16,7 +16,7 @@ import {AuthGuard} from './services/auth.guard';
 import {AuthService} from './services/auth.service';
 import {UserService} from './services/user.service';
 
-import {ProductsModule} from './products/products.module';
+import {ProductsModule} from './order/products.module';
 import {AuthModule} from './auth/auth.module';
 import {AdminGuard} from './services/admin.guard';
 import {ConfigService} from './services/config.service';
