@@ -41,6 +41,8 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "prefixInterfaces": true
+    "prefixInterfaces": true,
+    "viewEncapsulation": "Emulated",
+    "changeDetection": "Default"
   }
 }

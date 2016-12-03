@@ -93,28 +93,32 @@ export class OrderService {
     getLineData = (key: string): any => this.order[key] || null;
 
     /**
-     * push a new order to orders table
+     * init push a new order to orders table
      */
     saveOrder = () => {
-
         this.authService.getUserId().subscribe(
-            (uid) => {
-                this.configService.getCurrentOrderKey().subscribe(
-                    (currentOrderKey) => {
-                        this.checkIfOrderExists( uid, currentOrderKey ).subscribe(
-                            (userOrder) => {
-                                if (userOrder) {
-                                    // update order
-                                    const order = this.db.object( `/orders/${userOrder}` );
-                                    order.update( {order: this.getOrder()} );
-                                } else {
-                                    // create order
-                                    this.createNewOrder( uid, currentOrderKey );
-                                }
+            (uid) => this.getOrderKeyAndSaveOrUpdate( uid )
+        );
+    };
 
-                            } );
+    /**
+     * check if order exists and creates or updates it
+     * @param uid
+     */
+    private getOrderKeyAndSaveOrUpdate = (uid: string) => {
+        this.configService.getCurrentOrderKey().subscribe(
+            (currentOrderKey) => {
+                this.checkIfOrderExists( uid, currentOrderKey ).subscribe(
+                    (userOrder) => {
+                        if (userOrder) {
+                            // update order
+                            this.updateOrder( userOrder );
+                        } else {
+                            // create order
+                            this.createNewOrder( uid, currentOrderKey );
+                        }
+
                     } );
-
             } );
     };
 
@@ -122,7 +126,7 @@ export class OrderService {
      * check if order exists for user and current Order week, and if so, return the key of the order
      * @param uid
      * @param currentOrderKey
-     * @returns {Observable<R>}
+     * @returns {Observable<any>}
      */
     private checkIfOrderExists = (uid, currentOrderKey): Observable<any> => {
         return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey}` )
@@ -148,8 +152,18 @@ export class OrderService {
     };
 
     /**
+     * if exists order updates de order parameter
+     * @param order
+     */
+    private updateOrder = (order) => {
+        const order = this.db.object( `/orders/${order}` );
+        order.update( {order: this.getOrder()} );
+    };
+
+    /**
      * creates a new row on ordersPerUser table based on user key and order key
      * @param keyData
+     * @param currentOrderKey
      * @param uid
      */
     private saveOrderPerUser = (keyData, currentOrderKey, uid) => {

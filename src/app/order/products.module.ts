@@ -12,12 +12,13 @@ import {CategoryFilterMenuComponent} from './category-filter-menu/category-filte
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {ProductCountComponent} from './product-count/product-count.component';
 import {TouchspinComponent} from '../directives/touchspin/touchspin.component';
+import {CartComponent} from './cart/cart.component';
+import {ResumeComponent} from './resume/resume.component';
 
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
-import {CartComponent} from './cart/cart.component';
 import {StyleActiveDirective} from '../directives/style-active.directive';
 import {SelectOnFocusDirective} from '../directives/select-on-focus.directive';
 
@@ -33,6 +34,7 @@ import {SelectOnFocusDirective} from '../directives/select-on-focus.directive';
         CategoryFilterMenuComponent,
         ProductDetailComponent,
         ProductCountComponent,
+        ResumeComponent,
         TouchspinComponent,
         ProductsSelectionComponent,
         CartComponent,
