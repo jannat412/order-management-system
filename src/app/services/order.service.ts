@@ -152,11 +152,11 @@ export class OrderService {
     };
 
     /**
-     * if exists order updates de order parameter
-     * @param order
+     * updates the orders/{orderKey} node
+     * @param orderKey
      */
-    private updateOrder = (order) => {
-        const order = this.db.object( `/orders/${order}` );
+    private updateOrder = (orderKey) => {
+        const order = this.db.object( `/orders/${orderKey}` );
         order.update( {order: this.getOrder()} );
     };
 

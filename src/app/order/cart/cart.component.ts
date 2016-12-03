@@ -3,6 +3,7 @@ import {OrderService} from '../../services/order.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services/config.service';
 import {OrderLocalStorageService} from '../../services/order-local-storage.service';
+import {Router} from '@angular/router';
 
 @Component( {
     selector: 'oms-cart',
@@ -19,11 +20,12 @@ export class CartComponent implements OnInit, OnDestroy {
 
     constructor(private orderService: OrderService,
                 private configService: ConfigService,
-                private orderLocalStorageService: OrderLocalStorageService) {
+                private orderLocalStorageService: OrderLocalStorageService,
+    private router: Router) {
     }
 
-    saveData = () => {
-        this.orderService.saveOrder();
+    goToResume = () => {
+        this.router.navigate(['/comanda/resum']);
     };
 
     ngOnInit() {
