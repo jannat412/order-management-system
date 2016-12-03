@@ -1,9 +1,10 @@
 import {Injectable, EventEmitter} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {ConfigService} from './config.service';
 import {AuthService} from './auth.service';
-import {Observable} from 'rxjs';
+
 
 @Injectable()
 export class OrderService {

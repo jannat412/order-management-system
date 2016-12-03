@@ -12,22 +12,20 @@ export class CategoriesService {
      * Products Categories Observable
      * @returns {FirebaseListObservable<any[]>}
      */
-    getCategories(): Observable<ICategory[]> {
+    getCategories = (): Observable<ICategory[]> => {
         return this.db.list( 'categories', {
             query: {
                 orderByKey: true
             }
         } );
-    }
+    };
 
     /**
      * Category for product
      * @param id
      * @returns {FirebaseObjectObservable<any>}
      */
-    getCategoryForProduct(id: string): Observable<ICategory> {
-        let segment = `/categories/${id}`;
-        return this.db.object( segment );
-    }
+    getCategoryForProduct =
+        (id: string): Observable<ICategory> => this.db.object( `/categories/${id}` );
 
 }

@@ -8,15 +8,15 @@ import {Subscription} from 'rxjs/Subscription';
 } )
 export class AdminComponent implements OnInit, OnDestroy {
 
-    configSubscription: Subscription;
+    configActiveSubscription: Subscription;
+    configCurrentOrderSubscription: Subscription;
     isActive: boolean = false;
     activeLabel: string = '';
     buttonLabel: string = '';
     errorMessage: any;
     currentOrderDate: string;
 
-    constructor(private configService: ConfigService) {
-    }
+    constructor(private configService: ConfigService) {}
 
     updateLabels = () => {
         this.buttonLabel = this.isActive ? 'Desactivar' : 'Activar';
@@ -26,32 +26,35 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     toggleActivation = () => {
         this.isActive = !this.isActive;
-        this.configService.setActive( this.isActive,  this.currentOrderDate);
+        this.configService.setActive( this.isActive, this.currentOrderDate );
     };
 
     ngOnInit() {
-        this.configSubscription = this.configService.getActive()
-            .subscribe(
-                (data) => {
-                    this.isActive = data;
-                    this.updateLabels();
-                },
-                (error) => {
-                    console.log( error );
-                    this.errorMessage = <any>error
-                }
-            );
+        this.configActiveSubscription =
+            this.configService.getActive()
+                .subscribe(
+                    (data) => {
+                        this.isActive = data;
+                        this.updateLabels();
+                    },
+                    (error) => {
+                        console.log( error );
+                        this.errorMessage = <any>error
+                    }
+                );
 
-        this.configService.getCurrentOrderDate()
-            .subscribe(
-                (data) => {
-                    this.currentOrderDate = data.limitDate;
-                }
-            )
+        this.configCurrentOrderSubscription =
+            this.configService.getCurrentOrderDate()
+                .subscribe(
+                    (data) => {
+                        this.currentOrderDate = data.limitDate;
+                    }
+                )
     }
 
     ngOnDestroy() {
-        this.configSubscription.unsubscribe()
+        this.configActiveSubscription.unsubscribe();
+        this.configCurrentOrderSubscription.unsubscribe();
     }
 
 }

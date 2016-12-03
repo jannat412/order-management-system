@@ -22,7 +22,7 @@ export class UserService {
                     return this.db.object( `/users/${uid}/role` )
                         .map( role => role.$value );
                 }
-                return '';
+                return uid;
             } )
 
     };

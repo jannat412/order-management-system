@@ -55,20 +55,17 @@ export class AuthService {
      * check auth state
      * @returns {Observable<R>}
      */
-    isUserLogged = (): Observable<boolean> => {
-        return this.af.auth.map( (auth) => {
-            return !auth ? false : true;
-        } );
-    };
+    isUserLogged = (): Observable<boolean> => this.af.auth
+        .map( (auth) => !!auth );
 
     /**
      * get user uid
      * @returns {Observable<R>}
      */
-    getUserId = (): Observable<string> => {
+    getUserId = (): Observable<any> => {
         return this.af.auth
             .map( auth => {
-                return (auth && auth.uid) ? auth.uid : '';
+                return (auth && auth.uid) ? auth.uid : false;
             } );
     };
 }
