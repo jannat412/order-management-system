@@ -33,7 +33,7 @@
                             <td><img [src]="getThumbUrl(product.imgName)"
                                      class="img-thumbnail"></td>
                             <td>
-                                <a [routerLink]="['/producte', product.$key]">{{product.name}}</a>
+                                <a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
                                 <br>
                                 <p class="label label-primary">
                                     {{product.price | number:'1.2-2'}} € / {{product.unity}}

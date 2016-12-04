@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfigService} from '../services/config.service';
 import {Subscription} from 'rxjs';
+import {AngularFireDatabase, FirebaseUrl} from 'angularfire2';
 
 @Component( {
     selector: 'oms-home',
@@ -19,8 +20,7 @@ export class HomeComponent implements OnInit {
     updateLabels = () => {
         this.activeLabel =
             this.isActive ?
-                '<h2>Ja pots fer la teva comanda</h2>' :
-                '<h2>Ho sentim! Comanda no activa</h2><p>Normalment la comanda es pot fer entre dijous al tard i dilluns de matí.</p>';
+                'Ja pots fer la teva comanda' : 'Ho sentim! Comanda no activa';
     };
 
 

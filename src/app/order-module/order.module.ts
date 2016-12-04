@@ -21,6 +21,15 @@ import {FormsModule} from '@angular/forms';
 
 import {StyleActiveDirective} from '../directives/style-active.directive';
 import {SelectOnFocusDirective} from '../directives/select-on-focus.directive';
+import {orderRouting} from './order-routing.module';
+import {ProductsService} from '../services/products.service';
+import {CategoriesService} from '../services/categories.service';
+import {OrderService} from '../services/order.service';
+import {LocalStorageService} from '../services/local-storage.service';
+import {TagsService} from '../services/tags.service';
+import {OrderLocalStorageService} from '../services/order-local-storage.service';
+import {AuthGuard} from '../services/auth.guard';
+import {InactiveGuard} from '../services/inactive.guard';
 
 @NgModule( {
     declarations: [
@@ -44,9 +53,19 @@ import {SelectOnFocusDirective} from '../directives/select-on-focus.directive';
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule
+        RouterModule,
+        orderRouting
     ],
-    providers: []
+    providers: [
+        AuthGuard,
+        InactiveGuard,
+        ProductsService,
+        CategoriesService,
+        TagsService,
+        OrderService,
+        LocalStorageService,
+        OrderLocalStorageService
+    ]
 } )
-export class ProductsModule {
+export class OrderModule {
 }
