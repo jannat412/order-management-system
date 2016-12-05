@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfigService} from '../services/config.service';
 import {Subscription} from 'rxjs';
-import {AngularFireDatabase, FirebaseUrl} from 'angularfire2';
 
 @Component( {
     selector: 'oms-home',

@@ -8,9 +8,11 @@ import {AuthService} from './auth.service';
 
 @Injectable()
 export class OrderService {
+
     private totalAmount: number = 0;
     pushTotalAmount = new EventEmitter<number>();
     order = {};
+    comment: string = '';
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
 
@@ -95,10 +97,14 @@ export class OrderService {
     /**
      * init push a new order to orders table
      */
-    saveOrder = () => {
+    saveOrder = (comment: string) => {
         this.authService.getUserId().subscribe(
             (uid) => this.getOrderKeyAndSaveOrUpdate( uid )
         );
+    };
+
+    saveComment = (comment: string) => {
+      this.comment = comment;
     };
 
     /**
@@ -143,7 +149,8 @@ export class OrderService {
         orders.push( {
             weekOrderKey: currentOrderKey,
             order: this.getOrder(),
-            user: uid
+            user: uid,
+            comment: this.comment
         } )
             .then( keyData => {
                 this.saveOrderPerUser( keyData, currentOrderKey, uid );
@@ -157,7 +164,7 @@ export class OrderService {
      */
     private updateOrder = (orderKey) => {
         const order = this.db.object( `/orders/${orderKey}` );
-        order.update( {order: this.getOrder()} );
+        order.update( {order: this.getOrder(), comment: this.comment} );
     };
 
     /**
