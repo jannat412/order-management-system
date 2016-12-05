@@ -4,6 +4,7 @@ import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {ConfigService} from './config.service';
 import {AuthService} from './auth.service';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Injectable()
@@ -16,6 +17,7 @@ export class OrderService {
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
     saveOrderEmitter = new EventEmitter<string>();
+    saveOrderSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService,
@@ -115,17 +117,14 @@ export class OrderService {
     private getOrderKeyAndSaveOrUpdate = (uid: string) => {
         this.configService.getCurrentOrderKey().subscribe(
             (currentOrderKey) => {
-                this.checkIfOrderExists( uid, currentOrderKey ).subscribe(
-                    (userOrder) => {
-                        if (userOrder) {
-                            // update order
-                            this.updateOrder( userOrder );
-                        } else {
-                            // create order
-                            this.createNewOrder( uid, currentOrderKey );
-                        }
-
-                    } );
+                this.saveOrderSubscription =
+                    this.checkIfOrderExists( uid, currentOrderKey )
+                        .subscribe(
+                            (userOrder) => {
+                                userOrder ?
+                                    this.updateOrder( userOrder ) :
+                                    this.createNewOrder( uid, currentOrderKey );
+                            } );
             } );
     };
 
@@ -156,7 +155,8 @@ export class OrderService {
             .then( keyData => {
                 this.saveOrderPerUser( keyData, currentOrderKey, uid );
                 this.saveOrderPerWeekOrder( keyData, currentOrderKey );
-                this.saveOrderEmitter.emit( {status: true, type: 'createOrder'} );
+                this.saveOrderEmitter.emit( {status: true, message: 'create'} );
+                this.saveOrderSubscription.unsubscribe();
             } );
     };
 
@@ -167,8 +167,9 @@ export class OrderService {
     private updateOrder = (orderKey) => {
         const order = this.db.object( `/orders/${orderKey}` );
         order.update( {order: this.getOrder(), comment: this.comment} )
-            .then( () => {
-                this.saveOrderEmitter.emit( {status: true, type: 'updateOrder'} );
+            .then( data => {
+                this.saveOrderEmitter.emit( {status: true, message: 'update'} );
+                this.saveOrderSubscription.unsubscribe();
             } );
     };
 

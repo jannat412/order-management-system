@@ -44,9 +44,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
                         this.orderService.setOrder( ls.data );
                     } else {
                         this.orderLocalStorageService.clearData();
-
                     }
-
                 }
             );
 
@@ -58,6 +56,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.currentDateSubscription.unsubscribe();
         this.linesSubscription.unsubscribe();
+        this.saveSubscription.unsubscribe();
     }
 
 }
