@@ -15,6 +15,7 @@ export class OrderService {
     comment: string = '';
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
+    saveOrderEmitter = new EventEmitter<string>();
 
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService,
@@ -104,7 +105,7 @@ export class OrderService {
     };
 
     saveComment = (comment: string) => {
-      this.comment = comment;
+        this.comment = comment;
     };
 
     /**
@@ -155,6 +156,7 @@ export class OrderService {
             .then( keyData => {
                 this.saveOrderPerUser( keyData, currentOrderKey, uid );
                 this.saveOrderPerWeekOrder( keyData, currentOrderKey );
+                this.saveOrderEmitter.emit( {status: true, type: 'createOrder'} );
             } );
     };
 
@@ -164,7 +166,10 @@ export class OrderService {
      */
     private updateOrder = (orderKey) => {
         const order = this.db.object( `/orders/${orderKey}` );
-        order.update( {order: this.getOrder(), comment: this.comment} );
+        order.update( {order: this.getOrder(), comment: this.comment} )
+            .then( () => {
+                this.saveOrderEmitter.emit( {status: true, type: 'updateOrder'} );
+            } );
     };
 
     /**

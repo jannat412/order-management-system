@@ -1,30 +1,38 @@
 <main class="container-fluid">
+    <div *ngIf="!orderSaved">
+        <h1>Resum de la teva comanda</h1>
+        <strong>Entrega: {{currentOrderDate | date:'d/MM/y'}}</strong>
+        <form class="form-horizontal">
+            <ul class="shopping-list list-unstyled">
+                <li *ngFor="let line of productLines">
+                    <small class="item">{{line.value.name}}</small>
+                    <small class="item-detail">
+                        {{line.value.quantity}} {{line.value.unity}} | {{line.value.total | number:'1.2-2'}}€
+                    </small>
+                </li>
+            </ul>
+            <div class="form-group">
+                <label for="comment">
+                    Comentaris</label>
+                <textarea class="form-control" rows="3" id="comment"
+                          [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="comment"></textarea>
+                <span id="helpBlock"
+                      class="help-block">
+                    Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
+                </span>
+            </div>
+            <div class="form-group">
+                <button (click)="saveOrder()" class="btn btn-success">Guardar comanda</button>
+            </div>
+        </form>
+    </div>
 
-    <h1>Resum de la teva comanda</h1>
-    <strong>Entrega: {{currentOrderDate | date:'d/MM/y'}}</strong>
-    <form class="form-horizontal">
-        <ul class="shopping-list list-unstyled">
-            <li *ngFor="let line of productLines">
-                <small class="item">{{line.value.name}}</small>
-                <small class="item-detail">
-                    {{line.value.quantity}} {{line.value.unity}} | {{line.value.total | number:'1.2-2'}}€
-                </small>
-            </li>
-        </ul>
+    <div *ngIf="orderSaved">
+        <h1>Gràcies per la teva comanda!</h1>
+        <p>Si vols descarregar-te un resum de la teva comanda fes click</p>
         <div class="form-group">
-            <label for="comment">
-                Comentaris</label>
-            <textarea class="form-control" rows="3" id="comment"
-                      [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="comment"></textarea>
-            <span id="helpBlock"
-                  class="help-block">
-                Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
-            </span>
+            <button class="btn btn-success">Guardar còpia</button>
         </div>
-        <div class="form-group">
-            <button (click)="saveOrder()" class="btn btn-success">Guardar comanda</button>
-        </div>
-    </form>
-
+    </div>
 </main>

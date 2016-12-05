@@ -11,9 +11,11 @@ import {OrderLocalStorageService} from '../../services/order-local-storage.servi
 export class ResumeComponent implements OnInit, OnDestroy {
 
     comment: string = '';
+    orderSaved: boolean = false;
     currentOrderDate: string;
     currentDateSubscription: Subscription;
     linesSubscription: Subscription;
+    saveSubscription: Subscription;
     productLines: any[] = [];
 
     constructor(private orderService: OrderService,
@@ -47,6 +49,10 @@ export class ResumeComponent implements OnInit, OnDestroy {
 
                 }
             );
+
+        this.saveSubscription = this.orderService.saveOrderEmitter.subscribe(
+            (data) => this.orderSaved = data.status || false
+        );
     }
 
     ngOnDestroy() {
