@@ -33,15 +33,12 @@ export class OrderService {
         this.currentOrderKey = orderKey;
         let ls = this.orderLocalStorageService.getData();
         if (ls && ls.order === this.currentOrderKey && ls.data) {
-            if (ls.data) {
-                this.order = ls.data;
-                this.lineDataEmitter.emit( true );
-                this.calculateTotalAmount();
-            }
+            this.order = ls.data;
+            this.lineDataEmitter.emit( true );
+            this.calculateTotalAmount();
         } else {
             this.orderLocalStorageService.clearData();
         }
-
     };
 
     /**
@@ -99,6 +96,9 @@ export class OrderService {
         this.totalAmount = Object.keys( this.order ).reduce( (sum, key) => {
             return sum + this.order[key].total;
         }, 0 );
+
+        this.orderLocalStorageService
+            .saveData( this.currentOrderKey, this.getOrder() );
 
         this.emittedOrder.emit( this.orderListToArray() );
         this.pushTotalAmount.emit( this.getTotalAmount() );
