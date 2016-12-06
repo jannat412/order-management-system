@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services/config.service';
 import {OrderService} from '../../services/order.service';
-import {OrderLocalStorageService} from '../../services/order-local-storage.service';
 
 @Component( {
     selector: 'oms-resume',
@@ -19,14 +18,13 @@ export class ResumeComponent implements OnInit, OnDestroy {
     productLines: any[] = [];
 
     constructor(private orderService: OrderService,
-                private configService: ConfigService,
-                private orderLocalStorageService: OrderLocalStorageService) {
+                private configService: ConfigService) {
     }
 
     // TODO - recuperar comment from firebase and check also if it is different
     // TODO (user could want to erase the message
     saveOrder = () => {
-        if (this.comment.trim().length) this.orderService.saveComment(this.comment);
+        if (this.comment.trim().length) this.orderService.saveComment( this.comment );
         this.orderService.saveOrder();
     };
 
@@ -39,12 +37,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
             .subscribe(
                 (data) => {
                     this.currentOrderDate = data.limitDate;
-                    let ls = this.orderLocalStorageService.getData();
-                    if (ls && ls.order === data.$key && ls.data) {
-                        this.orderService.setOrder( ls.data );
-                    } else {
-                        this.orderLocalStorageService.clearData();
-                    }
+                    this.orderService.getOrderFromLStorage( data.$key );
                 }
             );
 

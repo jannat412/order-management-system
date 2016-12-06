@@ -2,38 +2,46 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
-import {ConfigService} from './config.service';
 import {AuthService} from './auth.service';
 import {Subscription} from 'rxjs/Subscription';
+import {OrderLocalStorageService} from './order-local-storage.service';
 
 
 @Injectable()
 export class OrderService {
 
     private totalAmount: number = 0;
+    private currentOrderKey: string;
+    private order = {};
+    private comment: string = '';
     pushTotalAmount = new EventEmitter<number>();
-    order = {};
-    comment: string = '';
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
-    saveOrderEmitter = new EventEmitter<string>();
+    saveOrderEmitter = new EventEmitter<any>();
     saveOrderSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
-                private configService: ConfigService,
+                private orderLocalStorageService: OrderLocalStorageService,
                 private authService: AuthService) {
     }
 
     /**
      * recover order from local storage
-     * @param obj
+     * @param orderKey
      */
-    setOrder = (obj) => {
-        if (obj) {
-            this.order = obj;
-            this.lineDataEmitter.emit( true );
-            this.calculateTotalAmount();
+    getOrderFromLStorage = (orderKey: string) => {
+        this.currentOrderKey = orderKey;
+        let ls = this.orderLocalStorageService.getData();
+        if (ls && ls.order === this.currentOrderKey && ls.data) {
+            if (ls.data) {
+                this.order = ls.data;
+                this.lineDataEmitter.emit( true );
+                this.calculateTotalAmount();
+            }
+        } else {
+            this.orderLocalStorageService.clearData();
         }
+
     };
 
     /**
@@ -61,6 +69,12 @@ export class OrderService {
     };
 
     /**
+     * returns a given product item detail from order
+     * @param key
+     */
+    getLineData = (key: string): any => this.order[key] || null;
+
+    /**
      * generates the order list as an array
      * @returns {Array}
      */
@@ -81,26 +95,21 @@ export class OrderService {
     /**
      * calculates total amount and emits the new order list and total amount
      */
-    calculateTotalAmount = (): void => {
+    private calculateTotalAmount = (): void => {
         this.totalAmount = Object.keys( this.order ).reduce( (sum, key) => {
             return sum + this.order[key].total;
         }, 0 );
 
         this.emittedOrder.emit( this.orderListToArray() );
         this.pushTotalAmount.emit( this.getTotalAmount() );
-
     };
 
-    /**
-     * returns a given product item detail from order
-     * @param key
-     */
-    getLineData = (key: string): any => this.order[key] || null;
 
+    /************ SAVE TO FIREBASE ************/
     /**
      * init push a new order to orders table
      */
-    saveOrder = (comment: string) => {
+    saveOrder = () => {
         this.authService.getUserId().subscribe(
             (uid) => this.getOrderKeyAndSaveOrUpdate( uid )
         );
@@ -115,17 +124,13 @@ export class OrderService {
      * @param uid
      */
     private getOrderKeyAndSaveOrUpdate = (uid: string) => {
-        this.configService.getCurrentOrderKey().subscribe(
-            (currentOrderKey) => {
-                this.saveOrderSubscription =
-                    this.checkIfOrderExists( uid, currentOrderKey )
-                        .subscribe(
-                            (userOrder) => {
-                                userOrder ?
-                                    this.updateOrder( userOrder ) :
-                                    this.createNewOrder( uid, currentOrderKey );
-                            } );
-            } );
+        this.saveOrderSubscription = this.checkIfOrderExists( uid )
+            .subscribe(
+                (userOrder) => {
+                    userOrder ?
+                        this.updateOrder( userOrder ) :
+                        this.createNewOrder( uid );
+                } );
     };
 
     /**
@@ -134,8 +139,8 @@ export class OrderService {
      * @param currentOrderKey
      * @returns {Observable<any>}
      */
-    private checkIfOrderExists = (uid, currentOrderKey): Observable<any> => {
-        return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey}` )
+    private checkIfOrderExists = (uid): Observable<any> => {
+        return this.db.object( `/ordersPerUser/${uid}/${this.currentOrderKey}` )
             .map( (order) => order ? order.$value : false );
     };
 
@@ -144,17 +149,17 @@ export class OrderService {
      * @param uid
      * @param currentOrderKey
      */
-    private createNewOrder = (uid, currentOrderKey) => {
+    private createNewOrder = (uid) => {
         const orders = this.db.list( '/orders' );
         orders.push( {
-            weekOrderKey: currentOrderKey,
+            weekOrderKey: this.currentOrderKey,
             order: this.getOrder(),
             user: uid,
             comment: this.comment
         } )
             .then( keyData => {
-                this.saveOrderPerUser( keyData, currentOrderKey, uid );
-                this.saveOrderPerWeekOrder( keyData, currentOrderKey );
+                this.saveOrderPerUser( keyData, uid );
+                this.saveOrderPerWeekOrder( keyData );
                 this.saveOrderEmitter.emit( {status: true, message: 'create'} );
                 this.saveOrderSubscription.unsubscribe();
             } );
@@ -179,9 +184,9 @@ export class OrderService {
      * @param currentOrderKey
      * @param uid
      */
-    private saveOrderPerUser = (keyData, currentOrderKey, uid) => {
+    private saveOrderPerUser = (keyData, uid) => {
         const ordersPerUser = database().ref( `/ordersPerUser/${uid}` );
-        const ordersPerUserAssociation = ordersPerUser.child( currentOrderKey );
+        const ordersPerUserAssociation = ordersPerUser.child( this.currentOrderKey );
         ordersPerUserAssociation.set( keyData.key );
     };
 
@@ -190,8 +195,8 @@ export class OrderService {
      * @param keyData
      * @param currentOrderKey
      */
-    private saveOrderPerWeekOrder = (keyData, currentOrderKey) => {
-        const orderPerWeekOrders = database().ref( `/weekOrder/${currentOrderKey}/orders` );
+    private saveOrderPerWeekOrder = (keyData) => {
+        const orderPerWeekOrders = database().ref( `/weekOrder/${this.currentOrderKey}/orders` );
         const ordersPerWeekAssociation = orderPerWeekOrders.child( keyData.key );
         ordersPerWeekAssociation.set( true );
     }

@@ -49,12 +49,7 @@ export class CartComponent implements OnInit, OnDestroy {
                 (data) => {
                     this.currentOrderKey = data.$key;
                     this.currentOrderDate = data.limitDate;
-                    let ls = this.orderLocalStorageService.getData();
-                    if (ls && ls.order === this.currentOrderKey && ls.data) {
-                        this.orderService.setOrder( ls.data );
-                    } else {
-                        this.orderLocalStorageService.clearData();
-                    }
+                    this.orderService.getOrderFromLStorage(this.currentOrderKey);
                 }
             )
     }
