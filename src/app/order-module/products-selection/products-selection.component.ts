@@ -15,7 +15,8 @@ export class ProductsSelectionComponent implements OnInit {
         this.activeMessage = this.getMessage();
     };
 
-    private getMessage = () => this.selectedFilterStatus ? 'Mostra\'m tots els productes' : 'Mostra\'m el que he seleccionat';
+    private getMessage = () => this.selectedFilterStatus ?
+        'Mostra\'m tots els productes' : 'Mostra\'m el que he seleccionat';
 
     ngOnInit() {
         this.activeMessage = this.getMessage();

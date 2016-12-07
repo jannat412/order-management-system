@@ -14,9 +14,9 @@ export class CartComponent implements OnInit, OnDestroy {
     private productLines: any[] = [];
     private currentOrderDate: string;
     private currentOrderKey: string;
-    totalAmountSubscription: Subscription;
-    linesSubscription: Subscription;
-    currentDateSubscription: Subscription;
+    private totalAmountSubscription: Subscription;
+    private linesSubscription: Subscription;
+    private currentDateSubscription: Subscription;
 
     constructor(private orderService: OrderService,
                 private configService: ConfigService,
@@ -28,22 +28,24 @@ export class CartComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.totalAmountSubscription = this.orderService.pushTotalAmount.subscribe(
-            data => this.superTotal = data
-        );
+        this.totalAmountSubscription = this.orderService.pushTotalAmount
+            .subscribe(
+                data => this.superTotal = data
+            );
 
-        this.linesSubscription = this.orderService.emittedOrder.subscribe(
-            data => this.productLines = data
-        );
+        this.linesSubscription = this.orderService.emittedOrder
+            .subscribe(
+                data => this.productLines = data
+            );
 
         this.currentDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
                     this.currentOrderKey = data.$key;
                     this.currentOrderDate = data.limitDate;
-                    this.orderService.getOrderFromLStorage( this.currentOrderKey );
                 }
-            )
+            );
+        this.orderService.getInitOrder();
     }
 
     ngOnDestroy() {

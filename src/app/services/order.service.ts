@@ -5,6 +5,7 @@ import {AngularFireDatabase} from 'angularfire2';
 import {AuthService} from './auth.service';
 import {Subscription} from 'rxjs/Subscription';
 import {OrderLocalStorageService} from './order-local-storage.service';
+import {ConfigService} from './config.service';
 
 
 @Injectable()
@@ -21,30 +22,37 @@ export class OrderService {
     saveOrderSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
+                private configService: ConfigService,
                 private orderLocalStorageService: OrderLocalStorageService,
                 private authService: AuthService) {
-    }
 
-    /**
-     * recover order from local storage
-     * @param orderKey
-     */
-    getOrderFromLStorage = (orderKey: string) => {
-        this.currentOrderKey = orderKey;
-        let ls = this.orderLocalStorageService.getData();
-        if (ls && ls.order === this.currentOrderKey && ls.data) {
-            this.order = ls.data;
-            this.lineDataEmitter.emit( true );
-            this.calculateTotalAmount();
-        } else {
-            this.orderLocalStorageService.clearData();
-        }
-    };
+        this.configService.getCurrentOrderDate()
+            .subscribe(
+                (data) => {
+                    this.currentOrderKey = data.$key;
+                    let ls = this.orderLocalStorageService.getData();
+
+                    if (ls && ls.order === this.currentOrderKey && ls.data) {
+                        this.order = ls.data;
+                        this.calculateTotalAmount();
+                        this.getInitOrder();
+                        this.lineDataEmitter.emit( true );
+                    } else {
+                        this.orderLocalStorageService.clearData();
+                    }
+
+                } );
+    }
 
     /**
      * return order
      */
     getOrder = (): any => this.order;
+
+    getInitOrder = () => {
+        this.emittedOrder.emit( this.orderListToArray() );
+        this.pushTotalAmount.emit( this.getTotalAmount() );
+    };
 
     /**
      * add a product detail to order
@@ -63,6 +71,7 @@ export class OrderService {
             };
         }
         this.calculateTotalAmount();
+        this.getInitOrder();
     };
 
     /**
@@ -93,15 +102,13 @@ export class OrderService {
      * calculates total amount and emits the new order list and total amount
      */
     private calculateTotalAmount = (): void => {
-        this.totalAmount = Object.keys( this.order ).reduce( (sum, key) => {
+        this.totalAmount = Math.round(Object.keys( this.order ).reduce( (sum, key) => {
             return sum + this.order[key].total;
-        }, 0 );
+        }, 0 ) * 1e2) / 1e2;
 
         this.orderLocalStorageService
             .saveData( this.currentOrderKey, this.getOrder() );
 
-        this.emittedOrder.emit( this.orderListToArray() );
-        this.pushTotalAmount.emit( this.getTotalAmount() );
     };
 
 

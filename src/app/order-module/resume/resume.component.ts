@@ -37,13 +37,14 @@ export class ResumeComponent implements OnInit, OnDestroy {
             .subscribe(
                 (data) => {
                     this.currentOrderDate = data.limitDate;
-                    this.orderService.getOrderFromLStorage( data.$key );
                 }
             );
 
         this.saveSubscription = this.orderService.saveOrderEmitter.subscribe(
             (data) => this.orderSaved = data.status || false
         );
+
+        this.orderService.getInitOrder();
     }
 
     ngOnDestroy() {
