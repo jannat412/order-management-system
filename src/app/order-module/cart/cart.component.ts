@@ -3,6 +3,7 @@ import {OrderService} from '../../services/order.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services/config.service';
 import {Router} from '@angular/router';
+import {IOrderLine} from '../../models/IOrderLine';
 
 @Component( {
     selector: 'oms-cart',
@@ -11,7 +12,7 @@ import {Router} from '@angular/router';
 export class CartComponent implements OnInit, OnDestroy {
 
     private superTotal: number = 0;
-    private productLines: any[] = [];
+    private productLines: IOrderLine[] = [];
     private currentOrderDate: string;
     private currentOrderKey: string;
     private totalAmountSubscription: Subscription;

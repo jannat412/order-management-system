@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services/config.service';
 import {OrderService} from '../../services/order.service';
+import {IOrderLine} from '../../models/orderLine';
 
 @Component( {
     selector: 'oms-resume',
@@ -15,7 +16,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
     currentDateSubscription: Subscription;
     linesSubscription: Subscription;
     saveSubscription: Subscription;
-    productLines: any[] = [];
+    productLines: IOrderLine[] = [];
 
     constructor(private orderService: OrderService,
                 private configService: ConfigService) {

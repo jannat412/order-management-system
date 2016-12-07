@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LocalStorageService} from './local-storage.service';
+import {IOrderLine} from '../models/orderLine';
 
 @Injectable()
 export class OrderLocalStorageService {
@@ -19,9 +20,10 @@ export class OrderLocalStorageService {
      * @param orderKey
      * @param data
      */
-    saveData = (orderKey: string, data: any) => {
+    saveData = (orderKey: string, data: IOrderLine) => {
         this.localStorageService.saveValue( this.guid, {
-            order: orderKey, data: data
+            order: orderKey,
+            data: data
         } );
     };
 

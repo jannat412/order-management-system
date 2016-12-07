@@ -1,22 +1,22 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {AuthService} from './auth.service';
-import {Subscription} from 'rxjs/Subscription';
 import {OrderLocalStorageService} from './order-local-storage.service';
 import {ConfigService} from './config.service';
-
+import {IOrderLine} from '../models/orderLine';
 
 @Injectable()
 export class OrderService {
 
     private totalAmount: number = 0;
     private currentOrderKey: string;
-    private order = {};
+    private order = <IOrderLine>{};
     private comment: string = '';
     pushTotalAmount = new EventEmitter<number>();
-    emittedOrder = new EventEmitter<any>();
+    emittedOrder = new EventEmitter<IOrderLine>();
     lineDataEmitter = new EventEmitter<boolean>();
     saveOrderEmitter = new EventEmitter<any>();
     saveOrderSubscription: Subscription;
