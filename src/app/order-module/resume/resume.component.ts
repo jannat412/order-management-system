@@ -30,7 +30,6 @@ export class ResumeComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-
         this.linesSubscription = this.orderService.emittedOrder.subscribe(
             data => this.productLines = data
         );

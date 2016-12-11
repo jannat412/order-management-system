@@ -16,17 +16,18 @@ export class OrderService {
     private order = <IOrderLine>{};
     private comment: string = '';
     pushTotalAmount = new EventEmitter<number>();
-    emittedOrder = new EventEmitter<IOrderLine>();
+    emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
     saveOrderEmitter = new EventEmitter<any>();
     saveOrderSubscription: Subscription;
+    currentOrderDateSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService,
                 private orderLocalStorageService: OrderLocalStorageService,
                 private authService: AuthService) {
 
-        this.configService.getCurrentOrderDate()
+        this.currentOrderDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
                     this.currentOrderKey = data.$key;
@@ -143,7 +144,6 @@ export class OrderService {
     /**
      * check if order exists for user and current Order week, and if so, return the key of the order
      * @param uid
-     * @param currentOrderKey
      * @returns {Observable<any>}
      */
     private checkIfOrderExists = (uid): Observable<any> => {
@@ -154,7 +154,6 @@ export class OrderService {
     /**
      * pushes a new order
      * @param uid
-     * @param currentOrderKey
      */
     private createNewOrder = (uid) => {
         const orders = this.db.list( '/orders' );
@@ -188,7 +187,6 @@ export class OrderService {
     /**
      * creates a new row on ordersPerUser table based on user key and order key
      * @param keyData
-     * @param currentOrderKey
      * @param uid
      */
     private saveOrderPerUser = (keyData, uid) => {
@@ -200,7 +198,6 @@ export class OrderService {
     /**
      * creates a new row on weekOrder orders table based on current order key and order key
      * @param keyData
-     * @param currentOrderKey
      */
     private saveOrderPerWeekOrder = (keyData) => {
         const orderPerWeekOrders = database().ref( `/weekOrder/${this.currentOrderKey}/orders` );

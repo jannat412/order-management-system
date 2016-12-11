@@ -3,7 +3,7 @@ import {OrderService} from '../../services/order.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services/config.service';
 import {Router} from '@angular/router';
-import {IOrderLine} from '../../models/IOrderLine';
+import {IOrderLine} from '../../models/orderLine';
 
 @Component( {
     selector: 'oms-cart',

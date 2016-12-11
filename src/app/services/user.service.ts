@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
 
 @Injectable()
