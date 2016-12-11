@@ -14,6 +14,7 @@ export class OrderService {
     private uid: string;
     private totalAmount: number = 0;
     private currentOrderKey: string;
+    private userOrderKey: string;
     private order = <IOrderLine>{};
     private comment: string = '';
     pushTotalAmount = new EventEmitter<number>();
@@ -22,7 +23,7 @@ export class OrderService {
     saveOrderEmitter = new EventEmitter<any>();
     saveOrderSubscription: Subscription;
     currentOrderDateSubscription: Subscription;
-    orderIsSavedSubscription: Subscription;
+    orderExistsSubscription: Subscription;
     uidSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
@@ -33,21 +34,47 @@ export class OrderService {
         this.uidSubscription = this.authService.getUserId().subscribe(
             (uid) => this.uid = uid
         );
-        //this.orderIsSavedSubscription = this.checkIfOrderExists()
+
+
         this.currentOrderDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
                     this.currentOrderKey = data.$key;
-                    let ls = this.orderLocalStorageService.getData();
+                    this.orderExistsSubscription = this.checkIfOrderExists().subscribe(
+                        (order) => {
+                            if (order) {
+                                this.userOrderKey = order;
+                                if (!this.userOrderKey) {
+                                    let ls = this.orderLocalStorageService.getData();
 
-                    if (ls && ls.order === this.currentOrderKey && ls.data) {
-                        this.order = ls.data;
-                        this.calculateTotalAmount();
-                        this.getInitOrder();
-                        this.lineDataEmitter.emit( true );
-                    } else {
-                        this.orderLocalStorageService.clearData();
-                    }
+                                    if (ls && ls.order === this.currentOrderKey && ls.data) {
+                                        this.order = ls.data;
+                                        this.calculateTotalAmount();
+                                        this.getInitOrder();
+                                        this.lineDataEmitter.emit( true );
+                                    } else {
+                                        this.orderLocalStorageService.clearData();
+                                    }
+                                } else {
+                                    console.log( 'order saved' );
+                                    const order = this.db.list( `/orders/${this.userOrderKey}/order/` );
+                                    order.subscribe(
+                                        (data) => {
+                                            this.order = <IOrderLine>{};
+                                            let self = this;
+                                            data.forEach(function(productLine) {
+                                                self.addProductLine(productLine);
+                                            });
+                                            this.calculateTotalAmount();
+                                            this.getInitOrder();
+                                            this.lineDataEmitter.emit( true );
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    );
+
 
                 } );
     }
@@ -69,9 +96,9 @@ export class OrderService {
      */
     addProductLine = (productLine) => {
         if (productLine.quantity <= 0) {
-            delete this.order[productLine.productKey];
+            delete this.order[productLine.$key];
         } else {
-            this.order[productLine.productKey] = {
+            this.order[productLine.$key] = {
                 name: productLine.name,
                 unity: productLine.unity,
                 quantity: productLine.quantity,
@@ -128,21 +155,13 @@ export class OrderService {
 
     /**
      * check if order exists and creates or updates it
-     * @param uid
      */
     saveOrder = () => {
-        this.saveOrderSubscription = this.checkIfOrderExists()
-            .subscribe(
-                (userOrder) => {
-                    userOrder ?
-                        this.updateOrder( userOrder ) :
-                        this.createNewOrder();
-                } );
+        this.userOrderKey ? this.updateOrder() : this.createNewOrder();
     };
 
     /**
      * check if order exists for user and current Order week, and if so, return the key of the order
-     * @param uid
      * @returns {Observable<any>}
      */
     checkIfOrderExists = (): Observable<any> => {
@@ -152,7 +171,6 @@ export class OrderService {
 
     /**
      * pushes a new order
-     * @param uid
      */
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
@@ -172,12 +190,11 @@ export class OrderService {
 
     /**
      * updates the orders/{orderKey} node
-     * @param orderKey
      */
-    private updateOrder = (orderKey) => {
-        const order = this.db.object( `/orders/${orderKey}` );
+    private updateOrder = () => {
+        const order = this.db.object( `/orders/${this.userOrderKey}` );
         order.update( {order: this.getOrder(), comment: this.comment} )
-            .then( data => {
+            .then( () => {
                 this.saveOrderEmitter.emit( {status: true, message: 'update'} );
                 this.saveOrderSubscription.unsubscribe();
             } );

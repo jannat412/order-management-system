@@ -41,7 +41,7 @@ export class ProductCountComponent implements OnInit {
                 this.quantity * this.product.price * 100 ) / 100;
 
         this.orderService.addProductLine( {
-            productKey: this.product.$key,
+            $key: this.product.$key,
             name: this.product.name,
             quantity: this.quantity,
             unity: this.product.unity,
