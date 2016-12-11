@@ -11,6 +11,7 @@ import {IOrderLine} from '../models/orderLine';
 @Injectable()
 export class OrderService {
 
+    private uid: string;
     private totalAmount: number = 0;
     private currentOrderKey: string;
     private order = <IOrderLine>{};
@@ -21,12 +22,18 @@ export class OrderService {
     saveOrderEmitter = new EventEmitter<any>();
     saveOrderSubscription: Subscription;
     currentOrderDateSubscription: Subscription;
+    orderIsSavedSubscription: Subscription;
+    uidSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService,
                 private orderLocalStorageService: OrderLocalStorageService,
                 private authService: AuthService) {
 
+        this.uidSubscription = this.authService.getUserId().subscribe(
+            (uid) => this.uid = uid
+        );
+        //this.orderIsSavedSubscription = this.checkIfOrderExists()
         this.currentOrderDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
@@ -103,9 +110,9 @@ export class OrderService {
      * calculates total amount and emits the new order list and total amount
      */
     private calculateTotalAmount = (): void => {
-        this.totalAmount = Math.round(Object.keys( this.order ).reduce( (sum, key) => {
-            return sum + this.order[key].total;
-        }, 0 ) * 1e2) / 1e2;
+        this.totalAmount = Math.round( Object.keys( this.order ).reduce( (sum, key) => {
+                    return sum + this.order[key].total;
+                }, 0 ) * 1e2 ) / 1e2;
 
         this.orderLocalStorageService
             .saveData( this.currentOrderKey, this.getOrder() );
@@ -114,14 +121,6 @@ export class OrderService {
 
 
     /************ SAVE TO FIREBASE ************/
-    /**
-     * init push a new order to orders table
-     */
-    saveOrder = () => {
-        this.authService.getUserId().subscribe(
-            (uid) => this.getOrderKeyAndSaveOrUpdate( uid )
-        );
-    };
 
     saveComment = (comment: string) => {
         this.comment = comment;
@@ -131,13 +130,13 @@ export class OrderService {
      * check if order exists and creates or updates it
      * @param uid
      */
-    private getOrderKeyAndSaveOrUpdate = (uid: string) => {
-        this.saveOrderSubscription = this.checkIfOrderExists( uid )
+    saveOrder = () => {
+        this.saveOrderSubscription = this.checkIfOrderExists()
             .subscribe(
                 (userOrder) => {
                     userOrder ?
                         this.updateOrder( userOrder ) :
-                        this.createNewOrder( uid );
+                        this.createNewOrder();
                 } );
     };
 
@@ -146,8 +145,8 @@ export class OrderService {
      * @param uid
      * @returns {Observable<any>}
      */
-    private checkIfOrderExists = (uid): Observable<any> => {
-        return this.db.object( `/ordersPerUser/${uid}/${this.currentOrderKey}` )
+    checkIfOrderExists = (): Observable<any> => {
+        return this.db.object( `/ordersPerUser/${this.uid}/${this.currentOrderKey}` )
             .map( (order) => order ? order.$value : false );
     };
 
@@ -155,16 +154,16 @@ export class OrderService {
      * pushes a new order
      * @param uid
      */
-    private createNewOrder = (uid) => {
+    private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
         orders.push( {
             weekOrderKey: this.currentOrderKey,
             order: this.getOrder(),
-            user: uid,
+            user: this.uid,
             comment: this.comment
         } )
             .then( keyData => {
-                this.saveOrderPerUser( keyData, uid );
+                this.saveOrderPerUser( keyData );
                 this.saveOrderPerWeekOrder( keyData );
                 this.saveOrderEmitter.emit( {status: true, message: 'create'} );
                 this.saveOrderSubscription.unsubscribe();
@@ -189,8 +188,8 @@ export class OrderService {
      * @param keyData
      * @param uid
      */
-    private saveOrderPerUser = (keyData, uid) => {
-        const ordersPerUser = database().ref( `/ordersPerUser/${uid}` );
+    private saveOrderPerUser = (keyData) => {
+        const ordersPerUser = database().ref( `/ordersPerUser/${this.uid}` );
         const ordersPerUserAssociation = ordersPerUser.child( this.currentOrderKey );
         ordersPerUserAssociation.set( keyData.key );
     };
