@@ -1,10 +1,8 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
 import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {AuthService} from './auth.service';
-import {OrderLocalStorageService} from './order-local-storage.service';
 import {ConfigService} from './config.service';
 import {IOrderLine} from '../models/orderLine';
 
@@ -21,61 +19,43 @@ export class OrderService {
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
     saveOrderEmitter = new EventEmitter<any>();
-    saveOrderSubscription: Subscription;
-    currentOrderDateSubscription: Subscription;
-    orderExistsSubscription: Subscription;
-    uidSubscription: Subscription;
 
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService,
-                private orderLocalStorageService: OrderLocalStorageService,
                 private authService: AuthService) {
 
-        this.uidSubscription = this.authService.getUserId().subscribe(
-            (uid) => this.uid = uid
-        );
+        this.authService.getUserId()
+            .subscribe(
+                (uid) => this.uid = uid
+            ).unsubscribe();
 
-
-        this.currentOrderDateSubscription = this.configService.getCurrentOrderDate()
+        let currentOrderDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
                     this.currentOrderKey = data.$key;
-                    this.orderExistsSubscription = this.checkIfOrderExists().subscribe(
-                        (order) => {
-                            if (order) {
-                                this.userOrderKey = order;
-                                if (!this.userOrderKey) {
-                                    let ls = this.orderLocalStorageService.getData();
+                    let checkIfOrderExistSubscription = this.checkIfOrderExists().subscribe(
+                        (userOrder) => {
+                            this.order = <IOrderLine>{};
+                            if (userOrder) {
+                                this.userOrderKey = userOrder;
 
-                                    if (ls && ls.order === this.currentOrderKey && ls.data) {
-                                        this.order = ls.data;
-                                        this.calculateTotalAmount();
-                                        this.getInitOrder();
-                                        this.lineDataEmitter.emit( true );
-                                    } else {
-                                        this.orderLocalStorageService.clearData();
-                                    }
-                                } else {
-                                    console.log( 'order saved' );
-                                    const order = this.db.list( `/orders/${this.userOrderKey}/order/` );
-                                    order.subscribe(
+                                this.db.list( `/orders/${this.userOrderKey}/order/` )
+                                    .subscribe(
                                         (data) => {
-                                            this.order = <IOrderLine>{};
                                             let self = this;
-                                            data.forEach(function(productLine) {
-                                                self.addProductLine(productLine);
-                                            });
+                                            data.forEach( function (productLine) {
+                                                self.addProductLine( productLine );
+                                            } );
                                             this.calculateTotalAmount();
                                             this.getInitOrder();
                                             this.lineDataEmitter.emit( true );
                                         }
-                                    )
-                                }
+                                    );
                             }
+                            checkIfOrderExistSubscription.unsubscribe();
                         }
                     );
-
-
+                    currentOrderDateSubscription.unsubscribe();
                 } );
     }
 
@@ -119,7 +99,7 @@ export class OrderService {
      * generates the order list as an array
      * @returns {Array}
      */
-    orderListToArray = () => {
+    private orderListToArray = () => {
         let keys = [];
         for (let key in this.order) {
             keys.push( {key: key, value: this.order[key]} );
@@ -140,10 +120,6 @@ export class OrderService {
         this.totalAmount = Math.round( Object.keys( this.order ).reduce( (sum, key) => {
                     return sum + this.order[key].total;
                 }, 0 ) * 1e2 ) / 1e2;
-
-        this.orderLocalStorageService
-            .saveData( this.currentOrderKey, this.getOrder() );
-
     };
 
 
@@ -164,7 +140,7 @@ export class OrderService {
      * check if order exists for user and current Order week, and if so, return the key of the order
      * @returns {Observable<any>}
      */
-    checkIfOrderExists = (): Observable<any> => {
+    private checkIfOrderExists = (): Observable<any> => {
         return this.db.object( `/ordersPerUser/${this.uid}/${this.currentOrderKey}` )
             .map( (order) => order ? order.$value : false );
     };
@@ -184,7 +160,6 @@ export class OrderService {
                 this.saveOrderPerUser( keyData );
                 this.saveOrderPerWeekOrder( keyData );
                 this.saveOrderEmitter.emit( {status: true, message: 'create'} );
-                this.saveOrderSubscription.unsubscribe();
             } );
     };
 
@@ -196,7 +171,6 @@ export class OrderService {
         order.update( {order: this.getOrder(), comment: this.comment} )
             .then( () => {
                 this.saveOrderEmitter.emit( {status: true, message: 'update'} );
-                this.saveOrderSubscription.unsubscribe();
             } );
     };
 

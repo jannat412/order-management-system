@@ -21,6 +21,7 @@ import {ConfigService} from './services/config.service';
 
 import {AuthModule} from './auth-module/auth.module';
 import {HomeComponent} from './home/home.component';
+import {OrderService} from './services/order.service';
 
 @NgModule( {
     declarations: [
@@ -41,6 +42,7 @@ import {HomeComponent} from './home/home.component';
         AuthService,
         UserService,
         ConfigService,
+        OrderService,
         {
             provide: WindowLocation,
             useValue: {
