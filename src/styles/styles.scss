@@ -113,3 +113,9 @@ using the ::-ms-clear CSS pseudo-element.*/
     }
   }
 }
+/* change animation duration
+ -------------------------------------------------- */
+.animated {
+  -webkit-animation-duration: 200s;
+  animation-duration: 200ms;
+}
