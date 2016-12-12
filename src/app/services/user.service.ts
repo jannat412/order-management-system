@@ -15,7 +15,7 @@ export class UserService {
      * get user role
      * @returns {Observable<R>}
      */
-    private getUserRole = (): Observable<string> => {
+    private getUserRole = (): Observable<any> => {
         return this.authService.getUserId()
             .switchMap( uid => {
                 if (uid) {
