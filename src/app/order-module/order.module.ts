@@ -61,5 +61,4 @@ import {InactiveGuard} from '../services/inactive.guard';
         TagsService
     ]
 } )
-export class OrderModule {
-}
+export class OrderModule {}
