@@ -56,8 +56,7 @@ export class ProductsListComponent implements OnInit {
     };
 
     getThumbUrl = (thumb: string): string => {
-        let url = `/assets/product-img/thumbs/${thumb}`;
-        return url;
+        return `/assets/product-img/thumbs/${thumb}`;
     };
 
     doFilter = (str: string) => {

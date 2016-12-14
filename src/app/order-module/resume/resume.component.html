@@ -1,8 +1,9 @@
 <main class="container animated fadeIn">
     <div class="jumbotron" *ngIf="!orderSaved">
-        <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> Resum de la teva comanda</h1>
-        <strong>Entrega: {{currentOrderDate | date:'d/MM/y'}}</strong>
-        <br>
+        <div class="page-header">
+            <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> Resum de la teva comanda</h1>
+            <small>Entrega: {{currentOrderDate | date:'d/MM/y'}}</small>
+        </div>
 
         <form class="form-horizontal">
 

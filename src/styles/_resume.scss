@@ -1,0 +1,40 @@
+oms-resume {
+
+  .form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @media #{$max660} {
+    td, th {
+      &:nth-child(4) {
+        display: none;
+      }
+
+    }
+
+    .jumbotron {
+      padding-top: 5px;
+      padding-bottom: 20px;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      text-align: center;
+      & > button {
+        margin: 5px 0;
+      }
+    }
+
+  }
+
+  @media #{$max510} {
+    td, th {
+      &:nth-child(1), &:nth-child(3) {
+        display: none;
+      }
+
+    }
+
+  }
+}
