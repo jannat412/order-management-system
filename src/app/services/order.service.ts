@@ -29,33 +29,31 @@ export class OrderService {
                 (uid) => this.uid = uid
             ).unsubscribe();
 
-        let currentOrderDateSubscription = this.configService.getCurrentOrderDate()
+        this.configService.getCurrentOrderDate()
             .subscribe(
                 (data) => {
                     this.currentOrderKey = data.$key;
-                    let checkIfOrderExistSubscription = this.checkIfOrderExists().subscribe(
+                    this.checkIfOrderExists().subscribe(
                         (userOrder) => {
                             this.order = <IOrderLine>{};
                             if (userOrder) {
                                 this.userOrderKey = userOrder;
 
-                                this.db.list( `/orders/${this.userOrderKey}/order/` )
+                                // order items
+                                this.db.object( `/orders/${this.userOrderKey}` )
                                     .subscribe(
                                         (data) => {
-                                            let self = this;
-                                            data.forEach( function (productLine) {
-                                                self.addProductLine( productLine );
-                                            } );
+                                            this.comment = data.comment;
+                                            this.order = data.order;
                                             this.calculateTotalAmount();
                                             this.getInitOrder();
                                             this.lineDataEmitter.emit( true );
                                         }
                                     );
+
                             }
-                            checkIfOrderExistSubscription.unsubscribe();
                         }
                     );
-                    currentOrderDateSubscription.unsubscribe();
                 } );
     }
 
@@ -128,6 +126,8 @@ export class OrderService {
     saveComment = (comment: string) => {
         this.comment = comment;
     };
+
+    getComment = (): string => this.comment;
 
     /**
      * check if order exists and creates or updates it

@@ -1,7 +1,9 @@
 <main class="container animated fadeIn">
     <div class="jumbotron" *ngIf="!orderSaved">
-        <h1>Resum de la teva comanda</h1>
+        <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> Resum de la teva comanda</h1>
         <strong>Entrega: {{currentOrderDate | date:'d/MM/y'}}</strong>
+        <br>
+
         <form class="form-horizontal">
 
             <div class="table-responsive">
@@ -37,18 +39,26 @@
 
 
             <div class="form-group">
-                <label for="comment">
-                    Comentaris</label>
+                <label for="comment">Comentaris</label>
                 <textarea class="form-control" rows="3" id="comment"
                           [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="comment"></textarea>
+                          [(ngModel)]="comment">{{comment}}</textarea>
                 <span id="helpBlock"
                       class="help-block">
                     Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
                 </span>
             </div>
             <div class="form-group">
-                <button (click)="saveOrder()" class="btn btn-success">Guardar comanda</button>
+                <button class="btn btn-primary"
+                        [routerLink]="['/comanda']">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+                    Modificar comanda
+                </button>
+                <button (click)="saveOrder()" class="btn btn-success">
+                    <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                    Guardar comanda
+                </button>
+
             </div>
         </form>
     </div>

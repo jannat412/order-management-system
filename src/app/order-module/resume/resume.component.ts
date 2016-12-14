@@ -27,7 +27,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
     // TODO - recuperar comment from firebase and check also if it is different
     // TODO (user could want to erase the message
     saveOrder = () => {
-        if (this.comment.trim().length) this.orderService.saveComment( this.comment );
+        this.orderService.saveComment( this.comment );
         this.orderService.saveOrder();
     };
 
@@ -43,6 +43,8 @@ export class ResumeComponent implements OnInit, OnDestroy {
 
         this.totalAmountSubscription = this.orderService.pushTotalAmount
             .subscribe( data => this.superTotal = data );
+
+        this.comment = this.orderService.getComment();
 
         this.orderService.getInitOrder();
     }
