@@ -58,16 +58,16 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary"
+                <a class="btn btn-primary"
                         [routerLink]="['/comanda']">
                     <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
                     Tornar al llistat de productes
-                </button>
-                <button *ngIf="orderSaved" class="btn btn-success">Descarregar còpia</button>
-                <button *ngIf="!orderSaved" (click)="saveOrder()" class="btn btn-success">
+                </a>
+                <a *ngIf="orderSaved" class="btn btn-success">Descarregar còpia</a>
+                <a *ngIf="!orderSaved" (click)="saveOrder()" class="btn btn-success">
                     <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
                     Guardar comanda
-                </button>
+                </a>
 
             </div>
         </form>
