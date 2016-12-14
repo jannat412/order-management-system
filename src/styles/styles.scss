@@ -127,10 +127,3 @@ using the ::-ms-clear CSS pseudo-element.*/
   -webkit-animation-duration: 200s;
   animation-duration: 200ms;
 }
-
-.table-striped > tbody > tr.total-price-row {
-  background-color: $totalRowBackgroundColor;
-  color: $totalRowColor;
-  font-size: 1.2em;
-  font-weight: 600;
-}

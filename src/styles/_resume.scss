@@ -5,6 +5,13 @@ oms-resume {
     margin-right: 0;
   }
 
+  .table-striped > tbody > tr.total-price-row {
+    background-color: $totalRowBackgroundColor;
+    color: $totalRowColor;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+
   @media #{$max660} {
     td, th {
       &:nth-child(4) {
