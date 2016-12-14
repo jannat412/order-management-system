@@ -21,3 +21,9 @@
     font-size: $mediumFontSize;
   }
 }
+
+@media #{$max660} {
+  .footer {
+    display: none;
+  }
+}

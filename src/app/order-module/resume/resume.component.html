@@ -1,13 +1,20 @@
 <main class="container animated fadeIn">
-    <div class="jumbotron" *ngIf="!orderSaved">
-        <div class="page-header">
+    <div class="jumbotron">
+        <div *ngIf="!orderSaved" class="page-header">
             <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> Resum de la teva comanda</h1>
             <small>Entrega: {{currentOrderDate | date:'d/MM/y'}}</small>
         </div>
 
+        <div *ngIf="orderSaved" class="page-header">
+            <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> Gràcies per la teva comanda!</h1>
+            <small>Recorda que l'accés per modificar-la estarà actiu fins dilluns que ve a primera hora del matí
+                aproximadament.
+            </small>
+        </div>
+
         <form class="form-horizontal">
 
-            <div class="table-responsive">
+            <div *ngIf="!orderSaved" class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -39,7 +46,7 @@
             </div>
 
 
-            <div class="form-group">
+            <div *ngIf="!orderSaved" class="form-group">
                 <label for="comment">Comentaris</label>
                 <textarea class="form-control" rows="3" id="comment"
                           [ngModelOptions]="{standalone: true}"
@@ -49,26 +56,20 @@
                     Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
                 </span>
             </div>
+
             <div class="form-group">
                 <button class="btn btn-primary"
                         [routerLink]="['/comanda']">
                     <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
                     Tornar al llistat de productes
                 </button>
-                <button (click)="saveOrder()" class="btn btn-success">
+                <button *ngIf="orderSaved" class="btn btn-success">Descarregar còpia</button>
+                <button *ngIf="!orderSaved" (click)="saveOrder()" class="btn btn-success">
                     <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
                     Guardar comanda
                 </button>
 
             </div>
         </form>
-    </div>
-
-    <div class="jumbotron" *ngIf="orderSaved">
-        <h1>Gràcies per la teva comanda!</h1>
-        <p>Si vols descarregar-te un resum de la teva comanda fes click</p>
-        <div class="form-group">
-            <button class="btn btn-success">Guardar còpia</button>
-        </div>
     </div>
 </main>
