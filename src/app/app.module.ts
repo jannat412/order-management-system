@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
+import '../rxjs-extensions';
 
 import {AngularFireModule, WindowLocation} from 'angularfire2';
 import {FirebaseConfig, FirebaseAuthConfig} from '../config/firebase.config';
