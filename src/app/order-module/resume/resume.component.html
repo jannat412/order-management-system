@@ -1,16 +1,41 @@
-<main class="container-fluid animated fadeIn">
-    <div *ngIf="!orderSaved">
+<main class="container animated fadeIn">
+    <div class="jumbotron" *ngIf="!orderSaved">
         <h1>Resum de la teva comanda</h1>
         <strong>Entrega: {{currentOrderDate | date:'d/MM/y'}}</strong>
         <form class="form-horizontal">
-            <ul class="shopping-list list-unstyled">
-                <li *ngFor="let line of productLines">
-                    <small class="item">{{line.value.name}}</small>
-                    <small class="item-detail">
-                        {{line.value.quantity}} {{line.value.unity}} | {{line.value.total | number:'1.2-2'}}€
-                    </small>
-                </li>
-            </ul>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Producte</th>
+                        <th>Quantitat</th>
+                        <th>Unitat</th>
+                        <th>Preu total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let line of productLines; let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{line.value.name}}</td>
+                        <td>{{line.value.quantity}}</td>
+                        <td>{{line.value.unity}}</td>
+                        <td>{{line.value.total | number:'1.2-2'}}€</td>
+                    </tr>
+                    <tr class="total-price-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total:</td>
+                        <td>{{superTotal | number:'1.2-2'}}€</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
             <div class="form-group">
                 <label for="comment">
                     Comentaris</label>
@@ -28,7 +53,7 @@
         </form>
     </div>
 
-    <div *ngIf="orderSaved">
+    <div class="jumbotron" *ngIf="orderSaved">
         <h1>Gràcies per la teva comanda!</h1>
         <p>Si vols descarregar-te un resum de la teva comanda fes click</p>
         <div class="form-group">

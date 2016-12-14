@@ -15,13 +15,16 @@ import {ICategory} from '../../models/category';
     templateUrl: './product-detail.component.html'
 } )
 export class ProductDetailComponent implements OnInit, OnDestroy {
-    pageTitle: string = 'Producte:';
+    private pageTitle: string = 'Producte:';
     private key: string;
     private product: IProduct;
     private category: ICategory;
     private tags: ITag[];
     private errorMessage: string;
-    private subscription: Subscription;
+    private routeParamSubscription: Subscription;
+    private productSubscription: Subscription;
+    private tagSubscription: Subscription;
+    private categorySubscription: Subscription;
 
     constructor(private productsService: ProductsService,
                 private categoriesService: CategoriesService,
@@ -29,25 +32,28 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) {
     }
 
-    ngOnInit() {
+    getImageUrl = (image: string): string => {
+        return `/assets/product-img/images/${image}`;
+    };
 
-        this.subscription = this.route.params.subscribe(
+    ngOnInit() {
+        this.routeParamSubscription = this.route.params.subscribe(
             (param: any) => this.key = param['key']
         );
 
-        this.productsService.getProduct( this.key )
+        this.productSubscription = this.productsService.getProduct( this.key )
             .subscribe(
                 (data: IProduct) => this.product = data,
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.tagsService.getTagsForProduct( this.product.$key )
+        this.tagSubscription = this.tagsService.getTagsForProduct( this.product.$key )
             .subscribe(
                 (data: ITag[]) => this.tags = <ITag[]>data,
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.categoriesService.getCategoryForProduct( this.product.categoryKey )
+        this.categorySubscription = this.categoriesService.getCategoryForProduct( this.product.categoryKey )
             .subscribe(
                 (data: ICategory) => this.category = <ICategory>data,
                 (error: any) => this.errorMessage = <any>error
@@ -56,13 +62,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.routeParamSubscription.unsubscribe();
+        this.productSubscription.unsubscribe();
+        this.tagSubscription.unsubscribe();
+        this.categorySubscription.unsubscribe();
     }
-
-    getImageUrl = (image: string): string => {
-        let url = `/assets/product-img/images/${image}`;
-        return url;
-    };
-
 
 }

@@ -10,6 +10,7 @@
 @import 'product-tags';
 @import 'product-count';
 @import 'footer';
+
 /*
  * Base structure
  */
@@ -17,14 +18,18 @@
 body {
   font-family: 'Lato', sans-serif;
 }
+
 /*
  * Global add-ons
  */
 h1 {
-  font-size: 1.7em;
-  margin-top: 10px;
-  font-family: 'Lemonada', cursive;
+  , .jumbotron & {
+    font-size: 1.7em;
+    margin-top: 10px;
+    font-family: 'Lemonada', cursive;
+  }
 }
+
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
@@ -69,6 +74,7 @@ h1 {
 .form-inline {
   margin-bottom: 5px;
 }
+
 /* Hide Internet Explorer default clear button
 using the ::-ms-clear CSS pseudo-element.*/
 ::-ms-clear {
@@ -113,9 +119,17 @@ using the ::-ms-clear CSS pseudo-element.*/
     }
   }
 }
+
 /* change animation duration
  -------------------------------------------------- */
 .animated {
   -webkit-animation-duration: 200s;
   animation-duration: 200ms;
+}
+
+.table-striped > tbody > tr.total-price-row {
+  background-color: $totalRowBackgroundColor;
+  color: $totalRowColor;
+  font-size: 1.2em;
+  font-weight: 600;
 }

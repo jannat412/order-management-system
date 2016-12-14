@@ -10,12 +10,14 @@ import {IOrderLine} from '../../models/orderLine';
 } )
 export class ResumeComponent implements OnInit, OnDestroy {
 
+    superTotal: number = 0;
     comment: string = '';
     orderSaved: boolean = false;
     currentOrderDate: string;
     currentDateSubscription: Subscription;
     linesSubscription: Subscription;
     saveSubscription: Subscription;
+    totalAmountSubscription: Subscription;
     productLines: IOrderLine[] = [];
 
     constructor(private orderService: OrderService,
@@ -30,19 +32,17 @@ export class ResumeComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.linesSubscription = this.orderService.emittedOrder.subscribe(
-            data => this.productLines = data
-        );
-        this.currentDateSubscription = this.configService.getCurrentOrderDate()
-            .subscribe(
-                (data) => {
-                    this.currentOrderDate = data.limitDate;
-                }
-            );
+        this.linesSubscription = this.orderService.emittedOrder
+            .subscribe( data => this.productLines = data );
 
-        this.saveSubscription = this.orderService.saveOrderEmitter.subscribe(
-            (data) => this.orderSaved = data.status || false
-        );
+        this.currentDateSubscription = this.configService.getCurrentOrderDate()
+            .subscribe( data => this.currentOrderDate = data.limitDate );
+
+        this.saveSubscription = this.orderService.saveOrderEmitter
+            .subscribe( data => this.orderSaved = data.status || false );
+
+        this.totalAmountSubscription = this.orderService.pushTotalAmount
+            .subscribe( data => this.superTotal = data );
 
         this.orderService.getInitOrder();
     }
@@ -51,6 +51,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
         this.currentDateSubscription.unsubscribe();
         this.linesSubscription.unsubscribe();
         this.saveSubscription.unsubscribe();
+        this.totalAmountSubscription.unsubscribe();
     }
 
 }
