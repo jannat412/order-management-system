@@ -5,7 +5,7 @@ import '../rxjs-extensions';
 import {AngularFireModule, WindowLocation} from 'angularfire2';
 import {FirebaseConfig, FirebaseAuthConfig} from '../config/firebase.config';
 
-import {routing} from './app-routing.module';
+import {mainRouting} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -33,7 +33,7 @@ import {HomeComponent} from './home/home.component';
     ],
     imports: [
         BrowserModule,
-        routing,
+        mainRouting,
         AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig ),
         AuthModule
     ],

@@ -1,5 +1,12 @@
 /* categories classes for background color */
 @each $color, $value in $productsColors {
+
+  p.#{$color} {
+    color: darken($value, 50%);
+    background-color: $value;
+    text-transform: capitalize;
+  }
+
   tr.#{$color} {
     td:first-child {
       background-color: $value;

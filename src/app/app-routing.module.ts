@@ -11,4 +11,4 @@ const APP_ROUTES: Routes = [
     {path: '**', redirectTo: '/login'}
 ];
 
-export const routing = RouterModule.forRoot( APP_ROUTES );
+export const mainRouting = RouterModule.forRoot( APP_ROUTES );
