@@ -4,18 +4,18 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button"
-                        *ngIf="isAuth()"
+                        *ngIf="authInfo"
                         class="navbar-toggle" menuCollapse>
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" *ngIf="isAuth()"
+                <a class="navbar-brand" *ngIf="authInfo"
                    [routerLink]="['/home']">
                     <img src="/assets/el-llevat-logo.jpg" alt="El llevat">
                 </a>
-                <div *ngIf="!isAuth()" class="navbar-brand">
+                <div *ngIf="!authInfo" class="navbar-brand">
                     <img src="/assets/el-llevat-logo.jpg" alt="El llevat">
                 </div>
             </div>
@@ -24,15 +24,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li routerLinkActive="active">
-                        <a *ngIf="isAuth() && isActive()" charset="active"
+                        <a *ngIf="authInfo && active" charset="active"
                            [routerLink]="['/comanda']">Fer comanda</a>
                     </li>
                     <li routerLinkActive="active">
-                        <a *ngIf="isAdmin() && isAuth()" charset="active"
+                        <a *ngIf="admin && authInfo" charset="active"
                            [routerLink]="['/admin']">Administració</a>
                     </li>
                 </ul>
-                <ul *ngIf="isAuth()" class="nav navbar-nav navbar-right">
+                <ul *ngIf="authInfo" class="nav navbar-nav navbar-right">
                     <li dropDown class="dropdown">
                         <a class="dropdown-toggle">
                             Soci <span class="caret"></span>

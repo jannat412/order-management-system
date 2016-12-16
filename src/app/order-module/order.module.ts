@@ -25,8 +25,6 @@ import {orderRouting} from './order-routing.module';
 import {ProductsService} from '../services/products.service';
 import {CategoriesService} from '../services/categories.service';
 import {TagsService} from '../services/tags.service';
-import {AuthGuard} from '../services/auth.guard';
-import {InactiveGuard} from '../services/inactive.guard';
 
 @NgModule( {
     declarations: [
@@ -54,8 +52,6 @@ import {InactiveGuard} from '../services/inactive.guard';
         orderRouting
     ],
     providers: [
-        AuthGuard,
-        InactiveGuard,
         ProductsService,
         CategoriesService,
         TagsService

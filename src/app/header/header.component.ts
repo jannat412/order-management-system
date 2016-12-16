@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {ConfigService} from '../services/config.service';
 import {Subscription} from 'rxjs/Subscription';
+import {FirebaseAuth, FirebaseAuthState} from 'angularfire2';
 
 @Component( {
     selector: 'oms-header',
@@ -18,14 +19,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     active: boolean = false;
 
     constructor(private authService: AuthService,
+                private firebaseAuth: FirebaseAuth,
                 private userService: UserService,
                 private configService: ConfigService,
                 private router: Router) {
     }
-
-    isAuth = () => this.authInfo;
-    isAdmin = () => this.admin;
-    isActive = () => this.active;
 
     logout = () => {
         this.configSubscription.unsubscribe();
@@ -35,10 +33,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.authService.isUserLogged()
-            .subscribe( authStatus => {
-                this.authInfo = authStatus;
-                if (!this.isAuth()) {
+
+        this.firebaseAuth
+            .map((authState: FirebaseAuthState) => !!authState)
+            .subscribe(authenticated => {
+                this.authInfo = authenticated;
+
+                if (!this.authInfo) {
                     this.router.navigate( ['/login'] );
 
                 } else {
