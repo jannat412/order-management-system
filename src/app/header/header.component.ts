@@ -23,10 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 private router: Router) {
     }
 
-    isAuth = () => this.authInfo;
-    isAdmin = () => this.admin;
-    isActive = () => this.active;
-
     logout = () => {
         this.configSubscription.unsubscribe();
         this.adminSubscription.unsubscribe();
@@ -38,7 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.authService.isUserLogged()
             .subscribe( authStatus => {
                 this.authInfo = authStatus;
-                if (!this.isAuth()) {
+
+                if (!this.authInfo) {
                     this.router.navigate( ['/login'] );
 
                 } else {
