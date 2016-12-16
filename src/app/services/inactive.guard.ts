@@ -16,7 +16,6 @@ export class InactiveGuard implements CanActivate, CanActivateChild {
 
         return this.configService.getActive()
             .take(1)
-            .map((activeState) => !!activeState)
             .do(active => {
                 if (!active) this.router.navigate(['/home']);
             });

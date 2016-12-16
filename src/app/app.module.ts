@@ -23,6 +23,7 @@ import {AuthModule} from './auth-module/auth.module';
 import {HomeComponent} from './home/home.component';
 import {InactiveGuard} from './services/inactive.guard';
 import {AuthGuard} from './services/auth.guard';
+import {AdminGuard} from './services/admin.guard';
 
 @NgModule( {
     declarations: [
@@ -46,6 +47,7 @@ import {AuthGuard} from './services/auth.guard';
         OrderService,
         InactiveGuard,
         AuthGuard,
+        AdminGuard,
         {
             provide: WindowLocation,
             useValue: {
