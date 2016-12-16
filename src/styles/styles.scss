@@ -126,4 +126,7 @@ using the ::-ms-clear CSS pseudo-element.*/
 .animated {
   -webkit-animation-duration: 200s;
   animation-duration: 200ms;
+  /* issue with z-index on hovering elements */
+  -webkit-animation-fill-mode: initial; //Changed from both to initial
+  animation-fill-mode: initial; //Changed from both to initial
 }
