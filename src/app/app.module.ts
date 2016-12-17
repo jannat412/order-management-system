@@ -36,9 +36,9 @@ import {AdminGuard} from './services/admin.guard';
     ],
     imports: [
         BrowserModule,
-        mainRouting,
         AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig ),
-        AuthModule
+        AuthModule,
+        mainRouting
     ],
     providers: [
         AuthService,

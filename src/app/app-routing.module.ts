@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {LoginComponent} from './auth-module/login/login.component';
 import {HomeComponent} from './home/home.component';
 import {AuthGuard} from './services/auth.guard';
@@ -14,4 +14,6 @@ const APP_ROUTES: Routes = [
     {path: '**', redirectTo: '/home'}
 ];
 
-export const mainRouting = RouterModule.forRoot( APP_ROUTES );
+export const mainRouting = RouterModule.forRoot( APP_ROUTES, {
+    preloadingStrategy: PreloadAllModules
+} );
