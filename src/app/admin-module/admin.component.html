@@ -1,6 +1,8 @@
 <div class="panel panel-default animated fadeIn" [class.panel-success]="isActive">
     <div class="panel-heading strong text-center">
-        <h2>{{activeLabel}}</h2>
+        <h2><span aria-hidden="true" class="glyphicon"
+                  [class.glyphicon-remove-sign]="!isActive"
+                  [class.glyphicon-ok-sign]="isActive"></span> {{activeLabel}}</h2>
         <h3 *ngIf="isActive">Dijous, {{currentOrderDate | date:'d/MM/y'}}</h3>
     </div>
     <div class="panel-body text-center">
@@ -9,4 +11,9 @@
                 [class.btn-success]="!isActive">{{buttonLabel}}
         </button>
     </div>
+</div>
+<div class="row">
+    <oms-admin-order-box></oms-admin-order-box>
+    <oms-admin-products-box></oms-admin-products-box>
+    <oms-admin-users-box></oms-admin-users-box>
 </div>
