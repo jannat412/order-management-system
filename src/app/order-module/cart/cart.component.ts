@@ -52,6 +52,6 @@ export class CartComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.totalAmountSubscription.unsubscribe();
         this.linesSubscription.unsubscribe();
-        //this.currentDateSubscription.unsubscribe();
+        this.currentDateSubscription.unsubscribe();
     }
 }

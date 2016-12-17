@@ -50,12 +50,10 @@
                          alt="{{product.name}}">
                 </div>
             </div>
-            <div class="panel-footer">
-                <a class="btn btn-primary" [routerLink]="['/comanda']">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    Tornar al llistat de productes
-                </a>
-            </div>
+            <a class="btn btn-link btn-sm"
+               [routerLink]="['/comanda']">
+                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de productes
+            </a>
         </div>
     </div>
 </div>
