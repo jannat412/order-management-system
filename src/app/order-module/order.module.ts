@@ -25,6 +25,7 @@ import {orderRouting} from './order-routing.module';
 import {ProductsService} from '../services/products.service';
 import {CategoriesService} from '../services/categories.service';
 import {TagsService} from '../services/tags.service';
+import {ServicesModule} from '../services/services.module';
 
 @NgModule( {
     declarations: [
@@ -49,12 +50,10 @@ import {TagsService} from '../services/tags.service';
         CommonModule,
         FormsModule,
         RouterModule,
+        ServicesModule.forOrder(),
         orderRouting
     ],
     providers: [
-        ProductsService,
-        CategoriesService,
-        TagsService
     ]
 } )
 export class OrderModule {}

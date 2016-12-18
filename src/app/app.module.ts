@@ -10,20 +10,13 @@ import {mainRouting} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
+import {HomeComponent} from './home/home.component';
 
 import {DropdownDirective} from './directives/dropdown.directive';
 import {MenuCollapseDirective} from './directives/menu-collapse.directive';
 
-import {AuthService} from './services/auth.service';
-import {UserService} from './services/user.service';
-import {ConfigService} from './services/config.service';
-import {OrderService} from './services/order.service';
-
 import {AuthModule} from './auth-module/auth.module';
-import {HomeComponent} from './home/home.component';
-import {InactiveGuard} from './services/inactive.guard';
-import {AuthGuard} from './services/auth.guard';
-import {AdminGuard} from './services/admin.guard';
+import {ServicesModule} from './services/services.module';
 
 @NgModule( {
     declarations: [
@@ -37,17 +30,11 @@ import {AdminGuard} from './services/admin.guard';
     imports: [
         BrowserModule,
         AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig ),
+        ServicesModule.forRoot(),
         AuthModule,
         mainRouting
     ],
     providers: [
-        AuthService,
-        UserService,
-        ConfigService,
-        OrderService,
-        InactiveGuard,
-        AuthGuard,
-        AdminGuard,
         {
             provide: WindowLocation,
             useValue: {

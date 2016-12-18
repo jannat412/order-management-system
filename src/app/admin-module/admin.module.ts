@@ -5,10 +5,12 @@ import {CommonModule} from '@angular/common';
 import {AdminProductsBoxComponent} from './boxes/admin-products-box/admin-products-box.component';
 import {AdminUsersBoxComponent} from './boxes/admin-users-box/admin-users-box.component';
 import {AdminOrderBoxComponent} from './boxes/admin-order-box/admin-order-box.component';
+import {ServicesModule} from '../services/services.module';
 
 @NgModule( {
     imports: [
         CommonModule,
+        ServicesModule.forAdmin(),
         adminRouting
     ],
     declarations: [
