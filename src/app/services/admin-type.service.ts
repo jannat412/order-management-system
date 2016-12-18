@@ -7,17 +7,17 @@ export class AdminTypeService {
         orders: {
             name: 'comandes',
             icon: 'glyphicon-shopping-cart',
-            route: ''
+            route: '/'
         },
         products: {
             name: 'productes i categories',
             icon: 'glyphicon-apple',
-            route: ''
+            route: '/'
         },
         users: {
             name: 'socis',
             icon: 'glyphicon-user',
-            route: ''
+            route: '/'
         }
     };
 

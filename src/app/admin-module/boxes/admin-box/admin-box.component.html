@@ -3,12 +3,13 @@
     <div class="panel-heading text-center">
       <h3><span aria-hidden="true"
                 class="glyphicon"
-                [ngClass]="adminType?.icon"></span> {{adminType?.name}}</h3>
+                [ngClass]="adminType.icon"></span> {{adminType.name}}</h3>
     </div>
     <div class="panel-body text-center">
-      <button type="button"
-              class="btn">Gestionar
-      </button>
+      <a type="button"
+         [routerLink]="[adminType.route]"
+              class="btn btn-default">Gestionar
+      </a>
     </div>
   </div>
 </div>
