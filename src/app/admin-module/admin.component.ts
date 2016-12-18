@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ConfigService} from '../services/config.service';
 import {Subscription} from 'rxjs/Subscription';
+import {AdminTypeService} from '../services/admin-type.service';
 
 @Component( {
     selector: 'oms-admin',
@@ -16,7 +17,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     errorMessage: any;
     currentOrderDate: string;
 
-    constructor(private configService: ConfigService) {}
+    constructor(
+        private configService: ConfigService,
+        private adminTypeService: AdminTypeService
+    ) {}
+
+    adminType = (type: string) => {
+        return this.adminTypeService.getAdminType(type);
+    };
 
     updateLabels = () => {
         this.buttonLabel = this.isActive ? 'Desactivar' : 'Activar';

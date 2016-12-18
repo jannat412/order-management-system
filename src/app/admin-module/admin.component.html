@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="row">
-    <oms-admin-order-box></oms-admin-order-box>
-    <oms-admin-products-box></oms-admin-products-box>
-    <oms-admin-users-box></oms-admin-users-box>
+    <oms-admin-box [adminType]="adminType('orders')"></oms-admin-box>
+    <oms-admin-box [adminType]="adminType('products')"></oms-admin-box>
+    <oms-admin-box [adminType]="adminType('users')"></oms-admin-box>
 </div>
