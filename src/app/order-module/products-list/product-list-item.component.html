@@ -1,0 +1,31 @@
+<tr [isActive]="product.active"
+    [styleKo]="'disabled'"
+    [ngClass]="category?.className"
+    [class.selected]="product.selected">
+
+    <td></td>
+    <td><img [src]="getThumbUrl()"
+             class="img-thumbnail"></td>
+    <td>
+        <a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
+        <br>
+        <p class="label label-primary">
+            {{product.price | number:'1.2-2'}} € / {{product.unity}}
+        </p>
+    </td>
+    <td>
+        <oms-product-tags
+                [productKey]="product.$key">
+        </oms-product-tags>
+    </td>
+    <td>
+        <small>{{product.comment}}</small>
+    </td>
+    <td>
+        <oms-product-count [product]="product"
+                           *ngIf="product.active">
+        </oms-product-count>
+        <span *ngIf="!product.active"
+              class="label label-danger">No disponible</span>
+    </td>
+</tr>

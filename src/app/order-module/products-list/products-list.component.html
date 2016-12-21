@@ -10,7 +10,8 @@
     <!-- products table -->
     <div class="col-sm-9 col-md-10 main">
         <div class="panel panel-primary">
-            <div class=" panel-heading"><h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> {{listProductTitle}}</h1></div>
+            <div class=" panel-heading"><h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+                {{listProductTitle}}</h1></div>
             <div class="panel-body">
 
                 <oms-name-filter-list (filterBy)="doFilter($event)"></oms-name-filter-list>
@@ -18,43 +19,13 @@
                 <div class="table-responsive table-hover table-condensed"
                      *ngIf="products?.length">
                     <table class="table table-striped animated fadeIn">
-                        <tbody>
-                        <tr [isActive]="product.active"
-                            [styleKo]="'disabled'"
-                            [ngClass]="getCategoryClass(product.categoryKey)"
-                            [class.selected]="product.selected"
-                            *ngFor="let product of products |
+                        <tbody class="oms-product-list-item"
+                               *ngFor="let product of products |
                                     productFilter:listFilter |
                                     productCategoryFilter:categoryFilter |
                                     productActiveFilter:activeFilter |
-                                    productSelectedFilter:selectedFilter">
-
-                            <td></td>
-                            <td><img [src]="getThumbUrl(product.imgName)"
-                                     class="img-thumbnail"></td>
-                            <td>
-                                <a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
-                                <br>
-                                <p class="label label-primary">
-                                    {{product.price | number:'1.2-2'}} € / {{product.unity}}
-                                </p>
-                            </td>
-                            <td>
-                                <oms-product-tags
-                                        [productKey]="product.$key">
-                                </oms-product-tags>
-                            </td>
-                            <td>
-                                <small>{{product.comment}}</small>
-                            </td>
-                            <td>
-                                <oms-product-count [product]="product"
-                                                   *ngIf="product.active">
-                                </oms-product-count>
-                                <span *ngIf="!product.active"
-                                      class="label label-danger">No disponible</span>
-                            </td>
-                        </tr>
+                                    productSelectedFilter:selectedFilter"
+                               [product]="product">
                         </tbody>
                     </table>
                 </div>
