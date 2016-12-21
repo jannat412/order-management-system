@@ -5,6 +5,7 @@ import {AdminBoxComponent} from './boxes/admin-box/admin-box.component';
 import {ServicesModule} from '../services/services.module';
 import {AdminHomeComponent} from './admin-home.component';
 import {AdminActiveAppComponent} from './boxes/active-app-box/admin-active-app.component';
+import {AdminOrdersComponent} from './admin-orders/admin-orders.component';
 
 @NgModule( {
     imports: [
@@ -15,7 +16,8 @@ import {AdminActiveAppComponent} from './boxes/active-app-box/admin-active-app.c
     declarations: [
         AdminHomeComponent,
         AdminActiveAppComponent,
-        AdminBoxComponent
+        AdminBoxComponent,
+        AdminOrdersComponent
     ],
     providers: []
 } )
