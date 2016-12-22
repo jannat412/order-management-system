@@ -154,7 +154,8 @@ export class OrderService {
             weekOrderKey: this.currentOrderKey,
             order: this.getOrder(),
             user: this.uid,
-            comment: this.comment
+            comment: this.comment,
+            timestamp: database['ServerValue']['TIMESTAMP']
         } )
             .then( keyData => {
                 this.saveOrderPerUser( keyData );
@@ -168,7 +169,11 @@ export class OrderService {
      */
     private updateOrder = () => {
         const order = this.db.object( `/orders/${this.userOrderKey}` );
-        order.update( {order: this.getOrder(), comment: this.comment} )
+        order.update( {
+            order: this.getOrder(),
+            comment: this.comment,
+            timestamp: database['ServerValue']['TIMESTAMP']
+        } )
             .then( () => {
                 this.saveOrderEmitter.emit( {status: true, message: 'update'} );
             } );
@@ -193,6 +198,6 @@ export class OrderService {
         const orderPerWeekOrders = database().ref( `/weekOrder/${this.currentOrderKey}/orders` );
         const ordersPerWeekAssociation = orderPerWeekOrders.child( keyData.key );
         ordersPerWeekAssociation.set( true );
-    }
+    };
 
 }

@@ -26,10 +26,12 @@ import {ProductsService} from '../services/products.service';
 import {CategoriesService} from '../services/categories.service';
 import {TagsService} from '../services/tags.service';
 import {ServicesModule} from '../services/services.module';
+import {ProductListItemComponent} from './products-list/product-list-item.component';
 
 @NgModule( {
     declarations: [
         ProductsListComponent,
+        ProductListItemComponent,
         ProductFilterPipe,
         ProductCategoryFilterPipe,
         ProductActiveFilterPipe,

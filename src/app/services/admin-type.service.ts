@@ -7,7 +7,7 @@ export class AdminTypeService {
         orders: {
             name: 'comandes',
             icon: 'glyphicon-shopping-cart',
-            route: '/'
+            route: '/admin/comandes'
         },
         products: {
             name: 'productes i categories',
