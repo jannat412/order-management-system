@@ -7,7 +7,7 @@ export class AdminTypeService {
         mainOrder: {
             name: 'comanda general',
             icon: 'glyphicon-grain',
-            route: '/admin'
+            route: '/admin/comanda-general'
         },
         orders: {
             name: 'comandes de les sòcies',

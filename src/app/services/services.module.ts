@@ -10,6 +10,7 @@ import {ProductsService} from './products.service';
 import {CategoriesService} from './categories.service';
 import {TagsService} from './tags.service';
 import {AdminTypeService} from './admin-type.service';
+import {AdminOrderService} from './admin-order.service';
 
 @NgModule({})
 
@@ -44,7 +45,8 @@ export class ServicesModule {
         return {
             ngModule: ServicesModule,
             providers: [
-                AdminTypeService
+                AdminTypeService,
+                AdminOrderService
             ]
         }
     }

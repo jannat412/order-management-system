@@ -2,7 +2,7 @@
     <div class="jumbotron">
         <div *ngIf="!orderSaved" class="page-header">
             <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> Resum de la teva comanda</h1>
-            <small>Entrega: {{currentOrderDate | date:'d/MM/y'}}</small>
+            <div class="alert alert-info">Entrega: {{currentOrderDate | date:'d/MM/y'}}</div>
         </div>
 
         <div *ngIf="orderSaved" class="page-header">

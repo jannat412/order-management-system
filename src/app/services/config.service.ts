@@ -32,7 +32,7 @@ export class ConfigService {
      * get the key for the current order active
      * @returns {FirebaseObjectObservable<any>}
      */
-    private getCurrentOrderKey = (): Observable<any> => {
+    getCurrentOrderKey = (): Observable<any> => {
         return this.db.object( 'config/currentOrder' )
             .map( orderKey => orderKey.$value );
     };
