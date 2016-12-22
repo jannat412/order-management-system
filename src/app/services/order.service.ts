@@ -5,6 +5,7 @@ import {AngularFireDatabase} from 'angularfire2';
 import {AuthService} from './auth.service';
 import {ConfigService} from './config.service';
 import {IOrderLine} from '../models/orderLine';
+import {ArrayUtils} from '../../utils/array.utils';
 
 @Injectable()
 export class OrderService {
@@ -63,7 +64,7 @@ export class OrderService {
     getOrder = (): any => this.order;
 
     getInitOrder = () => {
-        this.emittedOrder.emit( this.orderListToArray() );
+        this.emittedOrder.emit( ArrayUtils.orderListToArray(this.order) );
         this.pushTotalAmount.emit( this.getTotalAmount() );
     };
 
@@ -92,19 +93,6 @@ export class OrderService {
      * @param key
      */
     getLineData = (key: string): any => this.order[key] || null;
-
-    /**
-     * generates the order list as an array
-     * @returns {Array}
-     */
-    private orderListToArray = () => {
-        let keys = [];
-        for (let key in this.order) {
-            keys.push( {key: key, value: this.order[key]} );
-        }
-        keys.sort( (a, b): any => a.value.name > b.value.name );
-        return keys;
-    };
 
     /**
      * returns total amount
