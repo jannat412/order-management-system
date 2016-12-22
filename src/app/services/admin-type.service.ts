@@ -4,20 +4,25 @@ import {Injectable} from '@angular/core';
 export class AdminTypeService {
 
     types = {
+        mainOrder: {
+            name: 'comanda general',
+            icon: 'glyphicon-grain',
+            route: '/admin'
+        },
         orders: {
-            name: 'comandes',
+            name: 'comandes de les sòcies',
             icon: 'glyphicon-shopping-cart',
             route: '/admin/comandes'
         },
         products: {
             name: 'productes i categories',
             icon: 'glyphicon-apple',
-            route: '/'
+            route: '/admin'
         },
         users: {
-            name: 'socis',
+            name: 'gestió de les sòcies',
             icon: 'glyphicon-user',
-            route: '/'
+            route: '/admin'
         }
     };
 
