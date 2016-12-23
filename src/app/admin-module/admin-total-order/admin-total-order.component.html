@@ -3,9 +3,15 @@
 
         <div class="page-header">
             <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>Resum de comanda</h1>
-            <div class="alert alert-info">Dijous, {{currentOrderDate | date:'d/MM/y'}}</div>
-            <div class="alert alert-warning"
-                   *ngIf="isActive">El plaç per fer comandes encara no ha acabat, per lo tant el llistat pot variar.</div>
+            <div [isActive]="isActive"
+                 [styleOk]="'alert-warning'"
+                 [styleKo]="'alert-info'"
+                 class="alert">
+                <strong>Dijous, {{currentOrderDate | date:'d/MM/y'}}</strong> <small
+                        *ngIf="isActive">El plaç per fer comandes encara no ha acabat, per lo tant el llistat pot
+                    variar.
+                </small>
+            </div>
         </div>
 
         <div class="table-responsive">

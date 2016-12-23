@@ -1,9 +1,11 @@
 <div class="form-inline">
   <div class="form-group with-clear">
     <label>Filtrar:</label>
-    <input [(ngModel)]="listFilter" (keyup)="filterName()"
+    <input [(ngModel)]="listFilter"
+           (keyup)="filterName()"
            selectOnFocus
-           class="form-control" placeholder="comença a escriure"
+           class="form-control"
+           placeholder="comença a escriure"
            type="text">
     <span class="form-control-clear glyphicon glyphicon-remove-sign"
     (click)="clear()"></span>

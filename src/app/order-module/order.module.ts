@@ -19,14 +19,10 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
-import {StyleActiveDirective} from '../directives/style-active.directive';
-import {SelectOnFocusDirective} from '../directives/select-on-focus.directive';
 import {orderRouting} from './order-routing.module';
-import {ProductsService} from '../services/products.service';
-import {CategoriesService} from '../services/categories.service';
-import {TagsService} from '../services/tags.service';
 import {ServicesModule} from '../services/services.module';
 import {ProductListItemComponent} from './products-list/product-list-item.component';
+import {DirectivesModule} from '../directives/directives.module';
 
 @NgModule( {
     declarations: [
@@ -44,15 +40,14 @@ import {ProductListItemComponent} from './products-list/product-list-item.compon
         ResumeComponent,
         TouchspinComponent,
         ProductsSelectionComponent,
-        CartComponent,
-        StyleActiveDirective,
-        SelectOnFocusDirective
+        CartComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         RouterModule,
         ServicesModule.forOrder(),
+        DirectivesModule,
         orderRouting
     ],
     providers: [

@@ -7,11 +7,13 @@ import {AdminHomeComponent} from './admin-home.component';
 import {AdminActiveAppComponent} from './boxes/active-app-box/admin-active-app.component';
 import {AdminOrdersComponent} from './admin-orders/admin-orders.component';
 import {AdminTotalOrderComponent} from './admin-total-order/admin-total-order.component';
+import {DirectivesModule} from '../directives/directives.module';
 
 @NgModule( {
     imports: [
         CommonModule,
         ServicesModule.forAdmin(),
+        DirectivesModule,
         adminRouting
     ],
     declarations: [
