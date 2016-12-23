@@ -22,14 +22,22 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" *ngIf="authInfo && active">
                     <li routerLinkActive="active">
-                        <a *ngIf="authInfo && active" charset="active"
+                        <a charset="active"
                            [routerLink]="['/comanda']">Fer comanda</a>
                     </li>
-                    <li routerLinkActive="active">
-                        <a *ngIf="admin && authInfo" charset="active"
-                           [routerLink]="['/admin']">Administració</a>
+                </ul>
+                <ul *ngIf="authInfo && admin" class="nav navbar-nav">
+                    <li dropDown class="dropdown" routerLinkActive="active">
+                        <a [routerLink]="['/admin/']"
+                           class="dropdown-toggle">
+                            Administració <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a [routerLink]="['/admin/comanda-general']">Comanda general</a></li>
+                            <li><a [routerLink]="['/admin/comandes']">Comandes individuals</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <ul *ngIf="authInfo" class="nav navbar-nav navbar-right">
