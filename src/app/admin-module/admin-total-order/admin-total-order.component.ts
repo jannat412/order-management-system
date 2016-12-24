@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AdminOrderService} from '../../services/admin-order.service';
-import {IOrderLine} from '../../models/orderLine';
 import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services/config.service';
+import {ArrayUtils} from '../../../utils/array.utils';
 
 @Component( {
     selector: 'oms-admin-total-order',
@@ -10,7 +10,7 @@ import {ConfigService} from '../../services/config.service';
 } )
 export class AdminTotalOrderComponent implements OnInit, OnDestroy {
 
-    products: IOrderLine[] = [];
+    products;
     currentOrderDate: string;
     isActive: boolean = false;
     configActiveSubscription: Subscription;
@@ -25,7 +25,7 @@ export class AdminTotalOrderComponent implements OnInit, OnDestroy {
         this.currentOrderSubscription =
             this.adminOrderService.getCurrentOrdersData()
                 .subscribe(
-                    (data: IOrderLine[]) => this.products = <IOrderLine[]>data
+                    (data) => this.products = this.formatProducts(data)
                 );
 
         this.configActiveSubscription =
@@ -37,14 +37,39 @@ export class AdminTotalOrderComponent implements OnInit, OnDestroy {
         this.configCurrentOrderSubscription =
             this.configService.getCurrentOrderDate()
                 .subscribe(
-                    (data) => {
-                        this.currentOrderDate = data.limitDate;
-                    }
+                    (data) => this.currentOrderDate = data.limitDate
                 )
     }
 
+    // TODO refactor this
+    private formatProducts = (orders) => {
+        const tempProducts = {};
+
+        orders.forEach( (order) => {
+            order.forEach( (product) => {
+                this.constructOrder(product, tempProducts);
+            } );
+        } );
+        return ArrayUtils.orderListToArray(tempProducts);
+    };
+
+    private constructOrder = (el, products) => {
+        if (products[el.$key]) {
+            const item = products[el.$key];
+            item.quantity += el.quantity * 1e2 / 1e2;
+            item.total += el.total * 1e2 / 1e2;
+        } else {
+            products[el.$key] = {
+                name: el.name,
+                quantity: el.quantity,
+                unity: el.unity,
+                total: el.total
+            };
+        }
+    };
+
     ngOnDestroy() {
-        console.log('DESTROY');
+        console.log( 'DESTROY' );
         this.currentOrderSubscription.unsubscribe();
         this.configActiveSubscription.unsubscribe();
         this.configCurrentOrderSubscription.unsubscribe();
