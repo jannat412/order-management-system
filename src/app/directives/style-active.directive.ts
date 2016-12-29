@@ -13,16 +13,12 @@ export class StyleActiveDirective implements OnInit {
     }
 
     ngOnInit() {
-        if (this.classOk) {
-            this.applyClass( this.classOk, this.classActive );
-        }
-        if (this.classKo) {
-            this.applyClass( this.classKo, !this.classActive );
-        }
+        this.classActive ?
+            this.applyClass( this.classOk ) : this.applyClass( this.classKo );
     }
 
-    private applyClass = (cls: string, isApplied: boolean): void => {
+    private applyClass = (cls: string): void => {
         this.renderer.setElementClass(
-            this.el.nativeElement, cls, isApplied );
+            this.el.nativeElement, cls, true );
     };
 }
