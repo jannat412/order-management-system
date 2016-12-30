@@ -46,7 +46,8 @@ export class ServicesModule {
             ngModule: ServicesModule,
             providers: [
                 AdminTypeService,
-                AdminOrderService
+                AdminOrderService,
+                UserService
             ]
         }
     }

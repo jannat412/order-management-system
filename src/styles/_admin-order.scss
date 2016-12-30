@@ -1,9 +1,48 @@
-.oms-admin-order-row {
+oms-admin-orders {
   .label {
-    font-size: 80%;
+    font-size: 75%;
     display: inline-block;
-    margin: 1px;
+    margin: 2px 0;
     float: left;
-    font-weight: normal;
+    color: $productsResumeColor;
+    padding: 2px;
+    @include border-radius(0);
+    &::after {
+      content: ", ";
+    }
+    &:last-child::after {
+      content: "";
+    }
+  }
+
+  .table-striped > tbody > tr {
+    &.bg-warning {
+      background-color: rgba(248, 249, 238, 0.35);
+      &:nth-of-type(odd) {
+        background-color: rgba(248, 249, 238, 0.9);
+      }
+    }
+    &.bg-success {
+      background-color: #dff0d8;
+      &:nth-of-type(odd) {
+        background-color: #dff0d8;
+      }
+    }
+  }
+
+  td:nth-child(3), th:nth-child(3) {
+    display: none;
+  }
+  @media #{$min768} {
+    td:nth-child(3), th:nth-child(3) {
+      display: block;
+    }
+  }
+  td:nth-child(4) {
+    min-width: 100px;
+  }
+
+  td:nth-child(5) {
+    min-width: 200px;
   }
 }

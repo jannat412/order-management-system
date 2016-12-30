@@ -35,4 +35,8 @@ export class UserService {
         return this.getUserRole().map( (role) => role === 'admin' );
     };
 
+    getUserData = (uid: string): Observable<any> => {
+        return this.db.object(`/users/${uid}`);
+    };
+
 }

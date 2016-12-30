@@ -1,6 +1,6 @@
 <td>{{index}}</td>
-<td>{{order.user}}</td>
-<td><span class="label label-default"
+<td>{{user?.name}} {{user?.secondName}}</td>
+<td><span class="label"
           *ngFor="let product of products">{{product.name}}</span></td>
 <td>{{totalAmount | number:'1.2-2'}} €</td>
 <td>{{order.comment}}</td>
