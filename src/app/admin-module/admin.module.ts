@@ -8,6 +8,7 @@ import {AdminActiveAppComponent} from './boxes/active-app-box/admin-active-app.c
 import {AdminOrdersComponent} from './admin-orders/admin-orders.component';
 import {AdminTotalOrderComponent} from './admin-total-order/admin-total-order.component';
 import {DirectivesModule} from '../directives/directives.module';
+import {AdminOrderRowComponent} from './admin-orders/admin-order-row.component';
 
 @NgModule( {
     imports: [
@@ -21,7 +22,8 @@ import {DirectivesModule} from '../directives/directives.module';
         AdminActiveAppComponent,
         AdminBoxComponent,
         AdminTotalOrderComponent,
-        AdminOrdersComponent
+        AdminOrdersComponent,
+        AdminOrderRowComponent
     ],
     providers: []
 } )

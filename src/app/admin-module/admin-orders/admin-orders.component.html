@@ -26,14 +26,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let order of orders; let i=index;">
-          <td>{{i+1}}</td>
-          <td>{{order.user}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr class="oms-admin-order-row"
+            [order]="order"
+            [index]="i+1"
+            *ngFor="let order of orders; let i=index;">
         </tr>
-
         </tbody>
       </table>
     </div>
