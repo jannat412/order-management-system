@@ -23,7 +23,7 @@ export class AdminTotalOrderComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.currentOrderSubscription =
-            this.adminOrderService.getCurrentOrdersData()
+            this.adminOrderService.getCurrentOrdersGlobal()
                 .subscribe(
                     (data) => this.products = this.formatProducts(data)
                 );

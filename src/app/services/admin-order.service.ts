@@ -9,19 +9,31 @@ export class AdminOrderService {
     private getCurrentOrdersKeys = this.configService.getCurrentOrderKey()
         .switchMap( currentOrder => this.db.list( `weekOrder/${currentOrder}/orders` ) );
 
+    // orders by user
+    private getOrders = this.getCurrentOrdersKeys
+        .map( orders => orders
+            .map( order => this.db.list( `orders/${order.$key}` ) )
+        );
+
+    // orders global by product
     private getOrdersProducts = this.getCurrentOrdersKeys
         .map( orders => orders
             .map( order => this.db.list( `orders/${order.$key}/order` ) )
         );
 
-    private getOrdersArrays = this.getOrdersProducts
-        .switchMap( (data) => Observable.combineLatest( data ) );
-
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService) {
     }
 
-    getCurrentOrdersData = () => {
-        return this.getOrdersArrays;
+    private orderToArray = (stream: Observable) => stream
+            .switchMap( (data) => Observable.combineLatest( data ) );
+
+    getCurrentOrdersGlobal = () => {
+        return this.orderToArray(this.getOrdersProducts);
     };
+
+    getCurrentOrdersByUser = () => {
+        return this.orderToArray(this.getOrders);
+    }
+
 }

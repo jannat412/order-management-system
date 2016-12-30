@@ -1,10 +1,15 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+
 import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
+
 import {AuthService} from './auth.service';
 import {ConfigService} from './config.service';
+
+import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
+
 import {ArrayUtils} from '../../utils/array.utils';
 
 @Injectable()
@@ -138,13 +143,15 @@ export class OrderService {
      */
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
-        orders.push( {
+        const order:IOrder = {
             weekOrderKey: this.currentOrderKey,
             order: this.getOrder(),
             user: this.uid,
             comment: this.comment,
-            timestamp: database['ServerValue']['TIMESTAMP']
-        } )
+            timestamp: database['ServerValue']['TIMESTAMP'],
+            checked: false
+        };
+        orders.push( order )
             .then( keyData => {
                 this.saveOrderPerUser( keyData );
                 this.saveOrderPerWeekOrder( keyData );
