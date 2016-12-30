@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {AdminOrderService} from '../../services/admin-order.service';
 import {IOrder} from '../../models/order';
+import {ConfigService} from '../../services/config.service';
+import {AdminOrderService} from '../../services/admin-order.service';
 
 @Component({
   selector: 'oms-admin-orders',
   templateUrl: './admin-orders.component.html'
 })
-export class AdminOrdersComponent implements OnInit {
+export class AdminOrdersComponent implements OnInit, OnDestroy {
 
   orders: IOrder[];
+  currentOrderDate: string;
+  isActive: boolean = false;
   currentOrdersSubscription: Subscription;
+  configActiveSubscription: Subscription;
+  configCurrentOrderSubscription: Subscription;
 
-  constructor(private adminOrderService: AdminOrderService) { }
+  constructor(private adminOrderService: AdminOrderService,
+              private configService: ConfigService) {
+  }
 
   ngOnInit() {
     this.currentOrdersSubscription =
@@ -23,6 +30,24 @@ export class AdminOrdersComponent implements OnInit {
                   this.orders = <IOrder[]>data
                 }
             );
+
+    this.configActiveSubscription =
+        this.configService.getActive()
+            .subscribe(
+                (data) => this.isActive = data
+            );
+
+    this.configCurrentOrderSubscription =
+        this.configService.getCurrentOrderDate()
+            .subscribe(
+                (data) => this.currentOrderDate = data.limitDate
+            )
+  }
+
+  ngOnDestroy() {
+    this.currentOrdersSubscription.unsubscribe();
+    this.configActiveSubscription.unsubscribe();
+    this.configCurrentOrderSubscription.unsubscribe();
   }
 
 }

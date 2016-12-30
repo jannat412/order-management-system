@@ -12,7 +12,7 @@ export class AdminOrderService {
     // orders by user
     private getOrders = this.getCurrentOrdersKeys
         .map( orders => orders
-            .map( order => this.db.list( `orders/${order.$key}` ) )
+            .map( order => this.db.object( `orders/${order.$key}` ) )
         );
 
     // orders global by product
@@ -25,15 +25,14 @@ export class AdminOrderService {
                 private configService: ConfigService) {
     }
 
-    private orderToArray = (stream: Observable) => stream
-            .switchMap( (data) => Observable.combineLatest( data ) );
-
     getCurrentOrdersGlobal = () => {
-        return this.orderToArray(this.getOrdersProducts);
+        return this.getOrdersProducts
+            .switchMap( (data) => Observable.combineLatest( data ) );
     };
 
     getCurrentOrdersByUser = () => {
-        return this.orderToArray(this.getOrders);
+        return this.getOrders
+            .mergeMap( (data) => Observable.combineLatest( data ) );
     }
 
 }

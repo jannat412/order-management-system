@@ -1,3 +1,41 @@
-<p>
-  admin-orders works!
-</p>
+<main class="container animated fadeIn">
+  <div class="jumbotron">
+
+    <div class="page-header">
+      <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>Resum de comandes</h1>
+      <div [isActive]="isActive"
+           [styleOk]="'alert-warning'"
+           [styleKo]="'alert-info'"
+           class="alert">
+        <strong>Dijous, {{currentOrderDate | date:'d/MM/y'}}</strong> <small
+              *ngIf="isActive">El plaç per fer comandes encara no ha acabat, per lo tant el llistat pot
+        variar.
+      </small>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Soci</th>
+          <th>Productes</th>
+          <th>Total</th>
+          <th>Comentaris</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let order of orders; let i=index;">
+          <td>{{i+1}}</td>
+          <td>{{order.user}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

@@ -69,7 +69,6 @@ export class AdminTotalOrderComponent implements OnInit, OnDestroy {
     };
 
     ngOnDestroy() {
-        console.log( 'DESTROY' );
         this.currentOrderSubscription.unsubscribe();
         this.configActiveSubscription.unsubscribe();
         this.configCurrentOrderSubscription.unsubscribe();
