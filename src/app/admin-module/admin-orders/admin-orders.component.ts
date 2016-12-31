@@ -3,51 +3,57 @@ import {Subscription} from 'rxjs/Subscription';
 import {IOrder} from '../../models/order';
 import {ConfigService} from '../../services/config.service';
 import {AdminOrderService} from '../../services/admin-order.service';
+import {Router} from '@angular/router';
 
-@Component({
-  selector: 'oms-admin-orders',
-  templateUrl: './admin-orders.component.html'
-})
+@Component( {
+    selector: 'oms-admin-orders',
+    templateUrl: './admin-orders.component.html'
+} )
 export class AdminOrdersComponent implements OnInit, OnDestroy {
 
-  orders: IOrder[];
-  currentOrderDate: string;
-  isActive: boolean = false;
-  currentOrdersSubscription: Subscription;
-  configActiveSubscription: Subscription;
-  configCurrentOrderSubscription: Subscription;
+    orders: IOrder[];
+    currentOrderDate: string;
+    isActive: boolean = false;
+    currentOrdersSubscription: Subscription;
+    configActiveSubscription: Subscription;
+    configCurrentOrderSubscription: Subscription;
 
-  constructor(private adminOrderService: AdminOrderService,
-              private configService: ConfigService) {
-  }
+    constructor(private router:Router,
+                private adminOrderService: AdminOrderService,
+                private configService: ConfigService) {
+    }
 
-  ngOnInit() {
-    this.currentOrdersSubscription =
-        this.adminOrderService.getCurrentOrdersByUser()
-            .subscribe(
-                (data: IOrder[]) => {
-                  console.log(data);
-                  this.orders = <IOrder[]>data
-                }
-            );
+    ngOnInit() {
+        this.currentOrdersSubscription =
+            this.adminOrderService.getCurrentOrdersByUser()
+                .subscribe(
+                    (data: IOrder[]) => {
+                        console.log( data );
+                        this.orders = <IOrder[]>data
+                    }
+                );
 
-    this.configActiveSubscription =
-        this.configService.getActive()
-            .subscribe(
-                (data) => this.isActive = data
-            );
+        this.configActiveSubscription =
+            this.configService.getActive()
+                .subscribe(
+                    (data) => this.isActive = data
+                );
 
-    this.configCurrentOrderSubscription =
-        this.configService.getCurrentOrderDate()
-            .subscribe(
-                (data) => this.currentOrderDate = data.limitDate
-            )
-  }
+        this.configCurrentOrderSubscription =
+            this.configService.getCurrentOrderDate()
+                .subscribe(
+                    (data) => this.currentOrderDate = data.limitDate
+                )
+    }
 
-  ngOnDestroy() {
-    this.currentOrdersSubscription.unsubscribe();
-    this.configActiveSubscription.unsubscribe();
-    this.configCurrentOrderSubscription.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.currentOrdersSubscription.unsubscribe();
+        this.configActiveSubscription.unsubscribe();
+        this.configCurrentOrderSubscription.unsubscribe();
+    }
+
+    gotoOrderDetail = (key: string): void => {
+        this.router.navigate(['../comandes', key]);
+    };
 
 }

@@ -27,7 +27,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr [isActive]="order.checked"
+                <tr (click)="gotoOrderDetail(order.$key)"
+                    [isActive]="order.checked"
                     [styleOk]="'checked'"
                     class="oms-admin-order-row"
                     [order]="order"
