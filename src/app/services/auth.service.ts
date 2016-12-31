@@ -1,24 +1,20 @@
 import {Injectable} from '@angular/core';
-import {IUser} from '../models/user';
-import {AngularFire, FirebaseAuthState, FirebaseAuth} from 'angularfire2';
+import {AngularFire, FirebaseAuthState} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
-import {Router} from '@angular/router';
+import {IAuth} from '../models/auth';
 
 @Injectable()
 export class AuthService {
 
-    constructor(private af: AngularFire,
-                private auth: FirebaseAuth,
-                private router: Router) {
-    }
+    constructor(private af: AngularFire) {}
 
     /**
      * login
      * @param user
      * @returns {Observable<any>}
      */
-    loginUser = (user: IUser): Observable<FirebaseAuthState> => {
+    loginUser = (user: IAuth): Observable<FirebaseAuthState> => {
         return this.fromAuthPromise( this.af.auth.login( {
             email: user.email,
             password: user.password
