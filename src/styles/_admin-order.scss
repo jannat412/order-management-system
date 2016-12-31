@@ -16,33 +16,33 @@ oms-admin-orders {
   }
 
   .table-striped > tbody > tr {
-    &.bg-warning {
-      background-color: rgba(248, 249, 238, 0.35);
-      &:nth-of-type(odd) {
-        background-color: rgba(248, 249, 238, 0.9);
-      }
+    cursor: pointer;
+    > td:first-child {
+      background-color: lighten($resumeChecked, 40%);
     }
-    &.bg-success {
-      background-color: #dff0d8;
-      &:nth-of-type(odd) {
-        background-color: #dff0d8;
-      }
+    &.checked > td:first-child {
+      background-color: $resumeChecked;
     }
   }
+  td:nth-child(4) {
+    min-width: 80px;
+  }
 
+  td:nth-child(5) {
+    min-width: 180px;
+  }
   td:nth-child(3), th:nth-child(3) {
     display: none;
   }
   @media #{$min768} {
     td:nth-child(3), th:nth-child(3) {
-      display: block;
+      display: table-cell;
     }
   }
-  td:nth-child(4) {
-    min-width: 100px;
+  @media #{$max510} {
+    td:nth-child(5), th:nth-child(5) {
+      display: none;
+    }
   }
 
-  td:nth-child(5) {
-    min-width: 200px;
-  }
 }
