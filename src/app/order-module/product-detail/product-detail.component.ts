@@ -19,6 +19,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private key: string;
     private product: IProduct;
     private category: ICategory;
+    private imgUrl: string = '';
     private tags: ITag[];
     private errorMessage: string;
     private routeParamSubscription: Subscription;
@@ -29,21 +30,19 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     constructor(private productsService: ProductsService,
                 private categoriesService: CategoriesService,
                 private tagsService: TagsService,
-                private route: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.routeParamSubscription = this.route.params
+        this.routeParamSubscription = this.activatedRoute.params
             .map( param => param['key'] )
             .do( key => this.key = key )
             .subscribe(
                 () => {
                     this.getProduct();
-                    this.getCategory();
                     this.getTags();
                 }
             );
-
     }
 
     ngOnDestroy() {
@@ -54,17 +53,21 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     getProduct = () => {
-        this.productSubscription = this.productsService.getProduct( this.key )
+        this.productSubscription = this.productsService
+            .getProduct( this.key )
             .subscribe(
                 (data: IProduct) => {
                     this.product = data;
+                    this.getCategory();
+                    this.getImageUrl();
                 },
                 (error) => this.errorMessage = error
             );
     };
 
     getCategory = () => {
-        this.categorySubscription = this.categoriesService.getCategoryForProduct( this.product.categoryKey )
+        this.categorySubscription = this.categoriesService
+            .getCategoryForProduct( this.product.categoryKey )
             .subscribe(
                 (data: ICategory) => this.category = <ICategory>data,
                 (error) => this.errorMessage = error
@@ -72,15 +75,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     };
 
     getTags = () => {
-        this.tagSubscription = this.tagsService.getTagsForProduct( this.key )
+        this.tagSubscription = this.tagsService
+            .getTagsForProduct( this.key )
             .subscribe(
                 (data: ITag[]) => this.tags = <ITag[]>data,
                 (error) => this.errorMessage = error
             );
     };
 
-    getImageUrl = (): string => {
-        return `/assets/product-img/images/${this.product.imgName}`;
+    getImageUrl = () => {
+        this.imgUrl = `/assets/product-img/images/${this.product.imgName}`;
     };
 
 }

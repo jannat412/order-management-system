@@ -7,36 +7,36 @@
     <div class="col-sm-9 col-md-10 main">
         <div class="panel panel-primary">
             <div class="panel-heading text-capitalize">
-                <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> {{product.name}}</h1>
+                <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span> {{product?.name}}</h1>
             </div>
             <div class="row panel-body">
                 <div class="col-sm-6 col-md-5">
                     <p class="alert"
-                       [isActive]="product.active"
+                       [isActive]="product?.active"
                        [styleOk]="'alert-success'"
                        [styleKo]="'alert-danger'">
                 <span class="glyphicon"
-                      [isActive]="product.active"
+                      [isActive]="product?.active"
                       [styleOk]="'glyphicon-ok-circle'"
                       [styleKo]="'glyphicon-ban-circle'">
                 </span>
-                        {{product.active ? 'Disponible' : 'No disponible'}}
+                        {{product?.active ? 'Disponible' : 'No disponible'}}
                     </p>
-                    <p class="alert" [ngClass]="category.className">{{category.name}}</p>
+                    <p class="alert" [ngClass]="category?.className">{{category?.name}}</p>
                     <ul class="list-group">
 
                         <li class="list-group-item">
-                            <strong>Descripció:</strong> {{product.comment}}
-                            <br>{{product.description}}
+                            <strong>Descripció:</strong> {{product?.comment}}
+                            <br>{{product?.description}}
                         </li>
                         <li class="list-group-item">
                             <oms-product-tags
-                                    [productKey]="product.$key">
+                                    [productKey]="product?.$key">
                             </oms-product-tags>
                         </li>
                         <li class="list-group-item">
                             <oms-product-count [product]="product"
-                                               *ngIf="product.active">
+                                               *ngIf="product?.active">
                             </oms-product-count>
                         </li>
                     </ul>
@@ -46,8 +46,8 @@
                 <div class="col-sm-6 col-md-7">
 
                     <img class="img-responsive img-thumbnail thumbnail"
-                         [src]="getImageUrl()"
-                         alt="{{product.name}}">
+                         [src]="imgUrl"
+                         alt="{{product?.name}}">
                 </div>
             </div>
             <a class="btn btn-link btn-sm"
