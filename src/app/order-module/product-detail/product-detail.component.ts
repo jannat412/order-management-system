@@ -36,9 +36,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeParamSubscription = this.activatedRoute.params
             .map( param => param['key'] )
-            .do( key => this.key = key )
             .subscribe(
-                () => {
+                (key) => {
+                    this.key = key;
                     this.getProduct();
                     this.getTags();
                 }
