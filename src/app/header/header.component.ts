@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.configSubscription.unsubscribe();
         this.adminSubscription.unsubscribe();
         this.authService.logoutUser();
-        this.router.navigate( ['/login'] );
+        this.router.navigate( ['login'] );
     };
 
     ngOnInit() {
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.authInfo = authenticated;
 
                 if (!this.authInfo) {
-                    this.router.navigate( ['/login'] );
+                    this.router.navigate( ['login'] );
 
                 } else {
                     this.configSubscription = this.configService.getActive()
