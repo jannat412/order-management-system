@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" *ngIf="authInfo"
-                   [routerLink]="['/home']">
+                   [routerLink]="['']">
                     <img src="/assets/el-llevat-logo.jpg" alt="El llevat">
                 </a>
                 <div *ngIf="!authInfo" class="navbar-brand">
@@ -25,18 +25,18 @@
                 <ul class="nav navbar-nav" *ngIf="authInfo && active">
                     <li routerLinkActive="active">
                         <a charset="active"
-                           [routerLink]="['/comanda']">Fer comanda</a>
+                           [routerLink]="['comanda']">Fer comanda</a>
                     </li>
                 </ul>
                 <ul *ngIf="authInfo && admin" class="nav navbar-nav">
                     <li dropDown class="dropdown" routerLinkActive="active">
-                        <a [routerLink]="['/admin/']"
+                        <a [routerLink]="['admin']"
                            class="dropdown-toggle">
                             Administració <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a [routerLink]="['/admin/comanda-general']">Comanda general</a></li>
-                            <li><a [routerLink]="['/admin/comandes']">Comandes individuals</a></li>
+                            <li><a [routerLink]="['admin/comanda-general']">Comanda general</a></li>
+                            <li><a [routerLink]="['admin/comandes']">Comandes individuals</a></li>
                         </ul>
                     </li>
                 </ul>

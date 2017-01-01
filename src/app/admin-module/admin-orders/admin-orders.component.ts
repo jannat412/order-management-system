@@ -53,7 +53,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
     }
 
     gotoOrderDetail = (key: string): void => {
-        this.router.navigate(['../comandes', key]);
+        this.router.navigate(['admin/comandes', key]);
     };
 
 }

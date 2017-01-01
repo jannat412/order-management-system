@@ -25,7 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
     }
 
     goToResume = () => {
-        this.router.navigate( ['/comanda/resum'] );
+        this.router.navigate( ['comanda/resum'] );
     };
 
     ngOnInit() {

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
                 (data) => {
                     this.errorMessage = '';
                     this.showError = false;
-                    this.router.navigate( ['/home'] );
+                    this.router.navigate( ['inici'] );
                 },
                 (error) => {
                     this.errorMessage = error;
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
             .map((authState: FirebaseAuthState) => !!authState)
             .subscribe(authenticated => {
                 if (authenticated) {
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['inici']);
                 } else {
                     this.showForm = true;
                 }
