@@ -53,4 +53,4 @@ import {DirectivesModule} from '../directives/directives.module';
     providers: [
     ]
 } )
-export class OrderModule {}
+export default class OrderModule {}

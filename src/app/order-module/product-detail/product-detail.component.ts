@@ -19,7 +19,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private key: string;
     private product: IProduct;
     private category: ICategory;
-    private imgUrl: string = '';
     private tags: ITag[];
     private errorMessage: string;
     private routeParamSubscription: Subscription;
@@ -59,7 +58,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 (data: IProduct) => {
                     this.product = data;
                     this.getCategory();
-                    this.getImageUrl();
                 },
                 (error) => this.errorMessage = error
             );
@@ -81,10 +79,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 (data: ITag[]) => this.tags = <ITag[]>data,
                 (error) => this.errorMessage = error
             );
-    };
-
-    getImageUrl = () => {
-        this.imgUrl = `/assets/product-img/images/${this.product.imgName}`;
     };
 
 }

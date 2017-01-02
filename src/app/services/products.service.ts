@@ -7,8 +7,10 @@ import {IProduct} from '../models/product';
 @Injectable()
 export class ProductsService {
     categories: ICategory[];
+    private imgUrl: string = '/assets/product-img/images/';
 
-    constructor(private db: AngularFireDatabase) {}
+    constructor(private db: AngularFireDatabase) {
+    }
 
     /**
      * get list of products ordered by categories
@@ -25,5 +27,13 @@ export class ProductsService {
      * @param key
      */
     getProduct = (key: string): Observable<IProduct> =>
-        this.db.object( `/products/${key}` );
+        this.db.object( `/products/${key}` )
+            .startWith( {
+                $key: '',
+                name: '',
+                active: false
+            } )
+            .map( product => Object.assign( {}, product, {
+                imgName: this.imgUrl + product.imgName
+            } ) );
 }

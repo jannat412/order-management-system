@@ -29,5 +29,5 @@ import {AdminOrderDetailComponent} from './admin-orders/admin-order-detail/admin
     ],
     providers: []
 } )
-export class AdminModule {
+export default class AdminModule {
 }

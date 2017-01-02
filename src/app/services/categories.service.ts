@@ -6,7 +6,8 @@ import {ICategory} from '../models/category';
 @Injectable()
 export class CategoriesService {
 
-    constructor(private db: AngularFireDatabase) {}
+    constructor(private db: AngularFireDatabase) {
+    }
 
     /**
      * Products Categories Observable
@@ -26,6 +27,10 @@ export class CategoriesService {
      * @returns {FirebaseObjectObservable<any>}
      */
     getCategoryForProduct =
-        (id: string): Observable<ICategory> => this.db.object( `/categories/${id}` );
+        (id: string): Observable<ICategory> => this.db.object( `/categories/${id}` )
+            .startWith( {
+                $key: '',
+                className: ''
+            } );
 
 }

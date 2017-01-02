@@ -7,12 +7,12 @@ export class AdminTypeService {
         mainOrder: {
             name: 'comanda general',
             icon: 'glyphicon-grain',
-            route: '/admin/comanda-general'
+            route: 'comanda-general'
         },
         orders: {
             name: 'comandes de les sòcies',
             icon: 'glyphicon-shopping-cart',
-            route: '/admin/comandes'
+            route: 'comandes'
         },
         products: {
             name: 'productes i categories',
