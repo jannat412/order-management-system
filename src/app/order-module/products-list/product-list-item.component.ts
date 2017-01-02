@@ -20,8 +20,4 @@ export class ProductListItemComponent implements OnInit {
         );
   }
 
-  getThumbUrl = (): string => {
-    return `/assets/product-img/thumbs/${this.product.imgName}`;
-  };
-
 }

@@ -4,7 +4,7 @@
     [class.selected]="product.selected">
 
     <td></td>
-    <td><img [src]="getThumbUrl()"
+    <td><img [src]="product.imgName"
              class="img-thumbnail"></td>
     <td>
         <a [routerLink]="['producte', product.$key]">{{product.name}}</a>

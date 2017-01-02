@@ -7,10 +7,8 @@ import {IProduct} from '../models/product';
 @Injectable()
 export class ProductsService {
     categories: ICategory[];
-    private imgUrl: string = '/assets/product-img/images/';
 
-    constructor(private db: AngularFireDatabase) {
-    }
+    constructor(private db: AngularFireDatabase) {}
 
     /**
      * get list of products ordered by categories
@@ -19,7 +17,13 @@ export class ProductsService {
     getProducts = (): Observable<IProduct[]> => {
         return this.db.list( 'products', {
             query: {orderByChild: 'categoryKey'}
-        } );
+        } )
+            .map( products => {
+                return products
+                    .map( product =>
+                        this.reformatImgUrl( product, 'thumbs' )
+                    );
+            } );
     };
 
     /**
@@ -33,7 +37,20 @@ export class ProductsService {
                 name: '',
                 active: false
             } )
-            .map( product => Object.assign( {}, product, {
-                imgName: this.imgUrl + product.imgName
-            } ) );
+            .map( product =>
+                this.reformatImgUrl( product, 'images' ) );
+
+    /**
+     * adds the relative url to the image property on product object
+     * @param product
+     * @param type
+     * @returns {any}
+     */
+    private reformatImgUrl = (product: any, type: string): any => {
+        const url = `/assets/product-img/${type}/`;
+
+        return Object.assign( {}, product, {
+            imgName: url + product.imgName
+        } )
+    };
 }
