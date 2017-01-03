@@ -27,10 +27,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
         this.currentOrdersSubscription =
             this.adminOrderService.getCurrentOrdersByUser()
                 .subscribe(
-                    (data: IOrder[]) => {
-                        console.log( data );
-                        this.orders = <IOrder[]>data
-                    }
+                    (data: IOrder[]) => this.orders = <IOrder[]>data
                 );
 
         this.configActiveSubscription =

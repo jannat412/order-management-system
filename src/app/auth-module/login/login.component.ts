@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+
 import {FirebaseAuthState, FirebaseAuth} from 'angularfire2';
+
+import {AuthService} from '../../services/auth.service';
+import {ValidationUtils} from '../../../utils/validation.utils';
 
 @Component( {
     selector: 'oms-login',
@@ -47,9 +50,8 @@ export class LoginComponent implements OnInit {
                 }
             });
 
-        let emailRegex = `([a-zA-Z0-9_.]{1}[a-zA-Z0-9_.]*)((@[a-zA-Z]{2}[a-zA-Z]*)[\\\.]([a-zA-Z]{2}|[a-zA-Z]{3}))`;
         this.loginForm = this.fb.group( {
-            email: ['', Validators.compose( [Validators.required, Validators.pattern( emailRegex )] )],
+            email: ['', Validators.compose( [Validators.required, Validators.pattern( ValidationUtils.emailRegex )] )],
             password: ['', Validators.required]
         } )
 

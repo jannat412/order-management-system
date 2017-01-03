@@ -33,6 +33,16 @@ export class AdminOrderService {
     getCurrentOrdersByUser = () => {
         return this.getOrders
             .mergeMap( (data) => Observable.combineLatest( data ) );
+    };
+
+    getOrder = (orderKey) => {
+        return this.db.object( `orders/${orderKey}` )
+            .startWith( {
+                order: {},
+                user: '',
+                weekOrderKey: '',
+                checked: false
+            } );
     }
 
 }
