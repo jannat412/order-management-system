@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     onLoginFormSubmit() {
         this.authService.loginUser( this.loginForm.value )
             .subscribe(
-                (data) => {
+                () => {
                     this.errorMessage = '';
                     this.showError = false;
                     this.router.navigate( ['inici'] );
@@ -41,18 +41,25 @@ export class LoginComponent implements OnInit {
         // if user logged prevent on first loading
         // to show the home page
         this.firebaseAuth
-            .map((authState: FirebaseAuthState) => !!authState)
-            .subscribe(authenticated => {
+            .map( (authState: FirebaseAuthState) => !!authState )
+            .subscribe( authenticated => {
                 if (authenticated) {
-                    this.router.navigate(['inici']);
+                    this.router.navigate( ['inici'] );
                 } else {
                     this.showForm = true;
                 }
-            });
+            } );
 
         this.loginForm = this.fb.group( {
-            email: ['', Validators.compose( [Validators.required, Validators.pattern( ValidationUtils.emailRegex )] )],
-            password: ['', Validators.required]
+            email: ['',
+                Validators.compose( [
+                    Validators.required,
+                    Validators.pattern( ValidationUtils.emailRegex )
+                ] )],
+            password: ['', Validators.compose( [
+                Validators.required,
+                Validators.minLength( 6 )
+            ] )]
         } )
 
     }

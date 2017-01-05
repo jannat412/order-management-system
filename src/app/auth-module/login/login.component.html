@@ -21,7 +21,9 @@
             <div class="alert alert-danger"
                  *ngIf="showError">{{errorMessage}}
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary"
+                    [disabled]="!loginForm.valid">Enviar
+            </button>
         </form>
     </div>
 
