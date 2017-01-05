@@ -29,8 +29,9 @@ export class ProductsService {
     /**
      * get a product item
      * @param key
+     * @param imageDir
      */
-    getProduct = (key: string): Observable<IProduct> =>
+    getProduct = (key: string, imageDir: string = 'images'): Observable<IProduct> =>
         this.db.object( `/products/${key}` )
             .startWith( {
                 $key: '',
@@ -38,7 +39,7 @@ export class ProductsService {
                 active: false
             } )
             .map( product =>
-                this.reformatImgUrl( product, 'images' ) );
+                this.reformatImgUrl( product, imageDir ) );
 
     /**
      * adds the relative url to the image property on product object
