@@ -25,7 +25,8 @@
                                     productCategoryFilter:categoryFilter |
                                     productActiveFilter:activeFilter |
                                     productSelectedFilter:selectedFilter"
-                               [product]="product">
+                               [product]="product"
+                               [productOrderLine]="getProductOrderLine(product.$key)">
                         </tbody>
                     </table>
                 </div>

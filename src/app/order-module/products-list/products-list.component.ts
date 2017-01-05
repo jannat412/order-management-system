@@ -37,9 +37,9 @@ export class ProductsListComponent implements OnInit {
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.orderService.getOrderProductsByUser().subscribe(
+        this.orderService.getOrderLinesByUser().subscribe(
             (userOrderProducts: IOrderLine[]) => {
-                console.log(userOrderProducts);
+                console.log( userOrderProducts );
                 this.userOrderProducts = <IOrderLine[]>userOrderProducts;
             }
         );
@@ -74,4 +74,14 @@ export class ProductsListComponent implements OnInit {
         this.selectedFilter = selected;
     };
 
+    getProductOrderLine = (productKey: string): any => {
+        return this.userOrderProducts.filter( (product) => {
+                return product['$key'] === productKey;
+            } )[0] || {
+                name: '',
+                unity: '',
+                quantity: 0,
+                total: 0
+            }
+    };
 }

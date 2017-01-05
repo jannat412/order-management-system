@@ -15,7 +15,7 @@ import {ArrayUtils} from '../../utils/array.utils';
 @Injectable()
 export class OrderService {
 
-    private uid: string;
+    private uid: string = null;
     private totalAmount: number = 0;
     private currentOrderKey: string;
     private userOrderKey: string;
@@ -32,7 +32,10 @@ export class OrderService {
 
         this.authService.getUserId()
             .subscribe(
-                (uid) => this.uid = uid
+                (uid) => {
+                    console.log( 'uid: ', uid );
+                    this.uid = uid
+                }
             ).unsubscribe();
 
         this.configService.getCurrentOrderDate()
@@ -69,8 +72,12 @@ export class OrderService {
     getOrder = (): any => this.order;
 
     getInitOrder = () => {
-        this.emittedOrder.emit( ArrayUtils.orderListToArray(this.order) );
+        this.emittedOrder.emit( ArrayUtils.orderListToArray( this.order ) );
         this.pushTotalAmount.emit( this.getTotalAmount() );
+    };
+
+    getProductsOrderLines = () => {
+        return this.db.object( `/orders/${this.userOrderKey}/order` );
     };
 
     /**
@@ -84,6 +91,7 @@ export class OrderService {
         } else {
             this.order[productLine.$key] = {
                 name: productLine.name,
+                price: productLine.price,
                 unity: productLine.unity,
                 quantity: productLine.quantity,
                 total: productLine.total
@@ -133,9 +141,46 @@ export class OrderService {
      * check if order exists for user and current Order week, and if so, return the key of the order
      * @returns {Observable<any>}
      */
-    private checkIfOrderExists = (): Observable<any> => {
-        return this.db.object( `/ordersPerUser/${this.uid}/${this.currentOrderKey}` )
-            .map( (order) => order ? order.$value : false );
+    checkIfOrderExists = (): Observable<string> => {
+        return this.configService.getCurrentOrderDate()
+            .flatMap( (currentOrderKey) => {
+                console.log( 'user', this.uid );
+                return this.authService.getUserId()
+                    .flatMap( uid => {
+                        console.log( 'uid::: ', uid );
+                        return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey.$key}` )
+                    } );
+            } )
+            .map( (order) => order.$value );
+    };
+
+    getOrderLinesByUser = (): Observable<any> => {
+        return this.checkIfOrderExists()
+            .flatMap( (userOrderKey) => {
+                console.log( userOrderKey );
+                if (userOrderKey) {
+                    return this.db.list( `/orders/${userOrderKey}/order` )
+                } else {
+                    return null;
+                }
+            } )
+    };
+
+    getOrderLineByKey = (productKey: string): Observable<any> => {
+        return this.checkIfOrderExists()
+            .flatMap( (userOrderKey) => {
+                return this.db.object( `/orders/${userOrderKey}/order/${productKey}` )
+            } )
+            .map( data => {
+                if (data.$value === null) {
+                    return {
+                        quantity: 0,
+                        total: 0,
+                        name: ''
+                    }
+                }
+                return data;
+            } );
     };
 
     /**
@@ -143,7 +188,7 @@ export class OrderService {
      */
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
-        const order:IOrder = {
+        const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
             order: this.getOrder(),
             user: this.uid,

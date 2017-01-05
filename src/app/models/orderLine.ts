@@ -3,6 +3,6 @@ export interface IOrderLine {
     price?: number;
     unity: string;
     quantity: number;
-    total?: boolean;
+    total?: number;
 }
 
