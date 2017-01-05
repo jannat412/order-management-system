@@ -3,6 +3,8 @@ import {ProductsService} from '../../services/products.service';
 import {IProduct} from '../../models/product';
 import {NameFilterInputComponent} from '../name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filter-menu.component';
+import {OrderService} from '../../services/order.service';
+import {IOrderLine} from '../../models/orderLine';
 
 @Component( {
     selector: 'oms-order-list',
@@ -10,11 +12,12 @@ import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filt
 } )
 export class ProductsListComponent implements OnInit {
     private products: IProduct[];
+    private userOrderProducts: IOrderLine[] = [];
     private errorMessage: string;
 
-    @ViewChild(NameFilterInputComponent)
+    @ViewChild( NameFilterInputComponent )
     private nameFilterComponent: NameFilterInputComponent;
-    @ViewChild(CategoryFilterMenuComponent)
+    @ViewChild( CategoryFilterMenuComponent )
     private categoryFilterComponent: CategoryFilterMenuComponent;
 
     listProductTitle: string = 'Llistat de productes';
@@ -23,14 +26,32 @@ export class ProductsListComponent implements OnInit {
     private activeFilter: boolean = true;
     private selectedFilter: boolean = false;
 
-    constructor(private productsService: ProductsService) {}
+    constructor(private productsService: ProductsService,
+                private orderService: OrderService) {
+    }
 
     ngOnInit() {
         this.productsService.getProducts()
             .subscribe(
-                (data: IProduct[]) => this.products = <IProduct[]>data,
+                (products: IProduct[]) => this.products = <IProduct[]>products,
                 (error: any) => this.errorMessage = <any>error
             );
+
+        this.orderService.getOrderProductsByUser().subscribe(
+            (userOrderProducts: IOrderLine[]) => {
+                console.log(userOrderProducts);
+                this.userOrderProducts = <IOrderLine[]>userOrderProducts;
+            }
+        );
+
+        // this.orderService.getProductsOrderLines()
+        //     .subscribe(
+        //         (data) => {
+        //             console.log( data );
+        //             this.productsLine = data
+        //         }
+        //     );
+
     }
 
     doFilter = (str: string) => {
@@ -48,8 +69,8 @@ export class ProductsListComponent implements OnInit {
     doFilterSelected = (selected: boolean) => {
         // reset all filters
         this.nameFilterComponent.clear();
-        this.categoryFilterComponent.onFilterCategory('');
-        this.categoryFilterComponent.onFilterActive(true);
+        this.categoryFilterComponent.onFilterCategory( '' );
+        this.categoryFilterComponent.onFilterActive( true );
         this.selectedFilter = selected;
     };
 

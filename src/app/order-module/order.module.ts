@@ -10,19 +10,16 @@ import {ProductTagsComponent} from './product-tags/product-tags.component';
 import {NameFilterInputComponent} from './name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from './category-filter-menu/category-filter-menu.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
-import {ProductCountComponent} from './product-count/product-count.component';
-import {TouchspinComponent} from '../directives/touchspin/touchspin.component';
 import {CartComponent} from './cart/cart.component';
 import {ResumeComponent} from './resume/resume.component';
 
-import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
 
 import {orderRouting} from './order-routing.module';
 import {ServicesModule} from '../services/services.module';
 import {ProductListItemComponent} from './products-list/product-list-item.component';
 import {DirectivesModule} from '../directives/directives.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule( {
     declarations: [
@@ -36,15 +33,12 @@ import {DirectivesModule} from '../directives/directives.module';
         NameFilterInputComponent,
         CategoryFilterMenuComponent,
         ProductDetailComponent,
-        ProductCountComponent,
         ResumeComponent,
-        TouchspinComponent,
         ProductsSelectionComponent,
         CartComponent
     ],
     imports: [
-        CommonModule,
-        FormsModule,
+        SharedModule,
         RouterModule,
         ServicesModule.forOrder(),
         DirectivesModule,

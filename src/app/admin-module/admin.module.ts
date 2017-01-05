@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {adminRouting} from './admin-routing.module';
-import {CommonModule} from '@angular/common';
 import {AdminBoxComponent} from './boxes/admin-box/admin-box.component';
 import {ServicesModule} from '../services/services.module';
 import {AdminHomeComponent} from './admin-home.component';
@@ -10,10 +9,13 @@ import {AdminTotalOrderComponent} from './admin-total-order/admin-total-order.co
 import {DirectivesModule} from '../directives/directives.module';
 import {AdminOrderRowComponent} from './admin-orders/admin-order-row.component';
 import {AdminOrderDetailComponent} from './admin-orders/admin-order-detail/admin-order-detail.component';
+import {AdminOrderDetailItemComponent} from './admin-orders/admin-order-detail/admin-order-detail-item.component';
+import {AdminProductCountComponent} from './admin-orders/admin-product-count/admin-product-count.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule( {
     imports: [
-        CommonModule,
+        SharedModule,
         ServicesModule.forAdmin(),
         DirectivesModule,
         adminRouting
@@ -25,7 +27,9 @@ import {AdminOrderDetailComponent} from './admin-orders/admin-order-detail/admin
         AdminTotalOrderComponent,
         AdminOrdersComponent,
         AdminOrderRowComponent,
-        AdminOrderDetailComponent
+        AdminOrderDetailComponent,
+        AdminOrderDetailItemComponent,
+        AdminProductCountComponent
     ],
     providers: []
 } )

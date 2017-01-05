@@ -47,7 +47,8 @@ export class ServicesModule {
             providers: [
                 AdminTypeService,
                 AdminOrderService,
-                UserService
+                UserService,
+                ProductsService
             ]
         }
     }

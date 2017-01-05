@@ -8,7 +8,9 @@ export interface IProduct {
     price?: number;
     step?: number;
     unity?: string;
-    decimal?: number;
     active: boolean;
+
     selected?: boolean;
+    quantity?: number;
+    total?: number;
 }

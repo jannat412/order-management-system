@@ -108,17 +108,16 @@ using the ::-ms-clear CSS pseudo-element.*/
       display: inherit;
     }
   }
-  /* input validation
-  -------------------------------------------------- */
-  input {
-    &.ng-invalid {
-      border: 1px solid #a94442;
-      border-left: 10px solid #a94442;
-    }
-    &.ng-valid {
-      border: 1px solid #97c000;
-      border-left: 10px solid #97c000;
-    }
+}
+
+/* input validation
+ -------------------------------------------------- */
+input[type="text"], input[type="email"], input[type="password"] {
+  &.ng-touched.ng-invalid {
+    border-left: 10px solid #a94442;
+  }
+  &.ng-valid, &.ng-pristine {
+    border-left: 10px solid #97c000;
   }
 }
 
