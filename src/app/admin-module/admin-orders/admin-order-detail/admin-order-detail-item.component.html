@@ -1,0 +1,19 @@
+<tr>
+
+    <td>{{index}}</td>
+    <td><img [src]="product.imgName"
+             class="img-thumbnail"></td>
+    <td><a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
+        <br>
+        <p class="label label-primary">
+            {{product.price | number:'1.2-2'}} € / {{product.unity}}
+        </p>
+    </td>
+        <td><oms-product-count
+                [product]="orderLine.value">
+        </oms-product-count>
+        </td>
+    <td>{{orderLine.value.quantity}}</td>
+    <td>{{orderLine.value.total}}</td>
+    <td></td>
+</tr>
