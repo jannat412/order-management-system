@@ -166,7 +166,7 @@ export class OrderService {
             } )
     };
 
-    getOrderLineByKey = (productKey: string): Observable<any> => {
+    getProductOrderLine = (productKey: string): Observable<any> => {
         return this.checkIfOrderExists()
             .flatMap( (userOrderKey) => {
                 return this.db.object( `/orders/${userOrderKey}/order/${productKey}` )

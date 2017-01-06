@@ -1,8 +1,8 @@
 export interface IOrderLine {
-    name: string;
+    name?: string;
     price?: number;
-    unity: string;
+    unity?: string;
     quantity: number;
-    total?: number;
+    total: number;
 }
 

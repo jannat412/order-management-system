@@ -38,10 +38,8 @@ export class ProductsListComponent implements OnInit {
             );
 
         this.orderService.getOrderLinesByUser().subscribe(
-            (userOrderProducts: IOrderLine[]) => {
-                console.log( userOrderProducts );
-                this.userOrderProducts = <IOrderLine[]>userOrderProducts;
-            }
+            (userOrderProducts: IOrderLine[]) =>
+                this.userOrderProducts = <IOrderLine[]>userOrderProducts
         );
 
         // this.orderService.getProductsOrderLines()

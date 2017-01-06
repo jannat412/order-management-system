@@ -35,9 +35,10 @@
                             </oms-product-tags>
                         </li>
                         <li class="list-group-item">
-                            <!--<oms-product-count [product]="product"-->
-                                               <!--*ngIf="product.active">-->
-                            <!--</oms-product-count>-->
+                            <oms-product-count [counterData]="createCounterData()"
+                                               (updateCount)="updateOrderProductLine($event)"
+                                               *ngIf="product.active">
+                            </oms-product-count>
                         </li>
                     </ul>
 
