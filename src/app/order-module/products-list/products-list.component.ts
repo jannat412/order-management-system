@@ -78,8 +78,6 @@ export class ProductsListComponent implements OnInit {
         return this.userOrderProducts.filter( (product) => {
                 return product['$key'] === productKey;
             } )[0] || {
-                name: '',
-                unity: '',
                 quantity: 0,
                 total: 0
             }

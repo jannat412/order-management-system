@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
+import {TouchspinComponent} from './touchspin/touchspin.component';
 import {ProductCountComponent} from './product-count/product-count.component';
-import {TouchspinComponent} from '../directives/touchspin/touchspin.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {DirectivesModule} from '../directives/directives.module';
 
 @NgModule({
     declarations: [
@@ -11,7 +12,8 @@ import {FormsModule} from '@angular/forms';
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        DirectivesModule
     ],
     exports: [
         CommonModule,

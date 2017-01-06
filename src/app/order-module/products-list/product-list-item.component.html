@@ -22,8 +22,7 @@
         <small>{{product.comment}}</small>
     </td>
     <td>
-        <oms-product-count [product]="product"
-                           [productOrderLine]="productOrderLine"
+        <oms-product-count [counterData]="createCounterData()"
                            *ngIf="product.active">
         </oms-product-count>
         <span *ngIf="!product.active"

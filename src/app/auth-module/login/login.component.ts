@@ -54,12 +54,13 @@ export class LoginComponent implements OnInit {
             email: ['',
                 Validators.compose( [
                     Validators.required,
-                    Validators.pattern( ValidationUtils.emailRegex )
+                    Validators.pattern( ValidationUtils.email )
                 ] )],
-            password: ['', Validators.compose( [
-                Validators.required,
-                Validators.minLength( 6 )
-            ] )]
+            password: ['',
+                Validators.compose( [
+                    Validators.required,
+                    Validators.minLength( 6 )
+                ] )]
         } )
 
     }

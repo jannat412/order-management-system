@@ -1,6 +1,11 @@
 <div class="input-group">
-    <app-touchspin class="input-group" [step]="product.step" [value]="quantity"
+    <app-touchspin class="input-group"
+                   [step]="counterData.step"
+                   [value]="printValue('quantity')"
                (touchspinChange)="updateTotal($event)">
     </app-touchspin>
-    <span class="input-group-addon">{{total | number:'1.2-2'}} €</span>
+    <span class="input-group-addon">
+        {{printValue('total') | number:'1.2-2'}}
+        {{counterData.totalMeasurementUnit}}
+    </span>
 </div>
