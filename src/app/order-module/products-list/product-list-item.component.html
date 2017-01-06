@@ -23,6 +23,7 @@
     </td>
     <td>
         <oms-product-count [counterData]="createCounterData()"
+                           (updateCount)="updateOrderProductLine($event)"
                            *ngIf="product.active">
         </oms-product-count>
         <span *ngIf="!product.active"

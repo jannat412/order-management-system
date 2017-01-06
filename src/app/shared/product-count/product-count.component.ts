@@ -1,4 +1,4 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {ICounterData} from '../../models/counterData';
 import {NumberUtils} from '../../../utils/number.utils';
 
@@ -7,8 +7,9 @@ import {NumberUtils} from '../../../utils/number.utils';
     templateUrl: './product-count.component.html'
 } )
 export class ProductCountComponent {
-    @Input() counterData: ICounterData;
-    @Output() step: number|string;
+    @Input() private counterData: ICounterData;
+    @Output() private step: number|string;
+    @Output() private updateCount: EventEmitter<any> = new EventEmitter<any>();
     private total: number;
     private quantity: number;
 
@@ -22,15 +23,11 @@ export class ProductCountComponent {
         this.total = Math.round(
                 this.quantity * this.counterData.valuePerUnit * 100 ) / 100;
 
-        // this.orderService.addProductLine( {
-        //     $key: this.product.$key,
-        //     name: this.product.name,
-        //     price: this.product.price,
-        //     quantity: this.quantity,
-        //     unity: this.product.unity,
-        //     total: this.total
-        // } );
-
+        this.updateCount.emit( {
+                quantity: this.quantity,
+                total: this.total
+            }
+        );
     };
 
 }

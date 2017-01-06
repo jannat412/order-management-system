@@ -10,7 +10,6 @@ import {DirectivesModule} from '../directives/directives.module';
 import {AdminOrderRowComponent} from './admin-orders/admin-order-row.component';
 import {AdminOrderDetailComponent} from './admin-orders/admin-order-detail/admin-order-detail.component';
 import {AdminOrderDetailItemComponent} from './admin-orders/admin-order-detail/admin-order-detail-item.component';
-import {AdminProductCountComponent} from './admin-orders/admin-product-count/admin-product-count.component';
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule( {
@@ -28,8 +27,7 @@ import {SharedModule} from '../shared/shared.module';
         AdminOrdersComponent,
         AdminOrderRowComponent,
         AdminOrderDetailComponent,
-        AdminOrderDetailItemComponent,
-        AdminProductCountComponent
+        AdminOrderDetailItemComponent
     ],
     providers: []
 } )
