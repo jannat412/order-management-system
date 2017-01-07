@@ -47,22 +47,6 @@ export class OrderService {
             .map( (order) => order.$value );
     };
 
-    /**
-     * OK
-     * @returns {Observable<R>}
-     */
-    getOrderLinesByUser = (): Observable<any> => {
-        return this.checkIfOrderExists()
-            .flatMap( (userOrderKey) => {
-                return this.db.list( `/orders/${userOrderKey}/order` );
-            } )
-            .map( (data) => {
-                this.checkTempOrder( data );
-                this.onChangeOrderEmit();
-                return ArrayUtils.orderListToArray( this.order );
-            } );
-    };
-
     private checkTempOrder = (data) => {
         data.forEach( (item) => {
             this.checkTempProductOrder( item );
@@ -70,7 +54,7 @@ export class OrderService {
     };
 
     private checkTempProductOrder = (item) => {
-        if (!this.order[item.$key]) {
+        if (!this.order[item.$key] && item.$value !== null ) {
             this.order[item.$key] = {
                 name: item.name,
                 price: item.price,
@@ -82,18 +66,34 @@ export class OrderService {
     };
 
     /**
-     * OK
-     * @param productKey
-     * @returns {any}
+     * get product lines for current user and order
+     * @returns {Observable<R>}
      */
-    getProductOrderLine = (productKey: string): Observable<any> => {
+    getOrderLinesByUser = (): Observable<IOrderLine[]> => {
+        return this.checkIfOrderExists()
+            .flatMap( (userOrderKey) => {
+                return this.db.list( `/orders/${userOrderKey}/order` );
+            } )
+            .map( (data) => {
+                this.checkTempOrder( data );
+                this.onChangeOrderEmit();
+                return ArrayUtils.orderListToArray( this.order );
+            } );
+    };
+
+    /**
+     * get single current product line for current user and order
+     * @param productKey
+     * @returns {Observable<any>}
+     */
+    getProductOrderLine = (productKey: string): Observable<IOrderLine> => {
         return this.checkIfOrderExists()
             .flatMap( (userOrderKey) => {
                 return this.db.object( `/orders/${userOrderKey}/order/${productKey}` )
             } )
             .map( data => {
                 this.checkTempProductOrder( data );
-                if (this.order[data.$key] === null) {
+                if (!this.order[data.$key]) {
                     return {
                         quantity: 0,
                         total: 0
@@ -104,8 +104,17 @@ export class OrderService {
             } );
     };
 
-    getProductsOrderLines = () => {
-        return this.db.object( `/orders/${this.userOrderKey}/order` );
+    // getProductsOrderLines = () => {
+    //     return this.db.object( `/orders/${this.userOrderKey}/order` );
+    // };
+
+    /**
+     * calculates total amount and emits the new order list and total amount
+     */
+    private calculateTotalAmount = (): void => {
+        this.totalAmount = Math.round( Object.keys( this.order ).reduce( (sum, key) => {
+                    return sum + (this.order[key].total || 0);
+                }, 0 ) * 1e2 ) / 1e2;
     };
 
     /**
@@ -124,6 +133,9 @@ export class OrderService {
         this.onChangeOrderEmit();
     };
 
+    /**
+     * register changes from outside with emitter
+     */
     onChangeOrderEmit = () => {
         this.calculateTotalAmount();
         this.emittedOrder.emit( ArrayUtils.orderListToArray( this.order ) );
@@ -134,16 +146,9 @@ export class OrderService {
      * returns a given product item detail from order
      * @param key
      */
-    getLineData = (key: string): any => this.order[key] || null;
+    //getLineData = (key: string): any => this.order[key] || null;
 
-    /**
-     * calculates total amount and emits the new order list and total amount
-     */
-    private calculateTotalAmount = (): void => {
-        this.totalAmount = Math.round( Object.keys( this.order ).reduce( (sum, key) => {
-                    return sum + this.order[key].total;
-                }, 0 ) * 1e2 ) / 1e2;
-    };
+
 
 
     /************ SAVE TO FIREBASE ************/
