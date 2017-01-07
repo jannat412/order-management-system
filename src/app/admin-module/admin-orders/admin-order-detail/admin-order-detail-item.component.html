@@ -9,9 +9,10 @@
             {{product.price | number:'1.2-2'}} € / {{product.unity}}
         </p>
     </td>
-        <td><oms-product-count
-                [product]="orderLine.value">
-        </oms-product-count>
+        <td>
+            <!--<oms-product-count-->
+                <!--[product]="orderLine.value">-->
+        <!--</oms-product-count>-->
         </td>
     <td>{{orderLine.value.quantity}}</td>
     <td>{{orderLine.value.total}}</td>

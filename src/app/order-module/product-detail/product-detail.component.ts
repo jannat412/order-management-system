@@ -62,8 +62,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     getOrderLine = () => {
         this.orderLineSubscription = this.orderService
             .getProductOrderLine( this.key ).subscribe(
-                (userOrderProduct: IOrderLine)
-                    => this.userOrderProduct = <IOrderLine>userOrderProduct
+                (userOrderProduct: IOrderLine) => {
+                    console.log('userOrderPord: ', userOrderProduct);
+                    this.userOrderProduct = <IOrderLine>userOrderProduct
+                }
+
             );
     };
 

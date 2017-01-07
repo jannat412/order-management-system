@@ -11,9 +11,9 @@
     <div class="panel-footer" *ngIf="productLines && productLines.length">
         <ul class="shopping-list list-unstyled">
             <li *ngFor="let line of productLines">
-                <small class="item">{{line.value.name}}</small>
+                <small class="item">{{line.name}}</small>
                 <small class="item-detail">
-                    {{line.value.quantity}} {{line.value.unity}} | {{line.value.total | number:'1.2-2'}}€
+                    {{line.quantity}} {{line.unity}} | {{line.total | number:'1.2-2'}}€
                 </small>
             </li>
         </ul>

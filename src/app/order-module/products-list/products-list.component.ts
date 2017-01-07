@@ -42,14 +42,6 @@ export class ProductsListComponent implements OnInit {
                 this.userOrderProducts = <IOrderLine[]>userOrderProducts
         );
 
-        // this.orderService.getProductsOrderLines()
-        //     .subscribe(
-        //         (data) => {
-        //             console.log( data );
-        //             this.productsLine = data
-        //         }
-        //     );
-
     }
 
     doFilter = (str: string) => {

@@ -11,6 +11,7 @@ import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
 
 import {ArrayUtils} from '../../utils/array.utils';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class OrderService {
@@ -29,51 +30,78 @@ export class OrderService {
     constructor(private db: AngularFireDatabase,
                 private configService: ConfigService,
                 private authService: AuthService) {
-
-        this.authService.getUserId()
-            .subscribe(
-                (uid) => {
-                    console.log( 'uid: ', uid );
-                    this.uid = uid
-                }
-            ).unsubscribe();
-
-        this.configService.getCurrentOrderDate()
-            .subscribe(
-                (data) => {
-                    this.currentOrderKey = data.$key;
-                    this.checkIfOrderExists().subscribe(
-                        (userOrder) => {
-                            this.order = <IOrderLine>{};
-                            if (userOrder) {
-                                this.userOrderKey = userOrder;
-
-                                // order items
-                                this.db.object( `/orders/${this.userOrderKey}` )
-                                    .subscribe(
-                                        (data) => {
-                                            this.comment = data.comment;
-                                            this.order = data.order;
-                                            this.calculateTotalAmount();
-                                            this.getInitOrder();
-                                            this.lineDataEmitter.emit( true );
-                                        }
-                                    );
-
-                            }
-                        }
-                    );
-                } );
     }
 
-    /**
-     * return order
+    /** OK
+     * check if order exists for user and current Order week, and if so, return the key of the order
+     * @returns {Observable<any>}
      */
-    getOrder = (): any => this.order;
+    private checkIfOrderExists = (): Observable<string> => {
+        return this.configService.getCurrentOrderDate()
+            .flatMap( (currentOrderKey) => {
+                return this.authService.getUserId()
+                    .flatMap( uid => {
+                        return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey.$key}` )
+                    } );
+            } )
+            .map( (order) => order.$value );
+    };
 
-    getInitOrder = () => {
-        this.emittedOrder.emit( ArrayUtils.orderListToArray( this.order ) );
-        this.pushTotalAmount.emit( this.getTotalAmount() );
+    /**
+     * OK
+     * @returns {Observable<R>}
+     */
+    getOrderLinesByUser = (): Observable<any> => {
+        return this.checkIfOrderExists()
+            .flatMap( (userOrderKey) => {
+                return this.db.list( `/orders/${userOrderKey}/order` );
+            } )
+            .map( (data) => {
+                this.checkTempOrder( data );
+                this.onChangeOrderEmit();
+                return ArrayUtils.orderListToArray( this.order );
+            } );
+    };
+
+    private checkTempOrder = (data) => {
+        data.forEach( (item) => {
+            this.checkTempProductOrder( item );
+        } );
+    };
+
+    private checkTempProductOrder = (item) => {
+        if (!this.order[item.$key]) {
+            this.order[item.$key] = {
+                name: item.name,
+                price: item.price,
+                unity: item.unity,
+                quantity: item.quantity,
+                total: item.total
+            };
+        }
+    };
+
+    /**
+     * OK
+     * @param productKey
+     * @returns {any}
+     */
+    getProductOrderLine = (productKey: string): Observable<any> => {
+        return this.checkIfOrderExists()
+            .flatMap( (userOrderKey) => {
+                return this.db.object( `/orders/${userOrderKey}/order/${productKey}` )
+            } )
+            .map( data => {
+                this.checkTempProductOrder( data );
+                if (this.order[data.$key] === null) {
+                    return {
+                        quantity: 0,
+                        total: 0
+                    }
+                }
+                this.onChangeOrderEmit();
+                return this.order[data.$key];
+            } );
     };
 
     getProductsOrderLines = () => {
@@ -86,19 +114,20 @@ export class OrderService {
      * @param productLine
      */
     addProductLine = (productLine) => {
-        if (productLine.quantity <= 0) {
-            delete this.order[productLine.$key];
-        } else {
-            this.order[productLine.$key] = {
-                name: productLine.name,
-                price: productLine.price,
-                unity: productLine.unity,
-                quantity: productLine.quantity,
-                total: productLine.total
-            };
-        }
+        this.order[productLine.$key] = {
+            name: productLine.name,
+            price: productLine.price,
+            unity: productLine.unity,
+            quantity: productLine.quantity,
+            total: productLine.total
+        };
+        this.onChangeOrderEmit();
+    };
+
+    onChangeOrderEmit = () => {
         this.calculateTotalAmount();
-        this.getInitOrder();
+        this.emittedOrder.emit( ArrayUtils.orderListToArray( this.order ) );
+        this.pushTotalAmount.emit( this.totalAmount );
     };
 
     /**
@@ -106,11 +135,6 @@ export class OrderService {
      * @param key
      */
     getLineData = (key: string): any => this.order[key] || null;
-
-    /**
-     * returns total amount
-     */
-    getTotalAmount = (): number => this.totalAmount;
 
     /**
      * calculates total amount and emits the new order list and total amount
@@ -138,59 +162,13 @@ export class OrderService {
     };
 
     /**
-     * check if order exists for user and current Order week, and if so, return the key of the order
-     * @returns {Observable<any>}
-     */
-    checkIfOrderExists = (): Observable<string> => {
-        return this.configService.getCurrentOrderDate()
-            .flatMap( (currentOrderKey) => {
-                console.log( 'user', this.uid );
-                return this.authService.getUserId()
-                    .flatMap( uid => {
-                        console.log( 'uid::: ', uid );
-                        return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey.$key}` )
-                    } );
-            } )
-            .map( (order) => order.$value );
-    };
-
-    getOrderLinesByUser = (): Observable<any> => {
-        return this.checkIfOrderExists()
-            .flatMap( (userOrderKey) => {
-                console.log( userOrderKey );
-                if (userOrderKey) {
-                    return this.db.list( `/orders/${userOrderKey}/order` )
-                } else {
-                    return null;
-                }
-            } )
-    };
-
-    getProductOrderLine = (productKey: string): Observable<any> => {
-        return this.checkIfOrderExists()
-            .flatMap( (userOrderKey) => {
-                return this.db.object( `/orders/${userOrderKey}/order/${productKey}` )
-            } )
-            .map( data => {
-                if (data.$value === null) {
-                    return {
-                        quantity: 0,
-                        total: 0,
-                        name: ''
-                    }
-                }
-                return data;
-            } );
-    };
-
-    /**
      * pushes a new order
      */
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
         const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
-            order: this.getOrder(),
+            order: this.order,
             user: this.uid,
             comment: this.comment,
             timestamp: database['ServerValue']['TIMESTAMP'],
@@ -210,7 +188,7 @@ export class OrderService {
     private updateOrder = () => {
         const order = this.db.object( `/orders/${this.userOrderKey}` );
         order.update( {
-            order: this.getOrder(),
+            order: this.order,
             comment: this.comment,
             timestamp: database['ServerValue']['TIMESTAMP']
         } )
