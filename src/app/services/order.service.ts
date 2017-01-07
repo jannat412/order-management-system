@@ -72,10 +72,11 @@ export class OrderService {
     getOrderLinesByUser = (): Observable<IOrderLine[]> => {
         return this.checkIfOrderExists()
             .flatMap( (userOrderKey) => {
-                return this.db.list( `/orders/${userOrderKey}/order` );
+                return this.db.object( `/orders/${userOrderKey}` );
             } )
             .map( (data) => {
-                this.checkTempOrder( data );
+                this.comment = data.comment;
+                this.checkTempOrder( ArrayUtils.orderListToArray(data.order) );
                 this.onChangeOrderEmit();
                 return ArrayUtils.orderListToArray( this.order );
             } );
@@ -147,9 +148,6 @@ export class OrderService {
      * @param key
      */
     //getLineData = (key: string): any => this.order[key] || null;
-
-
-
 
     /************ SAVE TO FIREBASE ************/
 

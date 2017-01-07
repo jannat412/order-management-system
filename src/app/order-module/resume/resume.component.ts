@@ -32,8 +32,11 @@ export class ResumeComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.linesSubscription = this.orderService.emittedOrder
-            .subscribe( data => this.productLines = data );
+        this.linesSubscription = this.orderService.getOrderLinesByUser()
+            .subscribe( data => {
+                this.productLines = data;
+                this.comment = this.orderService.getComment();
+            } );
 
         this.currentDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe( data => this.currentOrderDate = data.limitDate );
@@ -44,9 +47,6 @@ export class ResumeComponent implements OnInit, OnDestroy {
         this.totalAmountSubscription = this.orderService.pushTotalAmount
             .subscribe( data => this.superTotal = data );
 
-        this.comment = this.orderService.getComment();
-
-        this.orderService.getInitOrder();
     }
 
     ngOnDestroy() {

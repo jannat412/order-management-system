@@ -28,10 +28,10 @@
                     <tbody>
                     <tr *ngFor="let line of productLines; let i=index;">
                         <td>{{i+1}}</td>
-                        <td>{{line.value.name}}</td>
-                        <td>{{line.value.quantity}}</td>
-                        <td>{{line.value.unity}}</td>
-                        <td>{{line.value.total | number:'1.2-2'}}€</td>
+                        <td>{{line.name}}</td>
+                        <td>{{line.quantity}}</td>
+                        <td>{{line.unity}}</td>
+                        <td>{{line.total | number:'1.2-2'}}€</td>
                     </tr>
                     <tr class="total-price-row">
                         <td></td>
