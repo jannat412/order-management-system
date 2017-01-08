@@ -39,8 +39,10 @@ export class OrderService {
     private checkIfOrderExists = (): Observable<string> => {
         return this.configService.getCurrentOrderDate()
             .flatMap( (currentOrderKey) => {
+                this.currentOrderKey = currentOrderKey.$key;
                 return this.authService.getUserId()
                     .flatMap( uid => {
+                        this.uid = uid;
                         return this.db.object( `/ordersPerUser/${uid}/${currentOrderKey.$key}` )
                     } );
             } )
@@ -168,9 +170,10 @@ export class OrderService {
      */
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
+        const filteredOrder = ArrayUtils.filterObjectArray( this.order, line => line.quantity > 0 );
         const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
-            order: this.order,
+            order: filteredOrder,
             user: this.uid,
             comment: this.comment,
             timestamp: database['ServerValue']['TIMESTAMP'],
@@ -189,9 +192,7 @@ export class OrderService {
      */
     private updateOrder = () => {
         const order = this.db.object( `/orders/${this.userOrderKey}` );
-        console.log(this.order);
         const filteredOrder = ArrayUtils.filterObjectArray( this.order, line => line.quantity > 0 );
-        console.log(filteredOrder);
         order.update( {
             order: filteredOrder,
             comment: this.comment,
