@@ -17,4 +17,14 @@ export class ArrayUtils {
         keys.sort( (a, b): any => a.name > b.name );
         return keys;
     };
+
+    static filterObjectArray = (obj, predicate) => {
+        return Object.keys( obj )
+            .filter( (key) => predicate( obj[key] )
+            )
+            .reduce( (acc, cur, i) => {
+                acc[cur] = obj[cur];
+                return acc;
+            }, {} );
+    };
 }

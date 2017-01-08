@@ -54,7 +54,7 @@ export class OrderService {
     };
 
     private checkTempProductOrder = (item) => {
-        if (!this.order[item.$key] && item.$value !== null ) {
+        if (!this.order[item.$key] && item.$value !== null) {
             this.order[item.$key] = {
                 name: item.name,
                 price: item.price,
@@ -72,11 +72,12 @@ export class OrderService {
     getOrderLinesByUser = (): Observable<IOrderLine[]> => {
         return this.checkIfOrderExists()
             .flatMap( (userOrderKey) => {
+                this.userOrderKey = userOrderKey;
                 return this.db.object( `/orders/${userOrderKey}` );
             } )
             .map( (data) => {
                 this.comment = data.comment;
-                this.checkTempOrder( ArrayUtils.orderListToArray(data.order) );
+                this.checkTempOrder( ArrayUtils.orderListToArray( data.order ) );
                 this.onChangeOrderEmit();
                 return ArrayUtils.orderListToArray( this.order );
             } );
@@ -151,9 +152,7 @@ export class OrderService {
 
     /************ SAVE TO FIREBASE ************/
 
-    saveComment = (comment: string) => {
-        this.comment = comment;
-    };
+    saveComment = (comment: string) => this.comment = comment;
 
     getComment = (): string => this.comment;
 
@@ -190,8 +189,11 @@ export class OrderService {
      */
     private updateOrder = () => {
         const order = this.db.object( `/orders/${this.userOrderKey}` );
+        console.log(this.order);
+        const filteredOrder = ArrayUtils.filterObjectArray( this.order, line => line.quantity > 0 );
+        console.log(filteredOrder);
         order.update( {
-            order: this.order,
+            order: filteredOrder,
             comment: this.comment,
             timestamp: database['ServerValue']['TIMESTAMP']
         } )
