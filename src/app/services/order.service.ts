@@ -10,8 +10,7 @@ import {ConfigService} from './config.service';
 import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
 
-import {ArrayUtils} from '../../utils/array.utils';
-import {Subject} from 'rxjs';
+import {OrderUtils, ObjectUtils} from '../../utils/utils';
 
 @Injectable()
 export class OrderService {
@@ -32,7 +31,7 @@ export class OrderService {
                 private authService: AuthService) {
     }
 
-    /** OK
+    /**
      * check if order exists for user and current Order week, and if so, return the key of the order
      * @returns {Observable<any>}
      */
@@ -79,9 +78,9 @@ export class OrderService {
             } )
             .map( (data) => {
                 this.comment = data.comment;
-                this.checkTempOrder( ArrayUtils.orderListToArray( data.order ) );
+                this.checkTempOrder( OrderUtils.orderListToArray( data.order ) );
                 this.onChangeOrderEmit();
-                return ArrayUtils.orderListToArray( this.order );
+                return OrderUtils.orderListToArray( this.order );
             } );
     };
 
@@ -107,10 +106,6 @@ export class OrderService {
                 return this.order[data.$key];
             } );
     };
-
-    // getProductsOrderLines = () => {
-    //     return this.db.object( `/orders/${this.userOrderKey}/order` );
-    // };
 
     /**
      * calculates total amount and emits the new order list and total amount
@@ -142,9 +137,13 @@ export class OrderService {
      */
     onChangeOrderEmit = () => {
         this.calculateTotalAmount();
-        this.emittedOrder.emit( ArrayUtils.orderListToArray( this.order ) );
+        this.emittedOrder.emit( OrderUtils.orderListToArray( this.order ) );
         this.pushTotalAmount.emit( this.totalAmount );
     };
+
+    // getProductsOrderLines = () => {
+    //     return this.db.object( `/orders/${this.userOrderKey}/order` );
+    // };
 
     /**
      * returns a given product item detail from order
@@ -170,7 +169,7 @@ export class OrderService {
      */
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
-        const filteredOrder = ArrayUtils.filterObjectArray( this.order, line => line.quantity > 0 );
+        const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
         const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
             order: filteredOrder,
@@ -192,7 +191,7 @@ export class OrderService {
      */
     private updateOrder = () => {
         const order = this.db.object( `/orders/${this.userOrderKey}` );
-        const filteredOrder = ArrayUtils.filterObjectArray( this.order, line => line.quantity > 0 );
+        const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
         order.update( {
             order: filteredOrder,
             comment: this.comment,

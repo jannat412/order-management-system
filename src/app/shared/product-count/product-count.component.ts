@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {ICounterData} from '../../models/counterData';
-import {NumberUtils} from '../../../utils/number.utils';
+import {NumberUtils} from '../../../utils/utils';
 
 @Component( {
     selector: 'oms-product-count',

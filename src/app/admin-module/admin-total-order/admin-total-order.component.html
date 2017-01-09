@@ -28,10 +28,10 @@
                 <tbody>
                 <tr *ngFor="let product of products; let i=index;">
                     <td>{{i+1}}</td>
-                    <td>{{product.value.name}}</td>
-                    <td>{{product.value.quantity}}</td>
-                    <td>{{product.value.unity}}</td>
-                    <td>{{product.value.total | number:'1.2-2'}}€</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>{{product.unity}}</td>
+                    <td>{{product.total | number:'1.2-2'}}€</td>
                 </tr>
 
                 </tbody>

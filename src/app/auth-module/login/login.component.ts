@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {FirebaseAuthState, FirebaseAuth} from 'angularfire2';
 
 import {AuthService} from '../../services/auth.service';
-import {ValidationUtils} from '../../../utils/validation.utils';
+import {ValidationUtils} from '../../../utils/utils';
 
 @Component( {
     selector: 'oms-login',

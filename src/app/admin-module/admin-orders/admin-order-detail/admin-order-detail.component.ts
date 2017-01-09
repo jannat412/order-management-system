@@ -6,8 +6,7 @@ import {AdminOrderService} from '../../../services/admin-order.service';
 import {ConfigService} from '../../../services/config.service';
 import {IUser} from '../../../models/user';
 import {UserService} from '../../../services/user.service';
-import {IOrderLine} from '../../../models/orderLine';
-import {ArrayUtils} from '../../../../utils/array.utils';
+import { OrderUtils} from '../../../../utils/utils';
 
 @Component( {
     selector: 'oms-admin-order-detail',
@@ -34,7 +33,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
             .flatMap( param => this.adminOrderService.getOrder( param['key'] ) )
             .flatMap(data => {
                 this.order = <IOrder>data;
-                this.orderLines = ArrayUtils.orderListToArray(this.order.order);
+                this.orderLines = OrderUtils.orderListToArray(this.order.order);
                 return this.userService.getUserData( data.user )
             })
             .subscribe(
