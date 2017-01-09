@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {OrderService} from '../../services/order.service';
 import {CategoriesService} from '../../services/categories.service';
 import {IProduct} from '../../models/product';
 import {ICategory} from '../../models/category';
 import {IOrderLine} from '../../models/orderLine';
 import {ICounterData} from '../../models/counterData';
-import {OrderService} from '../../services/order.service';
 
 @Component( {
     selector: '.oms-product-list-item',
@@ -27,6 +27,7 @@ export class ProductListItemComponent implements OnInit {
     }
 
     createCounterData = (): ICounterData => {
+        this.isProductSelected(this.productOrderLine.quantity);
         return {
             valuePerUnit: this.product.price,
             quantity: this.productOrderLine.quantity,
@@ -37,6 +38,7 @@ export class ProductListItemComponent implements OnInit {
     };
 
     updateOrderProductLine = (counterData: any) => {
+        this.isProductSelected(counterData.quantity);
         this.orderService.addProductLine( {
             $key: this.product.$key,
             name: this.product.name,
@@ -46,5 +48,9 @@ export class ProductListItemComponent implements OnInit {
             total: counterData.total
         } );
     };
+
+    isProductSelected = (quantity: number) => {
+        this.product.selected = quantity > 0 ;
+    }
 
 }

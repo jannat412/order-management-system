@@ -1,16 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {ProductsService} from '../../services/products.service';
 import {IProduct} from '../../models/product';
 import {NameFilterInputComponent} from '../name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filter-menu.component';
 import {OrderService} from '../../services/order.service';
 import {IOrderLine} from '../../models/orderLine';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component( {
     selector: 'oms-order-list',
     templateUrl: 'products-list.component.html'
 } )
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
     private products: IProduct[];
     private userOrderProducts: IOrderLine[] = [];
     private errorMessage: string;
@@ -26,22 +27,40 @@ export class ProductsListComponent implements OnInit {
     private activeFilter: boolean = true;
     private selectedFilter: boolean = false;
 
+    private linesSubscription: Subscription;
+    private productsSubscription: Subscription;
+    private orderLinesSubscription: Subscription;
+
     constructor(private productsService: ProductsService,
                 private orderService: OrderService) {
     }
 
     ngOnInit() {
-        this.productsService.getProducts()
+        this.productsSubscription = this.productsService
+            .getProducts()
             .subscribe(
                 (products: IProduct[]) => this.products = <IProduct[]>products,
                 (error: any) => this.errorMessage = <any>error
             );
 
-        this.orderService.getOrderLinesByUser().subscribe(
-            (userOrderProducts: IOrderLine[]) =>
-                this.userOrderProducts = <IOrderLine[]>userOrderProducts
-        );
+        this.orderLinesSubscription = this.orderService
+            .getOrderLinesByUser().subscribe(
+                (userOrderProducts: IOrderLine[]) =>
+                    this.userOrderProducts = <IOrderLine[]>userOrderProducts
+            );
 
+        this.linesSubscription = this.orderService
+            .emittedOrder.subscribe(
+                (userOrderProducts: IOrderLine[]) =>
+                    this.userOrderProducts = <IOrderLine[]>userOrderProducts
+            );
+
+    }
+
+    ngOnDestroy() {
+        this.productsSubscription.unsubscribe();
+        this.orderLinesSubscription.unsubscribe();
+        this.linesSubscription.unsubscribe();
     }
 
     doFilter = (str: string) => {
