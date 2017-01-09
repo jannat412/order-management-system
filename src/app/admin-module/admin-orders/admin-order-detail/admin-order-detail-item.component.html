@@ -10,11 +10,9 @@
         </p>
     </td>
         <td>
-            <!--<oms-product-count-->
-                <!--[product]="orderLine.value">-->
-        <!--</oms-product-count>-->
+            <oms-product-count [counterData]="createCounterData()"
+                               (updateCount)="updateOrderProductLine($event)">
+            </oms-product-count>
         </td>
-    <td>{{orderLine.value.quantity}}</td>
-    <td>{{orderLine.value.total}}</td>
     <td></td>
 </tr>
