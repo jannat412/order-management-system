@@ -1,6 +1,7 @@
 <tr [ngClass]="category?.className">
 
-    <td class="row-index"><span class="label">{{index}}</span></td>
+    <td class="row-index"
+        [ngClass]="{'reviewed': ok}"><span class="label">{{index}}</span></td>
     <td><img [src]="product.imgName"
              class="img-thumbnail"></td>
     <td><a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
@@ -9,10 +10,28 @@
             {{product.price | number:'1.2-2'}} € / {{product.unity}}
         </p>
     </td>
-        <td>
-            <oms-product-count [counterData]="createCounterData()"
-                               (updateCount)="updateOrderProductLine($event)">
-            </oms-product-count>
-        </td>
-    <td></td>
+    <td *ngIf="!ok">
+        <oms-product-count [counterData]="createCounterData()"
+                           (updateCount)="updateOrderProductLine($event)">
+        </oms-product-count>
+    </td>
+    <td *ngIf="ok">
+        <div class="alert alert-info text-center">{{orderLine.quantity}} {{product.unity}}:
+            <strong>{{orderLine.total | number:'1.2-2'}} €</strong></div>
+    </td>
+    <td>
+        <span *ngIf="modified"
+              class="badge alert-success" [ngClass]="{'alert-danger': offset < 0}">
+            <span *ngIf="offset > 0">+</span>
+            {{offset | number:'1.2-2'}} €</span>
+    </td>
+    <td>
+        <button (click)="lineOk()"><span
+                class="glyphicon glyphicon-ok"
+                aria-hidden="true"></span>
+        </button>
+        <button (click)="lineKo()"><span
+                class="glyphicon glyphicon-remove"
+                aria-hidden="true"></span></button>
+    </td>
 </tr>

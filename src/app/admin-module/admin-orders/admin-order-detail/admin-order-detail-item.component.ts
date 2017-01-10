@@ -17,6 +17,12 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     @Input() index: number;
     private productSubscription: Subscription;
     private categorySubscription: Subscription;
+    private offset: number = null;
+    private tempQuantity: number = null;
+    private tempTotal: number = null;
+    private ok: boolean = false;
+    private available: boolean = true;
+    private modified: boolean = false;
 
     constructor(private productsService: ProductsService,
                 private categoriesService: CategoriesService) {
@@ -44,6 +50,7 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     }
 
     createCounterData = (): ICounterData => {
+
         return {
             valuePerUnit: this.product.price,
             quantity: this.orderLine.quantity,
@@ -54,7 +61,23 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     };
 
     updateOrderProductLine = (counterData: any) => {
-        console.log( counterData );
+        this.offset = counterData.total - this.orderLine.total;
+        this.modified = this.offset !== 0;
+        this.tempQuantity = this.modified ? counterData.quantity : null;
+        this.tempTotal = this.modified ? counterData.total : null;
+
+    };
+
+    lineOk = () => {
+        this.ok = true;
+        if (this.modified) {
+            this.orderLine.quantity = this.tempQuantity;
+            this.orderLine.total = this.tempTotal;
+        }
+    };
+
+    lineKo = () => {
+
     };
 
 }
