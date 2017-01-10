@@ -15,14 +15,16 @@
     td.row-index {
       display: table-cell;
       vertical-align: middle;
-      width: 40px;
-      > .label {
-        background: darken($value, 30%);
+      max-width: 40px;
+      > span {
+        color: darken($value, 30%);
         font-size: 0.9em;
-        color: $value;
       }
       &.reviewed {
         background: darken($value, 30%);
+        > span {
+          color: $value;
+        }
       }
     }
     td > .label-primary {

@@ -1,7 +1,7 @@
 <tr [ngClass]="category?.className">
 
     <td class="row-index"
-        [ngClass]="{'reviewed': ok}"><span class="label">{{index}}</span></td>
+        [ngClass]="{'reviewed': ok}"><span>{{index}}</span></td>
     <td><img [src]="product.imgName"
              class="img-thumbnail"></td>
     <td><a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
@@ -16,8 +16,14 @@
         </oms-product-count>
     </td>
     <td *ngIf="ok">
-        <div class="alert alert-info text-center">{{orderLine.quantity}} {{product.unity}}:
-            <strong>{{orderLine.total | number:'1.2-2'}} €</strong></div>
+        <div class="alert alert-info text-center">
+            {{tempQuantity || orderLine.quantity}} {{product.unity}}:
+            <strong>{{tempTotal || orderLine.total | number:'1.2-2'}} €</strong>
+            <br>
+            <small *ngIf="modified">
+                Originalment: {{orderLine.quantity}} {{product.unity}}
+            </small>
+        </div>
     </td>
     <td>
         <span *ngIf="modified"
@@ -26,12 +32,17 @@
             {{offset | number:'1.2-2'}} €</span>
     </td>
     <td>
-        <button (click)="lineOk()"><span
-                class="glyphicon glyphicon-ok"
-                aria-hidden="true"></span>
-        </button>
-        <button (click)="lineKo()"><span
-                class="glyphicon glyphicon-remove"
+        <div class="btn-group" *ngIf="!ok">
+            <button class="btn btn-success" type="button" (click)="lineOk()"><span
+                    class="glyphicon glyphicon-ok"
+                    aria-hidden="true"></span>
+            </button>
+            <button class="btn btn-danger" type="button" (click)="lineKo()"><span
+                    class="glyphicon glyphicon-remove"
+                    aria-hidden="true"></span></button>
+        </div>
+        <button class="btn btn-primary" type="button" *ngIf="ok"(click)="reset()"><span
+                class="glyphicon glyphicon-refresh"
                 aria-hidden="true"></span></button>
     </td>
 </tr>
