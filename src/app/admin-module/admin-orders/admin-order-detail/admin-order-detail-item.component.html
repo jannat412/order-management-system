@@ -1,6 +1,6 @@
-<tr>
+<tr [ngClass]="category?.className">
 
-    <td>{{index}}</td>
+    <td class="row-index"><span class="label">{{index}}</span></td>
     <td><img [src]="product.imgName"
              class="img-thumbnail"></td>
     <td><a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>

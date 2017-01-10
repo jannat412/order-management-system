@@ -7,9 +7,20 @@
     text-transform: capitalize;
   }
 
-  tr.#{$color} {
+  .table > tbody > tr.#{$color} {
     td:first-child {
       background-color: $value;
+
+    }
+    td.row-index {
+      display: table-cell;
+      vertical-align: middle;
+      width: 40px;
+      > .label {
+        background: darken($value, 30%);;
+        font-size: 0.9em;
+        color: $value;
+      }
     }
     td > .label-primary {
       background-color: darken($value, 30%);

@@ -46,3 +46,16 @@ oms-admin-orders {
   }
 
 }
+
+oms-admin-order-detail {
+  .table-striped > tbody > tr {
+    td:nth-child(2) {
+      display: none;
+    }
+    @media #{$min768} {
+      td:nth-child(2) {
+        display: table-cell;
+      }
+    }
+  }
+}

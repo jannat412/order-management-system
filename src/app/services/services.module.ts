@@ -48,7 +48,8 @@ export class ServicesModule {
                 AdminTypeService,
                 AdminOrderService,
                 UserService,
-                ProductsService
+                ProductsService,
+                CategoriesService
             ]
         }
     }
