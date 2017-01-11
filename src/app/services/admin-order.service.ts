@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ConfigService} from './config.service';
 import {AngularFireDatabase} from 'angularfire2';
+import {IOrder} from '../models/order';
+import {IOrderLine} from '../models/orderLine';
 
 @Injectable()
 export class AdminOrderService {
@@ -35,7 +37,7 @@ export class AdminOrderService {
             .mergeMap( (data) => Observable.combineLatest( data ) );
     };
 
-    getOrder = (orderKey) => {
+    getOrder = (orderKey: string): Observable<IOrder> => {
         return this.db.object( `orders/${orderKey}` )
             .startWith( {
                 order: {},
@@ -43,6 +45,11 @@ export class AdminOrderService {
                 weekOrderKey: '',
                 checked: false
             } );
-    }
+    };
+
+    updateOrder = (orderKey: string, orderLines: IOrderLine) => {
+        console.log(orderKey);
+        console.log(orderLines);
+    };
 
 }

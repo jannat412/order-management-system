@@ -18,7 +18,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
     private configCurrentOrderSubscription: Subscription;
     private order: IOrder;
     private currentOrderDate: string;
-    private user: IUser;
+    private userId: string = null;
     private orderLines: any[] = [];
 
     constructor(private activatedRoute: ActivatedRoute,
@@ -30,14 +30,11 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeParamSubscription = this.activatedRoute.params
             .flatMap( param => this.adminOrderService.getOrder( param['key'] ) )
-            .flatMap(data => {
+            .subscribe(data => {
                 this.order = <IOrder>data;
                 this.orderLines = OrderUtils.orderListToArray(this.order.order);
-                return this.userService.getUserData( data.user )
-            })
-            .subscribe(
-                (user: IUser) => this.user = <IUser>user
-            );
+                this.userId = data.user;
+            });
 
         this.configCurrentOrderSubscription =
             this.configService.getCurrentOrderDate()

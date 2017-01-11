@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
+import {IUser} from '../models/user';
 
 @Injectable()
 export class UserService {
@@ -35,8 +36,8 @@ export class UserService {
         return this.getUserRole().map( (role) => role === 'admin' );
     };
 
-    getUserData = (uid: string): Observable<any> => {
-        return this.db.object(`/users/${uid}`);
+    getUserData = (uid: string): Observable<IUser> => {
+        return this.db.object( `/users/${uid}` );
     };
 
 }

@@ -1,4 +1,5 @@
 export interface IOrderLine {
+    $key?: string;
     name?: string;
     price?: number;
     unity?: string;

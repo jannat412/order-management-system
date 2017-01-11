@@ -13,7 +13,7 @@ import {AdminOrderService} from '../../../services/admin-order.service';
     templateUrl: './admin-order-detail-item.component.html'
 } )
 export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
-    @Input() orderLine: IOrderLine;
+    @Input() orderLine: IOrderLine = null;
     @Input() index: number;
     @Input() orderKey: string;
 

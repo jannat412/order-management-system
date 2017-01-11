@@ -11,6 +11,7 @@ import {AdminOrderRowComponent} from './admin-orders/admin-order-row.component';
 import {AdminOrderDetailComponent} from './admin-orders/admin-order-detail/admin-order-detail.component';
 import {AdminOrderDetailItemComponent} from './admin-orders/admin-order-detail/admin-order-detail-item.component';
 import {SharedModule} from '../shared/shared.module';
+import {AdminOrderCartComponent} from './admin-orders/admin-order-cart/admin-order-cart.component';
 
 @NgModule( {
     imports: [
@@ -27,7 +28,8 @@ import {SharedModule} from '../shared/shared.module';
         AdminOrdersComponent,
         AdminOrderRowComponent,
         AdminOrderDetailComponent,
-        AdminOrderDetailItemComponent
+        AdminOrderDetailItemComponent,
+        AdminOrderCartComponent
     ],
     providers: []
 } )
