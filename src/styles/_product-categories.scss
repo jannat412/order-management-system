@@ -25,6 +25,10 @@
         > span {
           color: $value;
         }
+        &.unavailable {
+          background: #a1a1a1;
+          color: #dadada;
+        }
       }
     }
     td > .label-primary {

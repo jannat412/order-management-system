@@ -4,5 +4,7 @@ export interface IOrderLine {
     unity?: string;
     quantity: number;
     total: number;
+    oldQuantity?: number;
+    oldTotal?: number;
 }
 

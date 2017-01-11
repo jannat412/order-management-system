@@ -77,11 +77,19 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     };
 
     lineKo = () => {
-
+        this.ok = true;
+        this.available = false;
+        this.tempQuantity = 0;
+        this.tempTotal = 0;
     };
 
     reset = () => {
-
+        this.ok = false;
+        this.available = true;
+        this.modified = false;
+        this.tempQuantity = null;
+        this.tempTotal = null;
+        this.offset = null;
     };
 
 }

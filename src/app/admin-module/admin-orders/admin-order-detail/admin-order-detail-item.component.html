@@ -1,12 +1,13 @@
 <tr [ngClass]="category?.className">
 
     <td class="row-index"
-        [ngClass]="{'reviewed': ok}"><span>{{index}}</span></td>
+        [ngClass]="{'reviewed': ok, 'unavailable': !available}">
+        <span>{{index}}</span></td>
     <td><img [src]="product.imgName"
              class="img-thumbnail"></td>
     <td><a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
         <br>
-        <p class="label label-primary">
+        <p *ngIf="available" class="label label-primary">
             {{product.price | number:'1.2-2'}} € / {{product.unity}}
         </p>
     </td>
@@ -16,17 +17,28 @@
         </oms-product-count>
     </td>
     <td *ngIf="ok">
-        <div class="alert alert-info text-center">
+        <div *ngIf="available" class="alert alert-info text-center">
             {{tempQuantity || orderLine.quantity}} {{product.unity}}:
             <strong>{{tempTotal || orderLine.total | number:'1.2-2'}} €</strong>
             <br>
             <small *ngIf="modified">
+                Abans: {{orderLine.quantity}} {{product.unity}}
+                <span *ngIf="modified"
+                      class="badge alert-success" [ngClass]="{'alert-danger': offset < 0}">
+            <span *ngIf="offset > 0">+</span>
+            {{offset | number:'1.2-2'}} €</span>
+            </small>
+        </div>
+        <div *ngIf="!available" class="alert alert-danger text-center">
+            <strong>No disponible</strong><br>
+            <small>
                 Originalment: {{orderLine.quantity}} {{product.unity}}
             </small>
         </div>
+
     </td>
     <td>
-        <span *ngIf="modified"
+        <span *ngIf="modified && !ok"
               class="badge alert-success" [ngClass]="{'alert-danger': offset < 0}">
             <span *ngIf="offset > 0">+</span>
             {{offset | number:'1.2-2'}} €</span>
@@ -41,7 +53,7 @@
                     class="glyphicon glyphicon-remove"
                     aria-hidden="true"></span></button>
         </div>
-        <button class="btn btn-primary" type="button" *ngIf="ok"(click)="reset()"><span
+        <button class="btn btn-primary" type="button" *ngIf="ok" (click)="reset()"><span
                 class="glyphicon glyphicon-refresh"
                 aria-hidden="true"></span></button>
     </td>
