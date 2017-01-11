@@ -5,18 +5,24 @@ import {Subscription} from 'rxjs/Subscription';
 import {ICounterData} from '../../../models/counterData';
 import {CategoriesService} from '../../../services/categories.service';
 import {ICategory} from '../../../models/category';
+import {IOrderLine} from '../../../models/orderLine';
+import {AdminOrderService} from '../../../services/admin-order.service';
 
 @Component( {
     selector: '.oms-admin-order-detail-list-item',
     templateUrl: './admin-order-detail-item.component.html'
 } )
 export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
-    @Input() orderLine: any;
+    @Input() orderLine: IOrderLine;
+    @Input() index: number;
+    @Input() orderKey: string;
+
     private product: IProduct;
     private category: ICategory;
-    @Input() index: number;
+
     private productSubscription: Subscription;
     private categorySubscription: Subscription;
+
     private offset: number = null;
     private tempQuantity: number = null;
     private tempTotal: number = null;
@@ -25,7 +31,8 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     private modified: boolean = false;
 
     constructor(private productsService: ProductsService,
-                private categoriesService: CategoriesService) {
+                private categoriesService: CategoriesService,
+                private adminOrderService: AdminOrderService) {
     }
 
     ngOnInit() {
@@ -70,26 +77,45 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
 
     lineOk = () => {
         this.ok = true;
-        // if (this.modified) {
-        //     this.orderLine.quantity = this.tempQuantity;
-        //     this.orderLine.total = this.tempTotal;
-        // }
+        if (this.modified) {
+            this.orderLine.oldQuantity = this.orderLine.quantity;
+            this.orderLine.oldTotal = this.orderLine.total;
+            this.orderLine.quantity = this.tempQuantity;
+            this.orderLine.total = this.tempTotal;
+            this.updateOrder();
+        }
     };
 
     lineKo = () => {
         this.ok = true;
         this.available = false;
-        this.tempQuantity = 0;
-        this.tempTotal = 0;
+        this.orderLine.oldQuantity = this.orderLine.quantity;
+        this.orderLine.oldTotal = this.orderLine.total;
+        this.orderLine.quantity = 0;
+        this.orderLine.total = 0;
+        this.tempQuantity = null;
+        this.tempTotal = null;
+        this.updateOrder();
     };
 
     reset = () => {
+        if (this.modified) {
+            this.orderLine.quantity = this.orderLine.oldQuantity;
+            this.orderLine.total = this.orderLine.oldTotal;
+            delete this.orderLine.oldQuantity;
+            delete this.orderLine.oldTotal;
+            this.updateOrder();
+        }
         this.ok = false;
         this.available = true;
         this.modified = false;
         this.tempQuantity = null;
         this.tempTotal = null;
         this.offset = null;
+    };
+
+    private updateOrder = () => {
+        this.adminOrderService.updateOrder(this.orderKey, this.orderLine);
     };
 
 }

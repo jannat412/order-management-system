@@ -1,0 +1,13 @@
+
+<div class="panel panel-success">
+  <div class="panel-heading strong text-center">
+    <h3>{{superTotal | number:'1.2-2'}} €</h3>
+  </div>
+  <div class="panel-body text-center">
+    <button (click)="closeOrder()" class="btn btn-success" [disabled]="superTotal == 0">Ja ho tinc</button>
+  </div>
+  <div class="panel-footer">
+    reset
+  </div>
+
+</div>

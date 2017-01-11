@@ -16,7 +16,6 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
 
     private routeParamSubscription: Subscription;
     private configCurrentOrderSubscription: Subscription;
-    private key: string = 'loading';
     private order: IOrder;
     private currentOrderDate: string;
     private user: IUser;

@@ -1,7 +1,7 @@
 <div class="row animated fadeIn">
     <!-- sidebar -->
     <aside class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar">
-
+        <oms-admin-order-cart></oms-admin-order-cart>
     </aside>
 
     <!-- products table -->
@@ -19,7 +19,10 @@
                 <div class="table-responsive table-hover table-condensed">
                     <table class="table table-striped animated fadeIn">
                         <tbody class="oms-admin-order-detail-list-item"
-                               *ngFor="let line of orderLines; let i=index;" [index]="i+1" [orderLine]="line">
+                               *ngFor="let line of orderLines; let i=index;"
+                               [index]="i+1"
+                               [orderKey]="order.$key"
+                               [orderLine]="line">
                         </tbody>
                     </table>
                 </div>
