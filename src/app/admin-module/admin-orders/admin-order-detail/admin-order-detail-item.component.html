@@ -21,7 +21,7 @@
             {{tempQuantity || orderLine.quantity}} {{product.unity}}:
             <strong>{{tempTotal || orderLine.total | number:'1.2-2'}} €</strong>
             <br>
-            <small *ngIf="modified">
+            <small>
                 Abans: {{orderLine.oldQuantity}} {{product.unity}}
                 <span *ngIf="modified"
                       class="badge alert-success" [ngClass]="{'alert-danger': offset < 0}">

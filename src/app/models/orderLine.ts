@@ -7,5 +7,6 @@ export interface IOrderLine {
     total: number;
     oldQuantity?: number;
     oldTotal?: number;
+    status?: number;
 }
 

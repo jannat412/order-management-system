@@ -1,20 +1,18 @@
-
-<div class="panel panel-success">
-  <div class="panel-heading strong text-center">
-    <ul class="list-group">
-      <li class="list-group-item">
-        {{user.name}} {{user.secondName}}
-        {{user.address}} {{user.district}} {{user.cp}} {{user.city}}
-        {{user.tel}}
-      </li>
-    </ul>
-    <h3>{{superTotal | number:'1.2-2'}} €</h3>
-  </div>
-  <div class="panel-body text-center">
-    <button (click)="closeOrder()" class="btn btn-success" [disabled]="superTotal == 0">Ja ho tinc</button>
-  </div>
-  <div class="panel-footer">
-
-  </div>
+<div class="panel panel-info">
+    <div class="panel-heading strong text-center">
+            <strong>{{user.name}} {{user.secondName}}</strong><br>
+            <small>{{user.address}} {{user.cp}} {{user.city}}</small><br>
+            <small>Tel: {{user.tel}}</small>
+        <h3>{{total | number:'1.2-2'}} €</h3>
+    </div>
+    <div class="panel-body text-center">
+        <button (click)="closeOrder()" class="btn btn-success" [disabled]="superTotal == 0">Ja ho tinc</button>
+    </div>
+    <div class="panel-footer text-center">
+        <button class="btn btn-warning btn-sm">
+      <span class="glyphicon glyphicon-refresh"
+            aria-hidden="true"></span> Reset
+        </button>
+    </div>
 
 </div>

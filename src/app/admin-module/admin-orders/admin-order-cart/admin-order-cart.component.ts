@@ -2,14 +2,16 @@ import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {IUser} from '../../../models/user';
 import {UserService} from '../../../services/user.service';
 import {Subscription} from 'rxjs/Subscription';
+import {AdminOrderService} from '../../../services/admin-order.service';
 
 @Component( {
     selector: 'oms-admin-order-cart',
     templateUrl: './admin-order-cart.component.html'
 } )
 export class AdminOrderCartComponent implements OnChanges, OnDestroy {
-    private superTotal: number = 0;
+    @Input() total: any = 0;
     @Input() userId: string;
+    @Input() orderKey: string;
     private user: IUser = {
         name: '',
         secondName: '',
@@ -21,23 +23,24 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
         tel: null
     };
     private userSubscription: Subscription;
+    private totalAmountSubscription: Subscription;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private adminOrderService: AdminOrderService) {
     }
 
     ngOnChanges() {
         if (this.userId) {
             this.userSubscription = this.userService
                 .getUserData( this.userId )
-                .subscribe( user => {
-                    console.log( user );
-                    this.user = <IUser>user;
-                } );
+                .subscribe( user => this.user = <IUser>user
+                );
         }
     }
 
     ngOnDestroy() {
         this.userSubscription.unsubscribe();
+        this.totalAmountSubscription.unsubscribe();
     }
 
     closeOrder = () => {

@@ -47,9 +47,11 @@ export class AdminOrderService {
             } );
     };
 
-    updateOrder = (orderKey: string, orderLines: IOrderLine) => {
-        console.log(orderKey);
-        console.log(orderLines);
+    updateOrder = (orderKey: string, productKey: string, line: IOrderLine) => {
+        const orderLine = this.db.object( `/orders/${orderKey}/order/${productKey}` );
+        orderLine.update( line )
+            .then( () => console.log( 'update order done' ) )
+            .catch( err => console.log( err, 'Error on update order' ) );
     };
 
 }

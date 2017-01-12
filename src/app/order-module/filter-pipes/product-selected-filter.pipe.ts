@@ -9,10 +9,7 @@ import {IProduct} from '../../models/product';
 export class ProductSelectedFilterPipe implements PipeTransform {
 
     transform(value: IProduct[], all: boolean): IProduct[] {
-        return all ? value.filter(
-            (product: IProduct) => {
-                return product.selected;
-            } ) : value;
+        return all ?
+            value.filter( (product: IProduct) => product.selected ) : value;
     }
-
 }

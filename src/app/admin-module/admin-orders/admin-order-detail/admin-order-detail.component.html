@@ -1,7 +1,11 @@
 <div class="row animated fadeIn">
     <!-- sidebar -->
     <aside class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar">
-        <oms-admin-order-cart [userId]="userId"></oms-admin-order-cart>
+        <oms-admin-order-cart
+                [orderKey]="order.$key"
+                [total]="total"
+                [userId]="userId">
+        </oms-admin-order-cart>
     </aside>
 
     <!-- products table -->

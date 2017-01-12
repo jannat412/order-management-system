@@ -28,23 +28,33 @@ export class ValidationUtils {
 }
 
 export class OrderUtils {
-    static orderListToArray = (data) => {
+    static orderListToArray = (data: any, zeroQuantity: boolean = false) => {
         let keys = [];
         for (let item in data) {
-            if (data.hasOwnProperty( item ) && data[item].quantity > 0) {
+            if (data.hasOwnProperty( item ) &&
+                ( (!zeroQuantity && data[item].quantity > 0) || zeroQuantity)) {
                 let o = {
                     $key: item,
                     name: data[item].name,
                     price: data[item].price,
                     quantity: data[item].quantity,
                     total: data[item].total,
-                    unity: data[item].unity
+                    unity: data[item].unity,
+                    oldTotal: data[item].oldTotal || 0,
+                    oldQuantity: data[item].oldQuantity || 0,
+                    status: data[item].status || 0
                 };
                 keys.push( o );
             }
         }
         keys.sort( (a, b): any => a.name > b.name );
         return keys;
+    };
+
+    static getSuperTotal = (data: any) => {
+        return data.reduce( (acc, prod) => {
+            return acc + prod.total;
+        }, 0 );
     };
 
     static reduceOrderByName = (data) => data.reduce( OrderUtils.sumQuantities, [] );

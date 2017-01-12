@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, OnChanges} from '@angular/core';
 import {IProduct} from '../../../models/product';
 import {ProductsService} from '../../../services/products.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -18,7 +18,7 @@ enum Status {
     selector: '.oms-admin-order-detail-list-item',
     templateUrl: './admin-order-detail-item.component.html'
 } )
-export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
+export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestroy {
     @Input() orderLine: IOrderLine = null;
     @Input() index: number;
     @Input() orderKey: string;
@@ -41,20 +41,21 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log(this.status);
         this.productSubscription = this.productsService
             .getProduct( this.orderLine.$key, 'thumbs' )
             .subscribe(
                 (product: IProduct) => {
                     this.product = <IProduct>product;
-
                     this.categorySubscription = this.categoriesService.getCategoryForProduct( this.product.categoryKey )
                         .subscribe(
                             (data: ICategory) => this.category = <ICategory>data
                         );
                 }
             );
+    }
 
+    ngOnChanges() {
+        this.status = Status[this.orderLine.status];
     }
 
     ngOnDestroy() {
@@ -82,26 +83,24 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     };
 
     lineOk = () => {
-        this.status = Status[1];
-        console.log(this.status);
         if (this.modified) {
             this.orderLine.oldQuantity = this.orderLine.quantity;
             this.orderLine.oldTotal = this.orderLine.total;
             this.orderLine.quantity = this.tempQuantity;
             this.orderLine.total = this.tempTotal;
+            this.orderLine.status = 1;
             this.updateOrder();
         }
     };
 
     lineKo = () => {
-        this.status = Status[2];
-        console.log(this.status);
         this.orderLine.oldQuantity = this.orderLine.quantity;
         this.orderLine.oldTotal = this.orderLine.total;
         this.orderLine.quantity = 0;
         this.orderLine.total = 0;
         this.tempQuantity = null;
         this.tempTotal = null;
+        this.orderLine.status = 2;
         this.updateOrder();
     };
 
@@ -111,10 +110,9 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
             this.orderLine.total = this.orderLine.oldTotal;
             delete this.orderLine.oldQuantity;
             delete this.orderLine.oldTotal;
-            this.updateOrder();
         }
-        this.status = Status[0];
-        console.log(this.status);
+        this.orderLine.status = 0;
+        this.updateOrder();
         this.modified = false;
         this.tempQuantity = null;
         this.tempTotal = null;
@@ -122,7 +120,14 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     };
 
     private updateOrder = () => {
-        this.adminOrderService.updateOrder(this.orderKey, this.orderLine);
+        this.adminOrderService
+            .updateOrder( this.orderKey, this.orderLine.$key, {
+                quantity: this.orderLine.quantity,
+                total: this.orderLine.total,
+                oldQuantity: this.orderLine.oldQuantity,
+                oldTotal: this.orderLine.oldTotal,
+                status: this.orderLine.status
+            } );
     };
 
 }
