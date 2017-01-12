@@ -1,23 +1,23 @@
 <tr [ngClass]="category?.className">
 
     <td class="row-index"
-        [ngClass]="{'reviewed': ok, 'unavailable': !available}">
+        [ngClass]="{'reviewed': status !== 'init', 'unavailable': status === 'rejected'}">
         <span>{{index}}</span></td>
     <td><img [src]="product.imgName"
              class="img-thumbnail"></td>
     <td><a [routerLink]="['/comanda/producte', product.$key]">{{product.name}}</a>
         <br>
-        <p *ngIf="available" class="label label-primary">
+        <p *ngIf="status !== 'rejected'" class="label label-primary">
             {{product.price | number:'1.2-2'}} € / {{product.unity}}
         </p>
     </td>
-    <td *ngIf="!ok">
+    <td *ngIf="status === 'init'">
         <oms-product-count [counterData]="createCounterData()"
                            (updateCount)="updateOrderProductLine($event)">
         </oms-product-count>
     </td>
-    <td *ngIf="ok">
-        <div *ngIf="available" class="alert alert-info text-center">
+    <td *ngIf="status !== 'init'">
+        <div *ngIf="status !== 'rejected'" class="alert alert-info text-center">
             {{tempQuantity || orderLine.quantity}} {{product.unity}}:
             <strong>{{tempTotal || orderLine.total | number:'1.2-2'}} €</strong>
             <br>
@@ -29,22 +29,22 @@
             {{offset | number:'1.2-2'}} €</span>
             </small>
         </div>
-        <div *ngIf="!available" class="alert alert-danger text-center">
+        <div *ngIf="status === 'rejected'" class="alert alert-danger text-center">
             <strong>No disponible</strong><br>
             <small>
-                Originalment: {{orderLine.quantity}} {{product.unity}}
+                Originalment: {{orderLine.oldQuantity}} {{product.unity}}
             </small>
         </div>
 
     </td>
     <td>
-        <span *ngIf="modified && !ok"
+        <span *ngIf="modified && status === 'init'"
               class="badge alert-success" [ngClass]="{'alert-danger': offset < 0}">
             <span *ngIf="offset > 0">+</span>
             {{offset | number:'1.2-2'}} €</span>
     </td>
     <td>
-        <div class="btn-group" *ngIf="!ok">
+        <div class="btn-group" *ngIf="status === 'init'">
             <button class="btn btn-success" type="button" (click)="lineOk()"><span
                     class="glyphicon glyphicon-ok"
                     aria-hidden="true"></span>
@@ -53,7 +53,7 @@
                     class="glyphicon glyphicon-remove"
                     aria-hidden="true"></span></button>
         </div>
-        <button class="btn btn-primary" type="button" *ngIf="ok" (click)="reset()"><span
+        <button *ngIf="status !== 'init'" class="btn btn-primary" type="button" (click)="reset()"><span
                 class="glyphicon glyphicon-refresh"
                 aria-hidden="true"></span></button>
     </td>

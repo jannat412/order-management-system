@@ -8,6 +8,12 @@ import {ICategory} from '../../../models/category';
 import {IOrderLine} from '../../../models/orderLine';
 import {AdminOrderService} from '../../../services/admin-order.service';
 
+enum Status {
+    init,
+    accepted,
+    rejected
+}
+
 @Component( {
     selector: '.oms-admin-order-detail-list-item',
     templateUrl: './admin-order-detail-item.component.html'
@@ -26,9 +32,8 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     private offset: number = null;
     private tempQuantity: number = null;
     private tempTotal: number = null;
-    private ok: boolean = false;
-    private available: boolean = true;
     private modified: boolean = false;
+    private status = Status[0];
 
     constructor(private productsService: ProductsService,
                 private categoriesService: CategoriesService,
@@ -36,6 +41,7 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        console.log(this.status);
         this.productSubscription = this.productsService
             .getProduct( this.orderLine.$key, 'thumbs' )
             .subscribe(
@@ -76,7 +82,8 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     };
 
     lineOk = () => {
-        this.ok = true;
+        this.status = Status[1];
+        console.log(this.status);
         if (this.modified) {
             this.orderLine.oldQuantity = this.orderLine.quantity;
             this.orderLine.oldTotal = this.orderLine.total;
@@ -87,8 +94,8 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
     };
 
     lineKo = () => {
-        this.ok = true;
-        this.available = false;
+        this.status = Status[2];
+        console.log(this.status);
         this.orderLine.oldQuantity = this.orderLine.quantity;
         this.orderLine.oldTotal = this.orderLine.total;
         this.orderLine.quantity = 0;
@@ -106,8 +113,8 @@ export class AdminOrderDetailItemComponent implements OnInit, OnDestroy {
             delete this.orderLine.oldTotal;
             this.updateOrder();
         }
-        this.ok = false;
-        this.available = true;
+        this.status = Status[0];
+        console.log(this.status);
         this.modified = false;
         this.tempQuantity = null;
         this.tempTotal = null;
