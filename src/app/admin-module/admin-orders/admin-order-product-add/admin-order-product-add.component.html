@@ -1,0 +1,17 @@
+<div class="form-inline">
+    <div class="form-group with-clear">
+        <label>Afegir producte:</label>
+        <input
+                [(ngModel)]="listFilter"
+                (keyup)="search()"
+                selectOnFocus
+                class="form-control"
+                placeholder="comença a escriure"
+                type="text">
+        <span class="form-control-clear glyphicon glyphicon-remove-sign"
+              (click)="clear()"></span>
+    </div>
+    <ul>
+        <li *ngFor="let product of products">{{product.name}}</li>
+    </ul>
+</div>

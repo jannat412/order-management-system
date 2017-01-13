@@ -25,6 +25,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
     private currentOrderDate: string;
     private userId: string = null;
     private orderLines: any[] = [];
+    private usedProducts: string[] = [];
 
     constructor(private activatedRoute: ActivatedRoute,
                 private configService: ConfigService,
@@ -39,7 +40,12 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
             .distinctUntilChanged()
             .subscribe( data => {
                 this.order = <IOrder>data;
-                this.orderLines = OrderUtils.orderListToArray( this.order.order, true );
+
+                // used product keys
+                let orderProducts = this.order.order;
+                this.usedProducts = Object.keys(orderProducts);
+                this.orderLines = OrderUtils.orderListToArray( orderProducts, true );
+
                 this.userId = data.user;
                 this.comment = this.order.comment;
                 this.total = OrderUtils.getSuperTotal( this.orderLines, 'total' );
@@ -49,6 +55,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
                     return element.status !== 0;
                 } );
                 this.adminOrderService.setOrderStatus(this.order['$key'], this.orderRevised);
+
             } );
 
         this.configCurrentOrderSubscription =

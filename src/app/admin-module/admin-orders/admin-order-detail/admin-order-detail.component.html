@@ -28,8 +28,11 @@
                 </div>
             </div>
             <div class="panel-body">
-                <div class="table-responsive table-hover table-condensed">
-                    <table class="table table-striped animated fadeIn">
+                <oms-admin-order-product-add
+                        [usedProducts]="usedProducts"
+                        [orderKey]="order.$key">
+                </oms-admin-order-product-add>
+                    <table class="table table-responsive table-striped animated fadeIn">
                         <tbody class="oms-admin-order-detail-list-item"
                                *ngFor="let line of orderLines; let i=index;"
                                [index]="i+1"
@@ -37,7 +40,6 @@
                                [orderLine]="line">
                         </tbody>
                     </table>
-                </div>
             </div>
         </div>
         <a class="btn btn-link btn-sm" (click)="goBack()">
