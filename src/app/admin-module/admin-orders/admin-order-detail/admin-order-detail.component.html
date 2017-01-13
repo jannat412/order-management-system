@@ -4,7 +4,9 @@
         <oms-admin-order-cart
                 [orderKey]="order.$key"
                 [total]="total"
-                [userId]="userId">
+                [oldTotal]="oldTotal"
+                [userId]="userId"
+                [orderRevised]="orderRevised">
         </oms-admin-order-cart>
     </aside>
 
@@ -14,10 +16,16 @@
             <div class=" panel-heading">
                 <h1><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
                     Comanda</h1>
-                <strong>Codi:</strong>
-                <small>{{order.$key}}</small>
-                <br><strong>Data registre:</strong>
-                <small>{{order.timestamp | date:'dd/MM/yyyy'}} a les {{order.timestamp | date:'hh:mm'}} h</small>
+                <div class="alert alert-info">
+                    <strong>Codi:</strong>
+                    <small>{{order.$key}}</small>
+                    <br><strong>Data registre:</strong>
+                    <small>{{order.timestamp | date:'dd/MM/yyyy'}} a les {{order.timestamp | date:'hh:mm'}} h</small>
+                    <div *ngIf="comment?.trim().length">
+                        <strong>Comentaris:</strong>
+                        <small>“{{comment}}“</small>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive table-hover table-condensed">

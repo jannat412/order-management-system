@@ -75,27 +75,22 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
     };
 
     updateOrderProductLine = (counterData: any) => {
-        this.offset = counterData.total - this.orderLine.total;
+        this.offset = counterData.quantity - this.orderLine.quantity;
         this.modified = this.offset !== 0;
         this.tempQuantity = this.modified ? counterData.quantity : null;
         this.tempTotal = this.modified ? counterData.total : null;
-
     };
 
     lineOk = () => {
         if (this.modified) {
-            this.orderLine.oldQuantity = this.orderLine.quantity;
-            this.orderLine.oldTotal = this.orderLine.total;
             this.orderLine.quantity = this.tempQuantity;
             this.orderLine.total = this.tempTotal;
-            this.orderLine.status = 1;
-            this.updateOrder();
         }
+        this.orderLine.status = 1;
+        this.updateOrder();
     };
 
     lineKo = () => {
-        this.orderLine.oldQuantity = this.orderLine.quantity;
-        this.orderLine.oldTotal = this.orderLine.total;
         this.orderLine.quantity = 0;
         this.orderLine.total = 0;
         this.tempQuantity = null;
@@ -108,8 +103,6 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
         if (this.modified) {
             this.orderLine.quantity = this.orderLine.oldQuantity;
             this.orderLine.total = this.orderLine.oldTotal;
-            delete this.orderLine.oldQuantity;
-            delete this.orderLine.oldTotal;
         }
         this.orderLine.status = 0;
         this.updateOrder();
@@ -124,8 +117,6 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
             .updateOrder( this.orderKey, this.orderLine.$key, {
                 quantity: this.orderLine.quantity,
                 total: this.orderLine.total,
-                oldQuantity: this.orderLine.oldQuantity,
-                oldTotal: this.orderLine.oldTotal,
                 status: this.orderLine.status
             } );
     };

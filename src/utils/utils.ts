@@ -51,9 +51,9 @@ export class OrderUtils {
         return keys;
     };
 
-    static getSuperTotal = (data: any) => {
+    static getSuperTotal = (data: any, param: string) => {
         return data.reduce( (acc, prod) => {
-            return acc + prod.total;
+            return acc + prod[param];
         }, 0 );
     };
 

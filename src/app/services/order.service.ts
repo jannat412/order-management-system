@@ -127,7 +127,9 @@ export class OrderService {
             price: productLine.price,
             unity: productLine.unity,
             quantity: productLine.quantity,
-            total: productLine.total
+            total: productLine.total,
+            oldQuantity : productLine.quantity,
+            oldTotal : productLine.total
         };
         this.onChangeOrderEmit();
     };

@@ -17,7 +17,10 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
     private routeParamSubscription: Subscription;
     private configCurrentOrderSubscription: Subscription;
     private order: IOrder;
+    private comment: string;
     private total: number;
+    private oldTotal: number;
+    private orderRevised: boolean = false;
     private currentOrderDate: string;
     private userId: string = null;
     private orderLines: any[] = [];
@@ -31,11 +34,17 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
 
         this.routeParamSubscription = this.activatedRoute.params
             .flatMap( param => this.adminOrderService.getOrder( param['key'] ) )
+            .distinctUntilChanged()
             .subscribe(data => {
                 this.order = <IOrder>data;
                 this.orderLines = OrderUtils.orderListToArray(this.order.order, true);
                 this.userId = data.user;
-                this.total = OrderUtils.getSuperTotal(this.orderLines);
+                this.comment = this.order.comment;
+                this.total = OrderUtils.getSuperTotal(this.orderLines, 'total');
+                this.oldTotal = OrderUtils.getSuperTotal(this.orderLines, 'oldTotal');
+                this.orderRevised = this.orderLines.every((element) => {
+                    return element.status !== 0;
+                });
             });
 
         this.configCurrentOrderSubscription =

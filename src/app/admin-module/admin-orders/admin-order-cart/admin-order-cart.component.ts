@@ -9,8 +9,10 @@ import {AdminOrderService} from '../../../services/admin-order.service';
     templateUrl: './admin-order-cart.component.html'
 } )
 export class AdminOrderCartComponent implements OnChanges, OnDestroy {
-    @Input() total: any = 0;
+    @Input() total: number = 0;
+    @Input() oldTotal: number = 0;
     @Input() userId: string;
+    @Input() orderRevised: boolean;
     @Input() orderKey: string;
     private user: IUser = {
         name: '',
@@ -23,10 +25,8 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
         tel: null
     };
     private userSubscription: Subscription;
-    private totalAmountSubscription: Subscription;
 
-    constructor(private userService: UserService,
-                private adminOrderService: AdminOrderService) {
+    constructor(private userService: UserService) {
     }
 
     ngOnChanges() {
@@ -40,7 +40,6 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         this.userSubscription.unsubscribe();
-        this.totalAmountSubscription.unsubscribe();
     }
 
     closeOrder = () => {
