@@ -86,6 +86,10 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
             this.orderLine.quantity = this.tempQuantity;
             this.orderLine.total = this.tempTotal;
         }
+        if (this.orderLine.quantity === 0) {
+            this.lineKo();
+            return;
+        }
         this.orderLine.status = 1;
         this.updateOrder();
     };
@@ -110,6 +114,8 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
         this.tempQuantity = null;
         this.tempTotal = null;
         this.offset = null;
+
+        this.adminOrderService.setOrderStatus(this.orderKey, false);
     };
 
     private updateOrder = () => {

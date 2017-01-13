@@ -6,7 +6,8 @@ import {AdminOrderService} from '../../../services/admin-order.service';
 import {ConfigService} from '../../../services/config.service';
 import {IUser} from '../../../models/user';
 import {UserService} from '../../../services/user.service';
-import { OrderUtils} from '../../../../utils/utils';
+import {OrderUtils} from '../../../../utils/utils';
+import {Location} from '@angular/common';
 
 @Component( {
     selector: 'oms-admin-order-detail',
@@ -27,7 +28,8 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
 
     constructor(private activatedRoute: ActivatedRoute,
                 private configService: ConfigService,
-                private adminOrderService: AdminOrderService) {
+                private adminOrderService: AdminOrderService,
+                private location: Location) {
     }
 
     ngOnInit() {
@@ -35,17 +37,19 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
         this.routeParamSubscription = this.activatedRoute.params
             .flatMap( param => this.adminOrderService.getOrder( param['key'] ) )
             .distinctUntilChanged()
-            .subscribe(data => {
+            .subscribe( data => {
                 this.order = <IOrder>data;
-                this.orderLines = OrderUtils.orderListToArray(this.order.order, true);
+                this.orderLines = OrderUtils.orderListToArray( this.order.order, true );
                 this.userId = data.user;
                 this.comment = this.order.comment;
-                this.total = OrderUtils.getSuperTotal(this.orderLines, 'total');
-                this.oldTotal = OrderUtils.getSuperTotal(this.orderLines, 'oldTotal');
-                this.orderRevised = this.orderLines.every((element) => {
+                this.total = OrderUtils.getSuperTotal( this.orderLines, 'total' );
+                this.oldTotal = OrderUtils.getSuperTotal( this.orderLines, 'oldTotal' );
+                // revision done for current order
+                this.orderRevised = this.orderLines.every( (element) => {
                     return element.status !== 0;
-                });
-            });
+                } );
+                this.adminOrderService.setOrderStatus(this.order['$key'], this.orderRevised);
+            } );
 
         this.configCurrentOrderSubscription =
             this.configService.getCurrentOrderDate()
@@ -59,5 +63,9 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
         this.routeParamSubscription.unsubscribe();
         this.configCurrentOrderSubscription.unsubscribe();
     }
+
+    goBack = () => {
+        this.location.back();
+    };
 
 }

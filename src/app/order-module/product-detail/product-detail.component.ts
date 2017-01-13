@@ -12,6 +12,7 @@ import {ICategory} from '../../models/category';
 import {ICounterData} from '../../models/counterData';
 import {OrderService} from '../../services/order.service';
 import {IOrderLine} from '../../models/orderLine';
+import {Location} from '@angular/common';
 
 @Component( {
     selector: 'oms-product-detail',
@@ -35,7 +36,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 private categoriesService: CategoriesService,
                 private tagsService: TagsService,
                 private activatedRoute: ActivatedRoute,
-                private orderService: OrderService) {
+                private orderService: OrderService,
+                private location: Location) {
     }
 
     ngOnInit() {
@@ -119,6 +121,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             unity: this.product.unity,
             total: counterData.total
         } );
+    };
+
+    goBack = () => {
+        this.location.back();
     };
 
 }

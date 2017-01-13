@@ -54,4 +54,9 @@ export class AdminOrderService {
             .catch( err => console.log( err, 'Error on update order' ) );
     };
 
+    setOrderStatus = (orderKey: string, status: boolean) => {
+        const order = this.db.object( `/orders/${orderKey}` );
+        order.update( {checked: status} );
+    };
+
 }

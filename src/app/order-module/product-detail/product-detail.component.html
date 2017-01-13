@@ -51,9 +51,8 @@
                          alt="{{product.name}}">
                 </div>
             </div>
-            <a class="btn btn-link btn-sm"
-               [routerLink]="['../../']">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de productes
+            <a class="btn btn-link btn-sm" (click)="goBack()">
+                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> Tornar enrere
             </a>
         </div>
     </div>

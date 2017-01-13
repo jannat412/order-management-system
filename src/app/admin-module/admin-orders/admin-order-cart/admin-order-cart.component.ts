@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {IUser} from '../../../models/user';
 import {UserService} from '../../../services/user.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 import {AdminOrderService} from '../../../services/admin-order.service';
 
 @Component( {
@@ -26,7 +27,9 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
     };
     private userSubscription: Subscription;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private adminOrderService: AdminOrderService,
+                private router: Router) {
     }
 
     ngOnChanges() {
@@ -43,6 +46,6 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
     }
 
     closeOrder = () => {
-
+        this.router.navigate( ['admin/comandes'] );
     };
 }
