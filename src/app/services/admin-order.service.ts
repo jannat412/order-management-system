@@ -4,6 +4,7 @@ import {ConfigService} from './config.service';
 import {AngularFireDatabase} from 'angularfire2';
 import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
+import {IProduct} from '../models/product';
 
 @Injectable()
 export class AdminOrderService {
@@ -57,6 +58,22 @@ export class AdminOrderService {
     setOrderStatus = (orderKey: string, status: boolean) => {
         const order = this.db.object( `/orders/${orderKey}` );
         order.update( {checked: status} );
+    };
+
+    getFilteredProducts = (orderKey: string, str: string, detachList: string[]): Observable<IProduct[]> => {
+        console.log( orderKey, str, detachList );
+        return this.db.list( 'products', {
+            query: {
+                orderByChild: 'active',
+                equalTo: true
+            }
+        } )
+            .map( products => products
+                .filter( (product) => {
+                    return (product['name'].indexOf( str ) !== -1) &&
+                        detachList.indexOf( product.$key ) === -1;
+                } ) );
+
     };
 
 }

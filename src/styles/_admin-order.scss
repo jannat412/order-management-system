@@ -52,20 +52,23 @@ oms-admin-order-detail {
     td:nth-child(2), td:nth-child(5) {
       display: none;
     }
-    @media #{$min768} {
-      td:nth-child(4) {
-        min-width: 220px;
-      }
-    }
+
     td:nth-child(6) {
       min-width: 95px;
     }
-    @media #{$min900} {
+    @media #{$min995} {
       td:nth-child(2) {
         display: table-cell;
       }
+    }
+    @media #{$min900} {
       td:nth-child(5) {
         display: table-cell;
+      }
+    }
+    @media #{$min768} {
+      td:nth-child(4) {
+        min-width: 220px;
       }
     }
     @media #{$max510} {
