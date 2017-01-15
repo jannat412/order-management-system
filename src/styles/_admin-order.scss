@@ -101,3 +101,15 @@ oms-admin-order-detail {
     }
   }
 }
+
+oms-admin-order-product-add {
+  .form-inline {
+    margin-bottom: 1em;
+  }
+  .filtered-products {
+    .filtered-product {
+      margin: 0.25em 0.35em 0.25em 0;
+    }
+  }
+
+}

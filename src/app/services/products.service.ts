@@ -3,6 +3,7 @@ import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {ICategory} from '../models/category';
 import {IProduct} from '../models/product';
+import {OrderUtils} from '../../utils/utils';
 
 @Injectable()
 export class ProductsService {
@@ -21,7 +22,7 @@ export class ProductsService {
             .map( products => {
                 return products
                     .map( product =>
-                        this.reformatImgUrl( product, 'thumbs' )
+                        OrderUtils.reformatImgUrl( product, 'thumbs' )
                     );
             } );
     };
@@ -39,19 +40,6 @@ export class ProductsService {
                 active: false
             } )
             .map( product =>
-                this.reformatImgUrl( product, imageDir ) );
+                OrderUtils.reformatImgUrl( product, imageDir ) );
 
-    /**
-     * adds the relative url to the image property on product object
-     * @param product
-     * @param type
-     * @returns {any}
-     */
-    private reformatImgUrl = (product: any, type: string): any => {
-        const url = `/assets/product-img/${type}/`;
-
-        return Object.assign( {}, product, {
-            imgName: url + product.imgName
-        } )
-    };
 }

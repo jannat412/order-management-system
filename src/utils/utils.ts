@@ -51,6 +51,20 @@ export class OrderUtils {
         return keys;
     };
 
+    /**
+     * adds the relative url to the image property on product object
+     * @param product
+     * @param type
+     * @returns {any}
+     */
+    static reformatImgUrl = (product: any, type: string): any => {
+        const url = `/assets/product-img/${type}/`;
+
+        return Object.assign( {}, product, {
+            imgName: url + product.imgName
+        } )
+    };
+
     static getSuperTotal = (data: any, param: string) => {
         return data.reduce( (acc, prod) => {
             return acc + prod[param];

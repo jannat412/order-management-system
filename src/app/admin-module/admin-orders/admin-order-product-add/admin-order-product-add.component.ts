@@ -11,6 +11,7 @@ export class AdminOrderProductAddComponent implements OnInit {
     @Input() usedProducts: string[] = [];
     private listFilter: string;
     private products: IProduct[] = [];
+    private emptyList: boolean = false;
 
     constructor(private adminOrderService: AdminOrderService) {
     }
@@ -23,12 +24,24 @@ export class AdminOrderProductAddComponent implements OnInit {
         this.adminOrderService
             .getFilteredProducts( this.orderKey, this.listFilter, this.usedProducts )
             .subscribe( data => {
-                this.products = data;
-            } );
+                    console.log( JSON.stringify( data ) );
+                    this.products = data;
+                    this.emptyList = !this.products.length;
+                },
+                err => console.log( err ),
+                () => {
+                    this.emptyList = false;
+                    this.products = [];
+                } );
     };
 
     clear = (): void => {
         this.listFilter = '';
         this.search();
+    };
+
+    addProduct = (product: IProduct) => {
+        this.adminOrderService.addProductToOrder(product, this.orderKey);
+        this.clear();
     };
 }

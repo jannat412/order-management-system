@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ConfigService} from './config.service';
+import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
 import {IProduct} from '../models/product';
+import {OrderUtils} from '../../utils/utils';
 
 @Injectable()
 export class AdminOrderService {
@@ -62,18 +64,41 @@ export class AdminOrderService {
 
     getFilteredProducts = (orderKey: string, str: string, detachList: string[]): Observable<IProduct[]> => {
         console.log( orderKey, str, detachList );
-        return this.db.list( 'products', {
-            query: {
-                orderByChild: 'active',
-                equalTo: true
-            }
-        } )
-            .map( products => products
-                .filter( (product) => {
-                    return (product['name'].indexOf( str ) !== -1) &&
-                        detachList.indexOf( product.$key ) === -1;
-                } ) );
+        if (str.trim().length) {
+            return this.db.list( 'products', {
+                query: {
+                    orderByChild: 'active',
+                    equalTo: true
+                }
+            } )
+                .map( products => products
+                    .filter( (product) => {
+                        return (product['name'].match( new RegExp( str, 'g' ) )) &&
+                            detachList.indexOf( product.$key ) === -1;
+                    } )
+                    .map( product =>
+                        OrderUtils.reformatImgUrl( product, 'thumbs' ) )
+                );
+
+        } else {
+            return Observable.from( [] );
+        }
 
     };
 
+    addProductToOrder = (product: IProduct, orderKey: string) => {
+        const order = database().ref( `/orders/${orderKey}/order` );
+        const productLine = {
+            name: product.name,
+            price: product.price,
+            unity: product.unity,
+            quantity: 0,
+            total: 0,
+            oldQuantity: 0,
+            oldTotal: 0
+        };
+        const orderAssociation = order.child( product.$key );
+
+        orderAssociation.set( productLine );
+    };
 }
