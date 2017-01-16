@@ -71,7 +71,11 @@ export class OrderUtils {
         }, 0 );
     };
 
-    static reduceOrderByName = (data) => data.reduce( OrderUtils.sumQuantities, [] );
+    static reduceOrderByName = (data) => {
+        return data
+            .filter( (item) => item.quantity > 0 )
+            .reduce( OrderUtils.sumQuantities, [] );
+    };
 
     private static sumQuantities = (list, order) => {
         const index = list.map( (e) => {

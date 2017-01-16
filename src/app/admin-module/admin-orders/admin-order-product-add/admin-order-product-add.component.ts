@@ -24,7 +24,6 @@ export class AdminOrderProductAddComponent implements OnInit {
         this.adminOrderService
             .getFilteredProducts( this.orderKey, this.listFilter, this.usedProducts )
             .subscribe( data => {
-                    console.log( JSON.stringify( data ) );
                     this.products = data;
                     this.emptyList = !this.products.length;
                 },

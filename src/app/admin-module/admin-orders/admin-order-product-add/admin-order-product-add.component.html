@@ -1,31 +1,31 @@
-<div class="form-inline">
-    <div class="form-group with-clear">
-        <label>Afegir producte:</label>
-        <input
-                [(ngModel)]="listFilter"
-                (keyup)="search()"
-                selectOnFocus
-                class="form-control"
-                placeholder="comença a escriure"
-                type="text">
-        <span class="form-control-clear glyphicon glyphicon-remove-sign"
-              (click)="clear()"></span>
-        <small class="alert alert-warning" *ngIf="emptyList">
-            No s'ha trobat cap coincidència.
-        </small>
+<div class="panel panel-info">
+    <div class="form-inline panel-heading">
+        <div class="form-group with-clear">
+            <label>Afegir producte:</label>
+            <input
+                    [(ngModel)]="listFilter"
+                    (keyup)="search()"
+                    selectOnFocus
+                    class="form-control"
+                    placeholder="comença a escriure"
+                    type="text">
+            <span class="form-control-clear glyphicon glyphicon-remove-sign"
+                  (click)="clear()"></span>
+            <small class="alert alert-warning" *ngIf="emptyList">
+                No s'ha trobat cap coincidència.
+            </small>
+        </div>
     </div>
+    <div *ngIf="products.length" class="panel-body filtered-products">
+            <button *ngFor="let product of products"
+                    class="btn btn-link filtered-product"
+                    (click)="addProduct(product )">
+                <img [src]="product.imgName"
+                     class="img-thumbnail"
+                     [alt]="product.name">`
+                {{product.name}}
+            </button>
+        </div>
 </div>
 
-<div *ngIf="products.length" class="panel panel-default filtered-products">
-    <div class="panel-body">
-        <button *ngFor="let product of products"
-                class="btn btn-link filtered-product"
-                (click)="addProduct(product )">
-            <img [src]="product.imgName"
-                 class="img-thumbnail"
-                 [alt]="product.name">`
-            {{product.name}}
-        </button>
-    </div>
 
-</div>
