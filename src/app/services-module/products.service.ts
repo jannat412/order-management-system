@@ -37,7 +37,8 @@ export class ProductsService {
             .startWith( {
                 $key: '',
                 name: '',
-                active: false
+                active: false,
+                imgName: 'temp-image.jpg'
             } )
             .map( product =>
                 OrderUtils.reformatImgUrl( product, imageDir ) );

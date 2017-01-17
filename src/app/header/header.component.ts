@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AuthService} from '../services-module/auth.service';
 import {Router} from '@angular/router';
-import {UserService} from '../services-module/user.service';
-import {ConfigService} from '../services-module/config.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FirebaseAuth, FirebaseAuthState} from 'angularfire2';
+import {AuthService} from '../services-module/auth.service';
+import {UserService} from '../services-module/user.service';
+import {ConfigService} from '../services-module/config.service';
 import {IUser} from '../models/user';
 
 @Component( {
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
                 if (!this.authInfo) {
                     this.router.navigate( ['login'] );
-
+                    return;
                 } else {
                     this.configSubscription = this.configService.getActive()
                         .subscribe(
@@ -55,14 +55,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
                         .subscribe(
                             (admin: boolean) => this.admin = admin
                         );
+                    this.userSubscription = this.authService.getUserId()
+                        .flatMap(
+                            (uid) => this.userService.getUserData( uid )
+                        )
+                        .subscribe(
+                            (user: IUser) => this.user = user
+                        );
                 }
             } );
 
-        this.userSubscription = this.authService.getUserId()
-            .flatMap( (uid) => this.userService.getUserData( uid ) )
-            .subscribe(
-                (user: IUser) => this.user = user
-            );
 
     }
 
