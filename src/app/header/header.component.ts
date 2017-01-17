@@ -5,6 +5,7 @@ import {UserService} from '../services-module/user.service';
 import {ConfigService} from '../services-module/config.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FirebaseAuth, FirebaseAuthState} from 'angularfire2';
+import {IUser} from '../models/user';
 
 @Component( {
     selector: 'oms-header',
@@ -14,9 +15,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     configSubscription: Subscription;
     adminSubscription: Subscription;
+    userSubscription: Subscription;
     authInfo: boolean = false;
     admin: boolean = false;
     active: boolean = false;
+    user: IUser;
 
     constructor(private authService: AuthService,
                 private firebaseAuth: FirebaseAuth,
@@ -28,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     logout = () => {
         this.configSubscription.unsubscribe();
         this.adminSubscription.unsubscribe();
+        this.userSubscription.unsubscribe();
         this.authService.logoutUser();
         this.router.navigate( ['login'] );
     };
@@ -35,8 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.firebaseAuth
-            .map((authState: FirebaseAuthState) => !!authState)
-            .subscribe(authenticated => {
+            .map( (authState: FirebaseAuthState) => !!authState )
+            .subscribe( authenticated => {
                 this.authInfo = authenticated;
 
                 if (!this.authInfo) {
@@ -45,21 +49,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 } else {
                     this.configSubscription = this.configService.getActive()
                         .subscribe(
-                            (data) => this.active = data
+                            (data: boolean) => this.active = data
                         );
-
                     this.adminSubscription = this.userService.isUserAdmin()
-                        .subscribe( (admin: boolean) => {
-                            this.admin = admin;
-                        } );
-
+                        .subscribe(
+                            (admin: boolean) => this.admin = admin
+                        );
                 }
             } );
+
+        this.userSubscription = this.authService.getUserId()
+            .flatMap( (uid) => this.userService.getUserData( uid ) )
+            .subscribe(
+                (user: IUser) => this.user = user
+            );
+
     }
 
     ngOnDestroy() {
         this.configSubscription.unsubscribe();
         this.adminSubscription.unsubscribe();
+        this.userSubscription.unsubscribe();
     }
 
 }

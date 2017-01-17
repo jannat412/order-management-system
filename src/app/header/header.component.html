@@ -44,7 +44,9 @@
                 <ul *ngIf="authInfo" class="nav navbar-nav navbar-right">
                     <li dropDown class="dropdown">
                         <a class="dropdown-toggle">
-                            Soci <span class="caret"></span>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Hola {{user?.name}}!
+                            <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a (click)="logout()">Les meves dades</a></li>
