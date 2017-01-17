@@ -1,0 +1,41 @@
+<main class="container animated fadeIn">
+    <div class="jumbotron">
+
+        <div class="page-header">
+            <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Socis i sòcies</h1>
+            <a [routerLink]="['nou']"
+               class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Afegir soci
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Adreça</th>
+                    <th>Telèfon</th>
+                    <th>Rol</th>
+                    <th>Actiu</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of users; let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{user.name}} {{user.secondName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.address}} {{user.cp}} {{user.city}}</td>
+                    <td>{{user.tel}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.active}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

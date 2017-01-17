@@ -16,7 +16,7 @@ import {DropdownDirective} from './directives/dropdown.directive';
 import {MenuCollapseDirective} from './directives/menu-collapse.directive';
 
 import {AuthModule} from './auth-module/auth.module';
-import {ServicesModule} from './services/services.module';
+import {ServicesModule} from './services-module/services.module';
 
 @NgModule( {
     declarations: [

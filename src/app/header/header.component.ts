@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../services-module/auth.service';
 import {Router} from '@angular/router';
-import {UserService} from '../services/user.service';
-import {ConfigService} from '../services/config.service';
+import {UserService} from '../services-module/user.service';
+import {ConfigService} from '../services-module/config.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FirebaseAuth, FirebaseAuthState} from 'angularfire2';
 

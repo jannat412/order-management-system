@@ -11,6 +11,7 @@ import {CategoriesService} from './categories.service';
 import {TagsService} from './tags.service';
 import {AdminTypeService} from './admin-type.service';
 import {AdminOrderService} from './admin-order.service';
+import {AdminUserService} from './admin-user.service';
 
 @NgModule({})
 
@@ -49,7 +50,8 @@ export class ServicesModule {
                 AdminOrderService,
                 UserService,
                 ProductsService,
-                CategoriesService
+                CategoriesService,
+                AdminUserService
             ]
         }
     }

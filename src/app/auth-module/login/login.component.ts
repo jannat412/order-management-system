@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 
 import {FirebaseAuthState, FirebaseAuth} from 'angularfire2';
 
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../services-module/auth.service';
 import {ValidationUtils} from '../../../utils/utils';
 
 @Component( {

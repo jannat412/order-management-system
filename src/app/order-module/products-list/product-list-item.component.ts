@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {OrderService} from '../../services/order.service';
-import {CategoriesService} from '../../services/categories.service';
+import {OrderService} from '../../services-module/order.service';
+import {CategoriesService} from '../../services-module/categories.service';
 import {IProduct} from '../../models/product';
 import {ICategory} from '../../models/category';
 import {IOrderLine} from '../../models/orderLine';

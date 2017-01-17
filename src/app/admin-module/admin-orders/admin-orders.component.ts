@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {IOrder} from '../../models/order';
-import {ConfigService} from '../../services/config.service';
-import {AdminOrderService} from '../../services/admin-order.service';
+import {ConfigService} from '../../services-module/config.service';
+import {AdminOrderService} from '../../services-module/admin-order.service';
 import {Router} from '@angular/router';
 
 @Component( {

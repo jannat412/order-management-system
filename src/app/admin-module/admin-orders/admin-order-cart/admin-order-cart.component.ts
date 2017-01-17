@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {IUser} from '../../../models/user';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../../services-module/user.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from '@angular/router';
-import {AdminOrderService} from '../../../services/admin-order.service';
+import {AdminOrderService} from '../../../services-module/admin-order.service';
 
 @Component( {
     selector: 'oms-admin-order-cart',

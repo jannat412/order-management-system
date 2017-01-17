@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFire, FirebaseAuthState} from 'angularfire2';
+import {database} from 'firebase';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {IAuth} from '../models/auth';
@@ -7,7 +8,8 @@ import {IAuth} from '../models/auth';
 @Injectable()
 export class AuthService {
 
-    constructor(private af: AngularFire) {}
+    constructor(private af: AngularFire) {
+    }
 
     /**
      * login
@@ -56,4 +58,33 @@ export class AuthService {
                 return (auth && auth.uid) ? auth.uid : false;
             } );
     };
+
+    createUser = ({email, name, secondName}) => {
+
+        this.af.auth.createUser( {
+            email: email,
+            password: Math.random().toString( 32 ).slice( -8 )
+        } )
+            .then( (user) => {
+                console.log(user);
+                    // const users = database().ref( `/users` );
+                    // const newUser = {
+                    //     name: name,
+                    //     secondName: secondName,
+                    //     email: email,
+                    //     role: 'soci',
+                    //     active: true
+                    // };
+                    // const userAssociation = users.child( user.uid );
+                    // userAssociation.set( newUser );
+
+                },
+                (err) => console.error( err )
+            );
+
+    };
+
+    updateUser = () => {
+
+    }
 }

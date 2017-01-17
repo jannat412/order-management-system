@@ -1,9 +1,9 @@
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {LoginComponent} from './auth-module/login/login.component';
 import {HomeComponent} from './home/home.component';
-import {AuthGuard} from './services/auth.guard';
-import {InactiveGuard} from './services/inactive.guard';
-import {AdminGuard} from './services/admin.guard';
+import {AuthGuard} from './services-module/auth.guard';
+import {InactiveGuard} from './services-module/inactive.guard';
+import {AdminGuard} from './services-module/admin.guard';
 
 const APP_ROUTES: Routes = [
     {path: '', redirectTo: '/inici', pathMatch: 'full'},

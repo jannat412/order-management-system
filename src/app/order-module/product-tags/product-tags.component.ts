@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import {ITag} from '../../models/tag';
-import {TagsService} from '../../services/tags.service';
+import {TagsService} from '../../services-module/tags.service';
 
 @Component( {
     selector: 'oms-product-tags',

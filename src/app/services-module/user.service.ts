@@ -40,4 +40,8 @@ export class UserService {
         return this.db.object( `/users/${uid}` );
     };
 
+    getUsersData = (): Observable<IUser[]> => {
+        return this.db.list( '/users' );
+    };
+
 }

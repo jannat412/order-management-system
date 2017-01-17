@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AdminOrderService} from '../../services/admin-order.service';
+import {AdminOrderService} from '../../services-module/admin-order.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ConfigService} from '../../services/config.service';
+import {ConfigService} from '../../services-module/config.service';
 import {OrderUtils, ArrayUtils} from '../../../utils/utils';
 
 @Component( {

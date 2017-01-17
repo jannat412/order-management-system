@@ -20,9 +20,9 @@ export class AdminTypeService {
             route: '/admin'
         },
         users: {
-            name: 'gestió de les sòcies',
+            name: 'gestió de socis i sòcies',
             icon: 'glyphicon-user',
-            route: '/admin'
+            route: 'socis'
         }
     };
 

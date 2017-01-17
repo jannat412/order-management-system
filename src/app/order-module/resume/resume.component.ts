@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {ConfigService} from '../../services/config.service';
-import {OrderService} from '../../services/order.service';
+import {ConfigService} from '../../services-module/config.service';
+import {OrderService} from '../../services-module/order.service';
 import {IOrderLine} from '../../models/orderLine';
 
 @Component( {

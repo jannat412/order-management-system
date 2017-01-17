@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AdminTypeService} from '../services/admin-type.service';
+import {AdminTypeService} from '../services-module/admin-type.service';
 
 @Component({
   selector: 'oms-admin-home',

@@ -2,10 +2,10 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {IOrder} from '../../../models/order';
-import {AdminOrderService} from '../../../services/admin-order.service';
-import {ConfigService} from '../../../services/config.service';
+import {AdminOrderService} from '../../../services-module/admin-order.service';
+import {ConfigService} from '../../../services-module/config.service';
 import {IUser} from '../../../models/user';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../../services-module/user.service';
 import {OrderUtils} from '../../../../utils/utils';
 import {Location} from '@angular/common';
 

@@ -16,10 +16,10 @@ import {ResumeComponent} from './resume/resume.component';
 import {RouterModule} from '@angular/router';
 
 import {orderRouting} from './order-routing.module';
-import {ServicesModule} from '../services/services.module';
+import {ServicesModule} from '../services-module/services.module';
 import {ProductListItemComponent} from './products-list/product-list-item.component';
 import {DirectivesModule} from '../directives/directives.module';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '../shared-module/shared.module';
 
 @NgModule( {
     declarations: [

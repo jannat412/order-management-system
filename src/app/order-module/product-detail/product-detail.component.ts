@@ -2,15 +2,15 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
-import {ProductsService} from '../../services/products.service';
-import {CategoriesService} from '../../services/categories.service';
-import {TagsService} from '../../services/tags.service';
+import {ProductsService} from '../../services-module/products.service';
+import {CategoriesService} from '../../services-module/categories.service';
+import {TagsService} from '../../services-module/tags.service';
 
 import {IProduct} from '../../models/product';
 import {ITag} from '../../models/tag';
 import {ICategory} from '../../models/category';
 import {ICounterData} from '../../models/counterData';
-import {OrderService} from '../../services/order.service';
+import {OrderService} from '../../services-module/order.service';
 import {IOrderLine} from '../../models/orderLine';
 import {Location} from '@angular/common';
 

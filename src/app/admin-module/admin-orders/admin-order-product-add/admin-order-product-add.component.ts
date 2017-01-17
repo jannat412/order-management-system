@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AdminOrderService} from '../../../services/admin-order.service';
+import {AdminOrderService} from '../../../services-module/admin-order.service';
 import {IProduct} from '../../../models/product';
 
 @Component( {
