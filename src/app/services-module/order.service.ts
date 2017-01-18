@@ -157,7 +157,7 @@ export class OrderService {
 
     saveComment = (comment: string) => this.comment = comment;
 
-    getComment = (): string => this.comment;
+    getComment = (): string => this.comment || '';
 
     /**
      * check if order exists and creates or updates it
@@ -172,6 +172,8 @@ export class OrderService {
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
         const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
+        console.log(this.order);
+        console.log(filteredOrder);
         const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
             order: filteredOrder,
@@ -207,7 +209,6 @@ export class OrderService {
     /**
      * creates a new row on ordersPerUser table based on user key and order key
      * @param keyData
-     * @param uid
      */
     private saveOrderPerUser = (keyData) => {
         const ordersPerUser = database().ref( `/ordersPerUser/${this.uid}` );

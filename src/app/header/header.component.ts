@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {FirebaseAuth, FirebaseAuthState} from 'angularfire2';
 import {AuthService} from '../services-module/auth.service';
 import {UserService} from '../services-module/user.service';
 import {ConfigService} from '../services-module/config.service';
@@ -21,8 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     active: boolean = false;
     user: IUser;
 
-    constructor(private authService: AuthService,
-                private firebaseAuth: FirebaseAuth,
+    constructor(
+                private authService: AuthService,
                 private userService: UserService,
                 private configService: ConfigService,
                 private router: Router) {
@@ -38,8 +37,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.firebaseAuth
-            .map( (authState: FirebaseAuthState) => !!authState )
+        this.authService.getUserId()
+            .map( (authState) => {
+                console.log( authState );
+                return authState;
+            } )
             .subscribe( authenticated => {
                 this.authInfo = authenticated;
 

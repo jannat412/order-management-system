@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
-import {FirebaseAuthState, FirebaseAuth} from 'angularfire2';
+import {FirebaseAuthState} from 'angularfire2';
 
 import {AuthService} from '../../services-module/auth.service';
 import {ValidationUtils} from '../../../utils/utils';
@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
     showForm: boolean = false;
 
     constructor(private fb: FormBuilder,
-                private firebaseAuth: FirebaseAuth,
                 private authService: AuthService,
                 private router: Router) {
     }
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         // if user logged prevent on first loading
         // to show the home page
-        this.firebaseAuth
+        this.authService.getUserId()
             .map( (authState: FirebaseAuthState) => !!authState )
             .subscribe( authenticated => {
                 if (authenticated) {
