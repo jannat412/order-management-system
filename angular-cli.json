@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.16",
+    "version": "1.0.0-beta.25.5",
     "name": "order-management-system"
   },
   "apps": [
@@ -19,8 +19,7 @@
         "../node_modules/animate.css/animate.min.css",
         "styles/styles.scss"
       ],
-      "scripts": [
-      ],
+      "scripts": [],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
@@ -42,6 +41,18 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "prefixInterfaces": true
+    "prefixInterfaces": true,
+    "inline": {
+      "style": false,
+      "template": false
+    },
+    "spec": {
+      "class": false,
+      "component": true,
+      "directive": true,
+      "module": false,
+      "pipe": true,
+      "service": true
+    }
   }
 }

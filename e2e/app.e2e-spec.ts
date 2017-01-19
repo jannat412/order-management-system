@@ -1,10 +1,10 @@
-import { OrderManagementPage } from './app.po';
+import { OrderManagementSystemPage } from './app.po';
 
-describe('order-management App', function() {
-  let page: OrderManagementPage;
+describe('order-management-system App', function() {
+  let page: OrderManagementSystemPage;
 
   beforeEach(() => {
-    page = new OrderManagementPage();
+    page = new OrderManagementSystemPage();
   });
 
   it('should display message saying app works', () => {
