@@ -39,14 +39,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         this.authService.getUserId()
             .map( (authState) => {
-                console.log( authState );
                 return authState;
             } )
             .subscribe( authenticated => {
                 this.authInfo = authenticated;
 
                 if (!this.authInfo) {
-                    this.router.navigate( ['login'] );
                     return;
                 } else {
                     this.configSubscription = this.configService.getActive()

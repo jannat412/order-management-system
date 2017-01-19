@@ -172,8 +172,6 @@ export class OrderService {
     private createNewOrder = () => {
         const orders = this.db.list( '/orders' );
         const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
-        console.log(this.order);
-        console.log(filteredOrder);
         const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
             order: filteredOrder,
