@@ -7,8 +7,7 @@
         <form class="form-horizontal"
               novalidate
               autocomplete="off"
-              [formGroup]="registerForm"
-              (ngSubmit)="onRegisterFormSubmit()">
+              [formGroup]="registerForm">
 
             <div class="form-group">
                 <div class="col-xs-12 col-md-12">
@@ -44,7 +43,7 @@
             <div class="alert alert-danger"
                  *ngIf="showError">{{errorMessage}}
             </div>
-            <button type="submit" class="btn btn-primary"
+            <button (click)="onRegisterFormSubmit()" type="button" class="btn btn-primary"
                     [disabled]="!registerForm.valid">Enviar
             </button>
             <a [routerLink]="['../']">back</a>

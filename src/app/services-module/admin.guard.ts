@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
 
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> | boolean {
-
+        console.log('admin', state);
         return this.userService.isUserAdmin()
             .take( 1 )
             .do( admin => {

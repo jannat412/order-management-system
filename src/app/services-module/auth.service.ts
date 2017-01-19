@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import {AngularFire, FirebaseAuthState} from 'angularfire2';
-import {database} from 'firebase';
+import {AngularFire, FirebaseAuthState, AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {IAuth} from '../models/auth';
+import {auth} from 'firebase';
 
 @Injectable()
 export class AuthService {
-
-    constructor(private af: AngularFire) {
+    constructor(private af: AngularFire,
+                private db: AngularFireDatabase) {
     }
 
     /**
@@ -59,29 +59,53 @@ export class AuthService {
             } );
     };
 
-    createUser = ({email, name, secondName}) => {
+    createTempUser = (data) => {
+        data.active = false;
+        data.role = 'soci';
+        return this.db.list( `/tempUsers` ).push( data );
+    };
 
-        this.af.auth.createUser( {
-            email: email,
-            password: Math.random().toString( 32 ).slice( -8 )
-        } )
-            .then( (user) => {
-                console.log(user);
-                    // const users = database().ref( `/users` );
-                    // const newUser = {
-                    //     name: name,
-                    //     secondName: secondName,
-                    //     email: email,
-                    //     role: 'soci',
-                    //     active: true
-                    // };
-                    // const userAssociation = users.child( user.uid );
-                    // userAssociation.set( newUser );
-
-                },
-                (err) => console.error( err )
+    verifyRegistration = () => {
+        auth().currentUser.sendEmailVerification()
+            .then(
+                function (e) {
+                    console.log( 'email sent', e );
+                }, function (err) {
+                    console.error( err );
+                }
             );
+    };
 
+    createUser = (data) => {
+        console.log( data );
+        return this.db.list( 'tempUsers' )
+            .map( users => users
+                .filter( (user) => (user.email === data.email) && !user.active )
+            )
+            .map( (user) => {
+                if (user.length) {
+                    this.af.auth.createUser( {
+                        email: data.email,
+                        password: data.password
+                    } );
+                }
+                return user;
+            } );
+        // check if exists in temp users by email
+        // check if it is active = false
+        // if not error message with help contact
+        // else create user and prevent login
+        // delete temp user
+        // send verify email
+        // return this.af.auth.createUser( {
+        //     email: data.email,
+        //     password: data.password
+        // } );
+
+    };
+
+    saveUserInfo = (uid, data) => {
+        return this.db.object( `users/${uid}` ).set( data );
     };
 
     updateUser = () => {

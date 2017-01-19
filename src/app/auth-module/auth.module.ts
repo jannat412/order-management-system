@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DirectivesModule} from '../directives/directives.module';
+import {RegisterComponent} from './register/register.component';
 
 @NgModule( {
     imports: [
@@ -11,7 +12,10 @@ import {DirectivesModule} from '../directives/directives.module';
         ReactiveFormsModule,
         DirectivesModule
     ],
-    declarations: [LoginComponent]
+    declarations: [
+        LoginComponent,
+        RegisterComponent
+    ]
 } )
 export class AuthModule {
 }
