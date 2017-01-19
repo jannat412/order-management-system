@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
+import {initializeApp} from 'firebase';
 import {AngularFire, FirebaseAuthState, AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {IAuth} from '../models/auth';
 import {auth} from 'firebase';
+import {FirebaseConfig} from '../../config/firebase.config';
 
 @Injectable()
 export class AuthService {
+    secondaryFb = initializeApp(FirebaseConfig, "secondary");
     constructor(private af: AngularFire,
                 private db: AngularFireDatabase) {
     }
@@ -66,7 +69,7 @@ export class AuthService {
     };
 
     verifyRegistration = () => {
-        auth().currentUser.sendEmailVerification()
+        this.secondaryFb.auth().currentUser.sendEmailVerification()
             .then(
                 function (e) {
                     console.log( 'email sent', e );
@@ -76,35 +79,43 @@ export class AuthService {
             );
     };
 
-    createUser = (data) => {
-        console.log( data );
-        return this.db.list( 'tempUsers' )
-            .map( users => users
-                .filter( (user) => (user.email === data.email) && !user.active )
-            )
-            .map( (user) => {
-                if (user.length) {
-                    this.af.auth.createUser( {
-                        email: data.email,
-                        password: data.password
-                    } );
-                }
-                return user;
-            } );
-        // check if exists in temp users by email
-        // check if it is active = false
-        // if not error message with help contact
-        // else create user and prevent login
-        // delete temp user
-        // send verify email
-        // return this.af.auth.createUser( {
-        //     email: data.email,
-        //     password: data.password
-        // } );
-
+    createUser = (userData) => {
+        return this.secondaryFb.auth().createUserWithEmailAndPassword(
+            userData.email, Math.random().toString( 32 ).slice( -8 )
+        );
     };
 
+    // createUser = (data) => {
+    //     console.log( data );
+    //     return this.db.list( 'tempUsers' )
+    //         .map( users => users
+    //             .filter( (user) => (user.email === data.email) && !user.active )
+    //         )
+    //         .map( (user) => {
+    //             if (user.length) {
+    //                 this.af.auth.createUser( {
+    //                     email: data.email,
+    //                     password: data.password
+    //                 } );
+    //             }
+    //             return user;
+    //         } );
+    //     // check if exists in temp users by email
+    //     // check if it is active = false
+    //     // if not error message with help contact
+    //     // else create user and prevent login
+    //     // delete temp user
+    //     // send verify email
+    //     // return this.af.auth.createUser( {
+    //     //     email: data.email,
+    //     //     password: data.password
+    //     // } );
+    //
+    // };
+
     saveUserInfo = (uid, data) => {
+        this.verifyRegistration();
+        this.secondaryFb.auth().signOut();
         return this.db.object( `users/${uid}` ).set( data );
     };
 

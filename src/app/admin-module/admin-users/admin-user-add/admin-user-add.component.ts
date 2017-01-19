@@ -42,35 +42,24 @@ export class AdminUserAddComponent implements OnInit {
     onRegisterFormSubmit = () => {
         const userData = this.registerForm.value;
 
-        // this.authService.createUser( userData.email )
-        //     .then( (user) => {
-        //         userData.role = 'soci';
-        //         userData.active = false;
-        //         this.authService.saveUserInfo( user.uid, userData )
-        //             .then( () => {
-        //                 this.authService.verifyRegistration( );
-        //                 this.router.navigate( ['../admin/socis'] );
-        //             } )
-        //             .catch( (error) => {
-        //                 this.error = error;
-        //                 console.log( this.error );
-        //             } );
-        //
-        //
-        //     } )
-        //     .catch( (error) => {
-        //         this.error = error;
-        //         console.log( this.error );
-        //     } );
+        this.authService.createUser( userData )
+            .then((user) => {
+                const uid = user.uid;
+                userData.role = 'soci';
+                userData.active = false;
+                this.authService.saveUserInfo(uid, userData)
+                    .then(() => this.router.navigate( ['../admin/socis'] ));
+            });
 
-        this.authService.createTempUser( userData )
-            .then(
-                () => {
-                    //this.authService.sendResetPassword(userData.email);
-                    this.router.navigate( ['../admin/socis'] );
-                },
-                (err) => console.error( err )
-            );
+
+        // this.authService.createTempUser( userData )
+        //     .then(
+        //         () => {
+        //             //this.authService.sendResetPassword(userData.email);
+        //             this.router.navigate( ['../admin/socis'] );
+        //         },
+        //         (err) => console.error( err )
+        //     );
     };
 
 }

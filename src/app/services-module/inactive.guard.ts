@@ -13,7 +13,6 @@ export class InactiveGuard implements CanActivate, CanActivateChild {
 
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> | boolean {
-        console.log('inactive', state);
         return this.configService.getActive()
             .take(1)
             .do(active => {
