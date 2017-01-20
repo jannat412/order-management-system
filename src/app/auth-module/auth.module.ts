@@ -5,18 +5,24 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DirectivesModule} from '../directives/directives.module';
 import {RegisterComponent} from './register/register.component';
 import {ResetPasswordComponent} from './resetPassword/reset-password.component';
+import {RouterModule} from '@angular/router';
+import {ServicesModule} from '../services-module/services.module';
+import {ForgotPasswordComponent} from './forgotPassword/forgot-password.component';
 
 @NgModule( {
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        DirectivesModule
+        DirectivesModule,
+        RouterModule,
+        ServicesModule.forAuth()
     ],
     declarations: [
         LoginComponent,
         RegisterComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        ForgotPasswordComponent
     ]
 } )
 export class AuthModule {

@@ -55,4 +55,13 @@ export class ServicesModule {
             ]
         }
     }
+
+    static forAuth() {
+        return {
+            ngModule: ServicesModule,
+            providers: [
+                AuthService
+            ]
+        }
+    }
 }

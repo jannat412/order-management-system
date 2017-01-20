@@ -64,14 +64,7 @@ export class AuthService {
     };
 
     verifyRegistration = (email) => {
-        this.secondaryFb.auth().sendPasswordResetEmail(email)
-            .then(
-                function (e) {
-                    console.log( 'email sent', e );
-                }, function (err) {
-                    console.error( err );
-                }
-            );
+       return this.secondaryFb.auth().sendPasswordResetEmail(email);
     };
 
     createUser = (userData) => {
@@ -83,7 +76,14 @@ export class AuthService {
     };
 
     saveUserInfo = (uid, data) => {
-        this.verifyRegistration(data.email);
+        this.verifyRegistration(data.email)
+            .then(
+                function (e) {
+                    console.log( 'email sent', e );
+                }, function (err) {
+                    console.error( err );
+                }
+            );
         this.secondaryFb.auth().signOut();
         return this.db.object( `users/${uid}` ).set( data );
     };
