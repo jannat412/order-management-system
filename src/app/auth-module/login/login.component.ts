@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 import {FirebaseAuthState} from 'angularfire2';
 
@@ -11,15 +12,18 @@ import {ValidationUtils} from '../../../utils/utils';
     selector: 'oms-login',
     templateUrl: './login.component.html'
 } )
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup;
     errorMessage: string;
     showError: boolean = false;
     showForm: boolean = false;
+    resetOk: boolean = false;
+    routeSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private authService: AuthService,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     onLoginFormSubmit() {
@@ -37,6 +41,14 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.routeSubscription = this.route.queryParams
+            .subscribe(
+                (params) => {
+                    if(params['t'] && params['t'] === 'pswok') {
+                        this.resetOk = true;
+                    }
+                }
+            );
         // if user logged prevent on first loading
         // to show the home page
         this.authService.getUserId()
@@ -62,5 +74,9 @@ export class LoginComponent implements OnInit {
                 ] )]
         } )
 
+    }
+
+    ngOnDestroy() {
+        this.routeSubscription.unsubscribe();
     }
 }

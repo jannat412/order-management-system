@@ -1,7 +1,8 @@
 <article class="container" *ngIf="showForm" class="animated fadeIn">
     <div class="jumbotron">
         <h2>Hola, qui ets?</h2>
-
+        <div *ngIf="resetOk"
+             class="alert alert-info">La contrasenya ha sigut resetejada correctament. Ja pots accedir a l'aplicació.</div>
         <form novalidate
               autocomplete="off"
               [formGroup]="loginForm"
@@ -20,10 +21,11 @@
                        selectOnFocus
                        placeholder="Contrassenya">
             </div>
-
-            <button type="submit" class="btn btn-primary"
-                    [disabled]="!loginForm.valid">Enviar
-            </button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"
+                        [disabled]="!loginForm.valid">Enviar
+                </button>
+            </div>
             <div class="alert alert-danger"
                  *ngIf="showError">{{errorMessage}}
             </div>
