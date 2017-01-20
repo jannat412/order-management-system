@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
     onRegisterFormSubmit() {
         this.authService.createUser( this.registerForm.value )
-            .subscribe(
+            .then(
                 (data) => {
                     this.errorMessage = '';
                     this.showError = false;
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
                     //this.router.navigate( ['inici'] );
                 },
                 (error) => {
-                    this.errorMessage = error;
+                    this.errorMessage = error.message;
                     this.showError = true;
                 } );
     }

@@ -63,7 +63,6 @@ export class AdminOrderService {
     };
 
     getFilteredProducts = (orderKey: string, str: string, detachList: string[]): Observable<IProduct[]> => {
-        console.log( orderKey, str, detachList );
         if (str.trim().length) {
             return this.db.list( 'products', {
                 query: {

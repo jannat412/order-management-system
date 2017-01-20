@@ -43,7 +43,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
 
                 // used product keys
                 let orderProducts = this.order.order;
-                this.usedProducts = Object.keys(orderProducts);
+                this.usedProducts = Object.keys( orderProducts );
                 this.orderLines = OrderUtils.orderListToArray( orderProducts, true );
 
                 this.userId = data.user;
@@ -54,7 +54,10 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
                 this.orderRevised = this.orderLines.every( (element) => {
                     return element.status !== 0;
                 } );
-                this.adminOrderService.setOrderStatus(this.order['$key'], this.orderRevised);
+                if (this.order['$key']) {
+                    this.adminOrderService
+                        .setOrderStatus( this.order['$key'], this.orderRevised );
+                }
 
             } );
 

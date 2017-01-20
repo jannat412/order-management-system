@@ -43,13 +43,22 @@ export class AdminUserAddComponent implements OnInit {
         const userData = this.registerForm.value;
 
         this.authService.createUser( userData )
-            .then((user) => {
-                const uid = user.uid;
-                userData.role = 'soci';
-                userData.active = false;
-                this.authService.saveUserInfo(uid, userData)
-                    .then(() => this.router.navigate( ['../admin/socis'] ));
-            });
+            .then( (user) => {
+                    const uid = user.uid;
+                    userData.role = 'soci';
+                    userData.active = true;
+                    this.authService.saveUserInfo( uid, userData )
+                        .then(
+                            () => {
+                                console.log('OK');
+                                this.router.navigate( ['../admin/socis'] )
+                            },
+                                    (err) => console.error( err )
+
+                        );
+                },
+                (err) => console.error( err )
+            );
 
 
         // this.authService.createTempUser( userData )

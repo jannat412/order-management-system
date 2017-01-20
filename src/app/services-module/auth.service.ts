@@ -9,7 +9,8 @@ import {FirebaseConfig} from '../../config/firebase.config';
 
 @Injectable()
 export class AuthService {
-    secondaryFb = initializeApp(FirebaseConfig, "secondary");
+    secondaryFb = initializeApp( FirebaseConfig, "secondary" );
+
     constructor(private af: AngularFire,
                 private db: AngularFireDatabase) {
     }
@@ -62,14 +63,8 @@ export class AuthService {
             } );
     };
 
-    createTempUser = (data) => {
-        data.active = false;
-        data.role = 'soci';
-        return this.db.list( `/tempUsers` ).push( data );
-    };
-
-    verifyRegistration = () => {
-        this.secondaryFb.auth().currentUser.sendEmailVerification()
+    verifyRegistration = (email) => {
+        this.secondaryFb.auth().sendPasswordResetEmail(email)
             .then(
                 function (e) {
                     console.log( 'email sent', e );
@@ -80,43 +75,25 @@ export class AuthService {
     };
 
     createUser = (userData) => {
+        const pass = Math.random().toString( 32 ).slice( -8 );
+        console.log(pass);
         return this.secondaryFb.auth().createUserWithEmailAndPassword(
-            userData.email, Math.random().toString( 32 ).slice( -8 )
+            userData.email, pass
         );
     };
 
-    // createUser = (data) => {
-    //     console.log( data );
-    //     return this.db.list( 'tempUsers' )
-    //         .map( users => users
-    //             .filter( (user) => (user.email === data.email) && !user.active )
-    //         )
-    //         .map( (user) => {
-    //             if (user.length) {
-    //                 this.af.auth.createUser( {
-    //                     email: data.email,
-    //                     password: data.password
-    //                 } );
-    //             }
-    //             return user;
-    //         } );
-    //     // check if exists in temp users by email
-    //     // check if it is active = false
-    //     // if not error message with help contact
-    //     // else create user and prevent login
-    //     // delete temp user
-    //     // send verify email
-    //     // return this.af.auth.createUser( {
-    //     //     email: data.email,
-    //     //     password: data.password
-    //     // } );
-    //
-    // };
-
     saveUserInfo = (uid, data) => {
-        this.verifyRegistration();
+        this.verifyRegistration(data.email);
         this.secondaryFb.auth().signOut();
         return this.db.object( `users/${uid}` ).set( data );
+    };
+
+    verifyOnReset = (code: string) => {
+        return auth().verifyPasswordResetCode(code);
+    };
+
+    confirmPasswordReset = (code: string, newPassword: string) => {
+        return auth().confirmPasswordReset(code, newPassword);
     };
 
     updateUser = () => {
