@@ -38,8 +38,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
                     Validators.required,
                     Validators.minLength( 8 )
                 ] )]
-        } )
+        } );
 
+        this.authService.verifyOnReset( this.oobCode )
+            .then( (email) => this.email = email )
+            .catch( (error) => console.error( error ) );
     }
 
     ngOnDestroy() {
@@ -47,21 +50,15 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     }
 
     onResetFormSubmit = () => {
-        this.authService.verifyOnReset( this.oobCode )
-            .then( (email) => {
-                this.email = email;
-                this.authService
-                    .confirmPasswordReset(
-                        this.oobCode,
-                        this.resetPasswordForm.value.password
-                    )
-                    .then( () => {
-                        this.router.navigate( ['login'], {
-                            queryParams: {'t': 'pswok'}
-                        } );
-                    } )
-                    .catch( (error) => console.error( error ) )
-
+        this.authService
+            .confirmPasswordReset(
+                this.oobCode,
+                this.resetPasswordForm.value.password
+            )
+            .then( () => {
+                this.router.navigate( ['login'], {
+                    queryParams: {'t': 'pswok'}
+                } );
             } )
             .catch( (error) => console.error( error ) );
     };
