@@ -16,6 +16,7 @@ import {AdminOrderProductAddComponent} from './admin-orders/admin-order-product-
 import {AdminUsersComponent} from './admin-users/admin-users.component';
 import {AdminUserAddComponent} from './admin-users/admin-user-add/admin-user-add.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {UiSwitchModule} from 'angular2-ui-switch';
 
 @NgModule( {
     imports: [
@@ -24,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         DirectivesModule,
         FormsModule,
         ReactiveFormsModule,
+        UiSwitchModule,
         adminRouting
     ],
     declarations: [

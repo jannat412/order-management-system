@@ -35,7 +35,13 @@ export class AdminUserAddComponent implements OnInit {
                 Validators.compose( [
                     Validators.required,
                     Validators.minLength( 2 )
-                ] )]
+                ] )],
+            address: [''],
+            cp: ['',
+                Validators.compose( [
+                    Validators.pattern( ValidationUtils.cp )
+                ] )],
+            city: ['']
         } )
     }
 
@@ -50,25 +56,15 @@ export class AdminUserAddComponent implements OnInit {
                     this.authService.saveUserInfo( uid, userData )
                         .then(
                             () => {
-                                console.log('OK');
+                                console.log( 'OK' );
                                 this.router.navigate( ['../admin/socis'] )
                             },
-                                    (err) => console.error( err )
-
+                            (err) => console.error( err )
                         );
                 },
                 (err) => console.error( err )
             );
 
-
-        // this.authService.createTempUser( userData )
-        //     .then(
-        //         () => {
-        //             //this.authService.sendResetPassword(userData.email);
-        //             this.router.navigate( ['../admin/socis'] );
-        //         },
-        //         (err) => console.error( err )
-        //     );
     };
 
 }

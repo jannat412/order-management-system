@@ -29,6 +29,37 @@
 
             <div class="form-group">
                 <div class="col-xs-12 col-md-12">
+                    <div class="input-group no-gutter">
+                        <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                        <div class="col-md-6 col-sm-12">
+                            <input formControlName="address"
+                                   type="text" class="form-control col-md-12"
+                                   required name="address"
+                                   selectOnFocus
+                                   placeholder="Adreça">
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <input formControlName="cp"
+                                   type="text" class="form-control"
+                                   required name="cp"
+                                   selectOnFocus
+                                   placeholder="CP">
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input formControlName="city"
+                                   type="text" class="form-control"
+                                   required name="city"
+                                   selectOnFocus
+                                   placeholder="Ciutat">
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                         <input formControlName="email"

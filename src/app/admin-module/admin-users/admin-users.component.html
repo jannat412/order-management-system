@@ -31,7 +31,9 @@
                     <td>{{user.address}} {{user.cp}} {{user.city}}</td>
                     <td>{{user.tel}}</td>
                     <td>{{user.role}}</td>
-                    <td>{{user.active}}</td>
+                    <td><ui-switch size="small"
+                                   (change)="userActiveChange($event, user.$key)"
+                                   [checked]="user.active"></ui-switch></td>
                 </tr>
 
                 </tbody>

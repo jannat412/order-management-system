@@ -40,7 +40,17 @@ export class UserService {
     };
 
     getUsersData = (): Observable<IUser[]> => {
-        return this.db.list( '/users' );
+        return this.db.list( '/users', {
+            query: {
+                orderByChild: 'role',
+                equalTo: 'soci'
+            }
+        } );
+    };
+
+    setUserActive = (value: boolean, uid: string) => {
+        const user = this.db.object( `/users/${uid}` );
+        user.update( {active: value} );
     };
 
 }

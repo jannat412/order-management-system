@@ -130,3 +130,11 @@ input[type="text"], input[type="email"], input[type="password"] {
   -webkit-animation-fill-mode: initial; //Changed from both to initial
   animation-fill-mode: initial; //Changed from both to initial
 }
+/* Remove left and right gutter from bootstrap grid system
+ -------------------------------------------------- */
+.no-gutter {
+   [class^="col-"] {
+      padding-left: 0;
+      padding-right: 0;
+  }
+}
