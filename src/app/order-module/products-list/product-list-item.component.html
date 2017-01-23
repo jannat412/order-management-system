@@ -1,7 +1,4 @@
-<tr [isActive]="product.active"
-    [styleKo]="'disabled'"
-    [ngClass]="category?.className"
-    [class.selected]="product.selected">
+<tr [ngClass]="setRowClasses()">
 
     <td></td>
     <td><img [src]="product.imgName"

@@ -8,6 +8,12 @@
   td(5) => product comment
   td(6) => touchspin and counter
 */
+oms-order-list {
+  .table > tbody > tr > td {
+    border-top: none;
+  }
+}
+
 .oms-product-list-item {
 
   .disabled {
@@ -109,3 +115,4 @@
 
   }
 }
+

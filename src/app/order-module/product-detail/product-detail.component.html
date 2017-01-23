@@ -12,13 +12,9 @@
             <div class="row panel-body">
                 <div class="col-sm-6 col-md-5">
                     <p class="alert"
-                       [isActive]="product.active"
-                       [styleOk]="'alert-success'"
-                       [styleKo]="'alert-danger'">
+                       [ngClass]="product.active ? 'alert-success' : 'alert-danger'">
                 <span class="glyphicon"
-                      [isActive]="product.active"
-                      [styleOk]="'glyphicon-ok-circle'"
-                      [styleKo]="'glyphicon-ban-circle'">
+                      [ngClass]="product.active ? 'glyphicon-ok-circle' : 'glyphicon-ban-circle'">
                 </span>
                         {{product.active ? 'Disponible' : 'No disponible'}}
                     </p>

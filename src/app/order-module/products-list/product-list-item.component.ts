@@ -16,16 +16,20 @@ export class ProductListItemComponent implements OnInit, OnDestroy {
     @Input() productOrderLine: IOrderLine;
     private category: ICategory;
     private categorySubscription: Subscription;
+    private categoryName: string;
 
     constructor(private categoriesService: CategoriesService,
                 private orderService: OrderService) {
     }
-F
+
     ngOnInit() {
         this.categorySubscription = this.categoriesService
             .getCategoryForProduct( this.product.categoryKey )
             .subscribe(
-                (data: ICategory) => this.category = <ICategory>data
+                (data: ICategory) => {
+                    this.category = <ICategory>data;
+                    this.categoryName = this.category.className;
+                }
             );
     }
 
@@ -58,6 +62,14 @@ F
 
     isProductSelected = (quantity: number) => {
         this.product.selected = quantity > 0;
+    }
+
+    setRowClasses = () => {
+        return {
+            [this.categoryName]: true,
+            'selected': this.product.selected,
+            'enabled': this.product.active
+        }
     }
 
 }
