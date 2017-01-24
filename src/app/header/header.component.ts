@@ -15,32 +15,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
     configSubscription: Subscription;
     adminSubscription: Subscription;
     userSubscription: Subscription;
+    authSubscription: Subscription;
     authInfo: boolean = false;
     admin: boolean = false;
     active: boolean = false;
     user: IUser;
 
-    constructor(
-                private authService: AuthService,
+    constructor(private authService: AuthService,
                 private userService: UserService,
                 private configService: ConfigService,
                 private router: Router) {
     }
 
     logout = () => {
-        this.configSubscription.unsubscribe();
-        this.adminSubscription.unsubscribe();
-        this.userSubscription.unsubscribe();
+
         this.authService.logoutUser();
-        this.router.navigate( ['login'] );
+        this.router.navigate( [ 'login' ] );
     };
 
     ngOnInit() {
 
-        this.authService.getUserId()
-            .map( (authState) => {
-                return authState;
-            } )
+        this.authSubscription = this.authService.getUserId()
             .subscribe( authenticated => {
                 this.authInfo = authenticated;
 
@@ -69,9 +64,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.configSubscription.unsubscribe();
-        this.adminSubscription.unsubscribe();
-        this.userSubscription.unsubscribe();
+        this.authSubscription.unsubscribe();
+        if (this.configSubscription) this.configSubscription.unsubscribe();
+        if (this.adminSubscription) this.adminSubscription.unsubscribe();
+        if (this.userSubscription) this.userSubscription.unsubscribe();
     }
 
 }

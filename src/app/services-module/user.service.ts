@@ -24,7 +24,7 @@ export class UserService {
                         .map( role => role.$value );
                 }
                 return uid;
-            } )
+            } );
     };
 
     /**
@@ -53,4 +53,8 @@ export class UserService {
         user.update( {active: value} );
     };
 
+    getUserActive = (): Observable<any> => {
+        return this.authService.getUserId()
+            .flatMap( uid => this.db.object( `/users/${uid}/active` ) );
+    };
 }

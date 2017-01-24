@@ -63,7 +63,7 @@ export class ConfigService {
                 .then( data => {
                     const activeNode = this.db.object( '/config' );
                     activeNode.update( {
-                        currentOrder: data.key
+                        currentOrder: data['key']
                     } );
                 } );
         }

@@ -17,10 +17,12 @@ import {MenuCollapseDirective} from './directives/menu-collapse.directive';
 
 import {AuthModule} from './auth-module/auth.module';
 import {ServicesModule} from './services-module/services.module';
+import {RootComponent} from './root/root.component';
 
 @NgModule( {
     declarations: [
         AppComponent,
+        RootComponent,
         HeaderComponent,
         DropdownDirective,
         MenuCollapseDirective,

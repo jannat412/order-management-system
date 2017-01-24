@@ -12,6 +12,7 @@ import {TagsService} from './tags.service';
 import {AdminTypeService} from './admin-type.service';
 import {AdminOrderService} from './admin-order.service';
 import {AdminUserService} from './admin-user.service';
+import {ActiveUserGuard} from './active-user.guard';
 
 @NgModule({})
 
@@ -26,7 +27,8 @@ export class ServicesModule {
                 OrderService,
                 InactiveGuard,
                 AuthGuard,
-                AdminGuard
+                AdminGuard,
+                ActiveUserGuard
             ]
         }
     };
