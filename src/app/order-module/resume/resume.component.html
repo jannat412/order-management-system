@@ -12,64 +12,141 @@
             </small>
         </div>
 
-        <form class="form-horizontal">
+        <form novalidate
+              autocomplete="off"
+              [formGroup]="resumeForm"
+              class="form-horizontal">
 
             <div *ngIf="!orderSaved" class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Producte</th>
-                        <th>Quantitat</th>
-                        <th>Unitat</th>
-                        <th>Preu total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let line of productLines; let i=index;">
-                        <td>{{i+1}}</td>
-                        <td>{{line.name}}</td>
-                        <td>{{line.quantity}}</td>
-                        <td>{{line.unity}}</td>
-                        <td>{{line.total | number:'1.2-2'}}€</td>
-                    </tr>
-                    <tr class="total-price-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total:</td>
-                        <td>{{superTotal | number:'1.2-2'}}€</td>
-                    </tr>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Mètode d'entrega</label>
+                    <div class="col-md-4">
+                        <div class="radio-inline" *ngFor="let del of deliverMethods">
+                            <label>
+                                <input formControlName="deliver"
+                                       type="radio" name="deliver"
+                                       [value]="del.value">
+                                {{del.desc}}
+                            </label>
+                        </div>
+                    </div>
 
-                    </tbody>
-                </table>
+                    <!-- Select Multiple -->
+                    <div class="form-group" *ngIf="selectedDeliveryType.value == 'center'">
+                        <label class="col-md-4 control-label" for="center">Lloc de recollida</label>
+                        <div class="col-md-4">
+                            <select formControlName="center" id="center"
+                                    class="form-control">
+                                <option *ngFor="let center of centers"
+                                        [value]="center.value"
+                                        class="form-control">
+                                    {{center.desc}}
+                                </option>
+                            </select>
+                            <span class="help-block">
+                                A partir de les 18h del dia de repartiment (dijous normalment).
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div *ngIf="selectedDeliveryType.value === 'home'"
+                         class="form-group">
+                        <label class="col-md-4 control-label"
+                               for="address">Adreça d'entrega:</label>
+                        <div class="col-md-4">
+                            <input formControlName="address"
+                                   id="address" type="text"
+                                   placeholder="Adreça"
+                                   class="form-control input-md" required="">
+                            <span class="help-block">
+                            Per defecte, la teva adreça habitual, però la pots canviar.
+                        </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div *ngIf="selectedDeliveryType.value === 'home'"
+                         class="form-group">
+                        <label class="col-md-4 control-label">Hora:</label>
+                        <div class="col-md-4">
+                            Entre les <input formControlName="deliveryTime0"
+                                             type="time"
+                                             min="17:00"
+                                             max="22:30"
+                                             step="900"
+                                             id="deliveryTime0">
+                            i les <input formControlName="deliveryTime1"
+                                         type="time"
+                                         min="17:30"
+                                         max="23:00"
+                                         step="900"
+                                         id="deliveryTime1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"
+                               for="comment">Comentaris</label>
+                        <div class="col-md-6">
+                        <textarea formControlName="comment"
+                                  class="form-control"
+                                  rows="3" id="comment"></textarea>
+                            <span class="help-block">
+                            Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
+                        </span>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Producte</th>
+                            <th>Quantitat</th>
+                            <th>Unitat</th>
+                            <th>Preu total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let line of productLines; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{line.name}}</td>
+                            <td>{{line.quantity}}</td>
+                            <td>{{line.unity}}</td>
+                            <td>{{line.total | number:'1.2-2'}}€</td>
+                        </tr>
+                        <tr class="total-price-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total:</td>
+                            <td>{{superTotal | number:'1.2-2'}}€</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="form-group">
+                        <a (click)="saveOrder()" class="btn btn-success btn-lg">
+                            <span aria-hidden="true" class="glyphicon glyphicon-cloud-upload"></span> Enviar comanda
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <a class="btn btn-link btn-sm"
+                       [routerLink]="['../']">
+                        <span aria-hidden="true"
+                              class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de
+                        productes
+                    </a>
+                    <a *ngIf="orderSaved"
+                       class="btn btn-link btn-sm">Descarregar còpia</a>
+                </div>
             </div>
-
-            <div *ngIf="!orderSaved" class="form-group">
-                <label for="comment">Comentaris</label>
-                <textarea class="form-control" rows="3" id="comment"
-                          [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="comment">{{comment}}</textarea>
-                <span id="helpBlock"
-                      class="help-block">
-                    Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
-                </span>
-            </div>
-
-            <div class="form-group">
-                <a *ngIf="!orderSaved" (click)="saveOrder()" class="btn btn-success btn-lg">
-                    <span aria-hidden="true" class="glyphicon glyphicon-cloud-upload"></span> Enviar comanda
-                </a>
-            </div>
-
-            <div class="form-group">
-                <a class="btn btn-link btn-sm"
-                   [routerLink]="['../']">
-                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de productes
-                </a>
-                <a *ngIf="orderSaved" class="btn btn-link btn-sm">Descarregar còpia</a>
-            </div>
-
         </form>
     </div>
 </main>

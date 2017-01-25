@@ -80,7 +80,8 @@ export class OrderService {
                 this.comment = data.comment;
                 this.checkTempOrder( OrderUtils.orderListToArray( data.order ) );
                 this.onChangeOrderEmit();
-                return OrderUtils.orderListToArray( this.order );
+                data.order = OrderUtils.orderListToArray( this.order );
+                return data;
             } );
     };
 
@@ -158,6 +159,8 @@ export class OrderService {
     saveComment = (comment: string) => this.comment = comment;
 
     getComment = (): string => this.comment || '';
+
+    getUser = (): string => this.uid;
 
     /**
      * check if order exists and creates or updates it

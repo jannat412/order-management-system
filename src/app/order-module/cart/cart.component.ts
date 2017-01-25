@@ -37,7 +37,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
         this.orderInitSubscription = this.orderService.getOrderLinesByUser()
             .subscribe(
-                (data) => this.productLines = data
+                (data) => this.productLines = data.order
             );
 
         this.linesSubscription = this.orderService.emittedOrder

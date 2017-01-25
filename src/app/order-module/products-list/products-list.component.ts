@@ -44,7 +44,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
             );
 
         this.orderLinesSubscription = this.orderService
-            .getOrderLinesByUser().subscribe(
+            .getOrderLinesByUser()
+            .map( data => data.order )
+            .subscribe(
                 (userOrderProducts: IOrderLine[]) =>
                     this.userOrderProducts = <IOrderLine[]>userOrderProducts
             );
@@ -85,8 +87,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     getProductOrderLine = (productKey: string): any => {
         return this.userOrderProducts.filter( (product) => {
-                return product['$key'] === productKey;
-            } )[0] || {
+                return product[ '$key' ] === productKey;
+            } )[ 0 ] || {
                 quantity: 0,
                 total: 0
             }
