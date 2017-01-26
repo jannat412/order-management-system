@@ -3,7 +3,7 @@ import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {ICategory} from '../models/category';
 import {IProduct} from '../models/product';
-import {OrderUtils} from '../../utils/utils';
+import {OrderUtils} from '../utils/utils';
 
 @Injectable()
 export class ProductsService {

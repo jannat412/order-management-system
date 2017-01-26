@@ -6,7 +6,7 @@ import {AngularFireDatabase} from 'angularfire2';
 import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
 import {IProduct} from '../models/product';
-import {OrderUtils} from '../../utils/utils';
+import {OrderUtils} from '../utils/utils';
 
 @Injectable()
 export class AdminOrderService {
