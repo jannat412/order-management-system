@@ -73,15 +73,15 @@
                         <label class="col-md-4 control-label"
                                for="comment">Comentaris
                             <span *ngIf="selectedDeliveryType?.value === 'home'">(dia i hora per fer-te l'entrega)</span>
-                            </label>
-                            <div class="col-md-6">
+                        </label>
+                        <div class="col-md-6">
                         <textarea formControlName="comment"
                                   class="form-control"
                                   rows="3" id="comment"></textarea>
-                                <span class="help-block">
+                            <span class="help-block">
                                     Si tens qualsevol comentari adicional sobre l'entrega ho pots indicar aquí.
                                 </span>
-                            </div>
+                        </div>
                     </div>
 
                     <table class="table table-striped">
@@ -120,17 +120,19 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <a class="btn btn-link btn-sm"
-                       [routerLink]="['../']">
-                        <span aria-hidden="true"
-                              class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de
-                        productes
-                    </a>
-                </div>
+
             </div>
         </form>
-        <a *ngIf="orderSaved"
-           class="btn btn-link btn-sm">Descarregar còpia</a>
+        <div class="form-group">
+            <a class="btn btn-link btn-sm"
+               [routerLink]="['../']">
+                        <span aria-hidden="true"
+                              class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de
+                productes
+            </a>
+            <a *ngIf="orderSaved"
+               class="btn btn-link btn-sm">Descarregar còpia</a>
+        </div>
+
     </div>
 </main>

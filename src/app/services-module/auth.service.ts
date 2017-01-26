@@ -5,11 +5,11 @@ import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {IAuth} from '../models/auth';
 import {auth} from 'firebase';
-import {FirebaseConfig} from '../../config/firebase.config';
+import {FIREBASE_CONFIG} from '../../config/firebase.config';
 
 @Injectable()
 export class AuthService {
-    secondaryFb = initializeApp( FirebaseConfig, "secondary" );
+    secondaryFb = initializeApp( FIREBASE_CONFIG, "secondary" );
 
     constructor(private af: AngularFire,
                 private db: AngularFireDatabase) {

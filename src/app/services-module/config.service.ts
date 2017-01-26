@@ -79,7 +79,7 @@ export class ConfigService {
     private static getNextThursday = () => {
         const DATE = new Date();
         const DAY = DATE.getDay() || 7;
-        DATE.setHours( 24 * (7 - day + 4) );
+        DATE.setHours( 24 * (7 - DAY + 4) );
         return new Date( DATE.getFullYear(), DATE.getMonth(), DATE.getDate() )
             .toString();
     };
