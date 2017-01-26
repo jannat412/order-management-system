@@ -3,7 +3,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthService} from '../../services-module/auth.service';
-import {ValidationUtils} from '../../../utils/utils';
+import {ValidationUtils} from '../../utils/utils';
 
 @Component( {
     selector: 'oms-login',

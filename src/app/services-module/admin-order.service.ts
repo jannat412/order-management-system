@@ -52,15 +52,15 @@ export class AdminOrderService {
     };
 
     updateOrder = (orderKey: string, productKey: string, line: IOrderLine) => {
-        const orderLine = this.db.object( `/orders/${orderKey}/order/${productKey}` );
-        orderLine.update( line )
+        this.db.object( `/orders/${orderKey}/order/${productKey}` )
+            .update( line )
             .then( () => console.log( 'update order done' ) )
             .catch( err => console.log( err, 'Error on update order' ) );
     };
 
     setOrderStatus = (orderKey: string, status: boolean) => {
-        const order = this.db.object( `/orders/${orderKey}` );
-        order.update( {checked: status} );
+        this.db.object( `/orders/${orderKey}` )
+            .update( {checked: status} );
     };
 
     getFilteredProducts = (orderKey: string, str: string, detachList: string[]): Observable<IProduct[]> => {
@@ -73,7 +73,7 @@ export class AdminOrderService {
             } )
                 .map( products => products
                     .filter( (product) => {
-                        return (product['name'].match( new RegExp( str, 'g' ) )) &&
+                        return (product[ 'name' ].match( new RegExp( str, 'g' ) )) &&
                             detachList.indexOf( product.$key ) === -1;
                     } )
                     .map( product =>
@@ -87,8 +87,7 @@ export class AdminOrderService {
     };
 
     addProductToOrder = (product: IProduct, orderKey: string) => {
-        const order = database().ref( `/orders/${orderKey}/order` );
-        const productLine = {
+        const PRODUCT_LINE = {
             name: product.name,
             price: product.price,
             unity: product.unity,
@@ -97,8 +96,8 @@ export class AdminOrderService {
             oldQuantity: 0,
             oldTotal: 0
         };
-        const orderAssociation = order.child( product.$key );
-
-        orderAssociation.set( productLine );
+        database().ref( `/orders/${orderKey}/order` )
+            .child( product.$key )
+            .set( PRODUCT_LINE );
     };
 }

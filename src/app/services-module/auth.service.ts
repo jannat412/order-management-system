@@ -34,17 +34,17 @@ export class AuthService {
      * @returns {Observable<any>}
      */
     private fromAuthPromise = (promise): Observable<any> => {
-        const subject = new Subject<any>();
+        const SUBJECT = new Subject<any>();
         promise
             .then( res => {
-                    subject.next( res );
-                    subject.complete();
+                    SUBJECT.next( res );
+                    SUBJECT.complete();
                 },
                 err => {
-                    subject.error( err );
-                    subject.complete();
+                    SUBJECT.error( err );
+                    SUBJECT.complete();
                 } );
-        return subject.asObservable();
+        return SUBJECT.asObservable();
     };
 
     /**
@@ -68,10 +68,9 @@ export class AuthService {
     };
 
     createUser = (userData) => {
-        const pass = Math.random().toString( 32 ).slice( -8 );
-        console.log(pass);
+        const PASS = Math.random().toString( 32 ).slice( -8 );
         return this.secondaryFb.auth().createUserWithEmailAndPassword(
-            userData.email, pass
+            userData.email, PASS
         );
     };
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {ValidationUtils} from '../../../../utils/utils';
+import {ValidationUtils} from '../../../utils/utils';
 import {AuthService} from '../../../services-module/auth.service';
 import {Router} from '@angular/router';
 
@@ -46,17 +46,16 @@ export class AdminUserAddComponent implements OnInit {
     }
 
     onRegisterFormSubmit = () => {
-        const userData = this.registerForm.value;
+        let userData = this.registerForm.value;
 
         this.authService.createUser( userData )
             .then( (user) => {
-                    const uid = user.uid;
+                    const UID = user.uid;
                     userData.role = 'soci';
                     userData.active = true;
-                    this.authService.saveUserInfo( uid, userData )
+                    this.authService.saveUserInfo( UID, userData )
                         .then(
                             () => {
-                                console.log( 'OK' );
                                 this.router.navigate( ['../admin/socis'] )
                             },
                             (err) => console.error( err )

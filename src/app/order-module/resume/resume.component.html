@@ -12,12 +12,12 @@
             </small>
         </div>
 
-        <form novalidate
+        <form *ngIf="!orderSaved" novalidate
               autocomplete="off"
               [formGroup]="resumeForm"
               class="form-horizontal">
 
-            <div *ngIf="!orderSaved" class="table-responsive">
+            <div class="table-responsive">
                 <!-- Multiple Radios (inline) -->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Mètode d'entrega</label>
@@ -127,10 +127,10 @@
                               class="glyphicon glyphicon-chevron-left"></span> Tornar al llistat de
                         productes
                     </a>
-                    <a *ngIf="orderSaved"
-                       class="btn btn-link btn-sm">Descarregar còpia</a>
                 </div>
             </div>
         </form>
+        <a *ngIf="orderSaved"
+           class="btn btn-link btn-sm">Descarregar còpia</a>
     </div>
 </main>

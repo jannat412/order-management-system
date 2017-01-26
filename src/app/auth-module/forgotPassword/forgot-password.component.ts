@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services-module/auth.service';
-import {ValidationUtils} from '../../../utils/utils';
+import {ValidationUtils} from '../../utils/utils';
 
 @Component( {
     selector: 'oms-forgot-password',

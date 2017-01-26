@@ -15,7 +15,7 @@ import {ResumeComponent} from './resume/resume.component';
 
 import {RouterModule} from '@angular/router';
 
-import {orderRouting} from './order-routing.module';
+import {ORDER_ROUTING} from './order-routing.module';
 import {ServicesModule} from '../services-module/services.module';
 import {ProductListItemComponent} from './products-list/product-list-item.component';
 import {DirectivesModule} from '../directives/directives.module';
@@ -42,7 +42,7 @@ import {SharedModule} from '../shared-module/shared.module';
         RouterModule,
         ServicesModule.forOrder(),
         DirectivesModule,
-        orderRouting
+        ORDER_ROUTING
     ],
     providers: [
     ]

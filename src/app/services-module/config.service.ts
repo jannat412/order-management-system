@@ -23,8 +23,8 @@ export class ConfigService {
      * @param date
      */
     setActive = (val: boolean, date: string) => {
-        const activeNode = this.db.object( '/config' );
-        activeNode.update( {active: val} );
+        this.db.object( '/config' )
+            .update( {active: val} );
         if (val) this.createCurrentOrder( date );
     };
 
@@ -56,15 +56,15 @@ export class ConfigService {
     private createCurrentOrder = (date: string) => {
         let nextThursday = ConfigService.getNextThursday();
         if (nextThursday !== date) {
-            const weekOrder = this.db.list( '/weekOrder' );
-            weekOrder.push( {
-                limitDate: nextThursday
-            } )
+            this.db.list( '/weekOrder' )
+                .push( {
+                    limitDate: nextThursday
+                } )
                 .then( data => {
-                    const activeNode = this.db.object( '/config' );
-                    activeNode.update( {
-                        currentOrder: data['key']
-                    } );
+                    this.db.object( '/config' )
+                        .update( {
+                            currentOrder: data[ 'key' ]
+                        } );
                 } );
         }
 
@@ -77,10 +77,11 @@ export class ConfigService {
      * @returns {string}
      */
     private static getNextThursday = () => {
-        const date = new Date();
-        const day = date.getDay() || 7;
-        date.setHours( 24 * (7 - day + 4) );
-        return new Date( date.getFullYear(), date.getMonth(), date.getDate() ).toString();
+        const DATE = new Date();
+        const DAY = DATE.getDay() || 7;
+        DATE.setHours( 24 * (7 - day + 4) );
+        return new Date( DATE.getFullYear(), DATE.getMonth(), DATE.getDate() )
+            .toString();
     };
 
 }

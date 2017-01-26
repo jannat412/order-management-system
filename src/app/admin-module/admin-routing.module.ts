@@ -15,4 +15,4 @@ const ADMIN_ROUTES: Routes = [
     {path: 'socis/nou', component: AdminUserAddComponent}
 ];
 
-export const adminRouting = RouterModule.forChild( ADMIN_ROUTES );
+export const ADMIN_ROUTING = RouterModule.forChild( ADMIN_ROUTES );

@@ -33,15 +33,15 @@ export class AdminOrderRowComponent implements OnInit {
     }
 
     private calculateTotalAmount = (): number => {
-        const orderItems = this.order.order;
+        let orderItems = this.order.order;
         return Math.round( Object.keys( orderItems ).reduce( (sum, key) => {
                     return sum + orderItems[key].total;
                 }, 0 ) * 1e2 ) / 1e2;
     };
 
     private getProducts = (): IOrderLine[] => {
-        const keys = [];
-        const data = this.order.order;
+        let keys = [];
+        let data = this.order.order;
         for (let item in data) {
             if (data.hasOwnProperty( item )) {
                 keys.push( data[item] );

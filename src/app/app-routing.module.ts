@@ -19,6 +19,7 @@ const APP_ROUTES: Routes = [
             {path: 'inici', component: HomeComponent, canActivate: [AuthGuard, ActiveUserGuard]},
             {path: 'comanda', canActivateChild: [AuthGuard, InactiveGuard, ActiveUserGuard], loadChildren: 'app/order-module/order.module'},
             {path: 'admin', canActivateChild: [AuthGuard, AdminGuard, ActiveUserGuard], loadChildren: 'app/admin-module/admin.module'},
+            {path: 'soci', canActivateChild: [AuthGuard, ActiveUserGuard], loadChildren: 'app/user-module/user.module'}
         ]},
     {path: '**', redirectTo: '/', pathMatch: 'full'}
 ];

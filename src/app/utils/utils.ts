@@ -1,10 +1,10 @@
 export class ObjectUtils {
     static filterObjectArray = (obj, predicate) => {
         return Object.keys( obj )
-            .filter( (key) => predicate( obj[key] )
+            .filter( (key) => predicate( obj[ key ] )
             )
             .reduce( (acc, cur) => {
-                acc[cur] = obj[cur];
+                acc[ cur ] = obj[ cur ];
                 return acc;
             }, {} );
     };
@@ -33,17 +33,17 @@ export class OrderUtils {
         let keys = [];
         for (let item in data) {
             if (data.hasOwnProperty( item ) &&
-                ( (!zeroQuantity && data[item].quantity > 0) || zeroQuantity)) {
+                ( (!zeroQuantity && data[ item ].quantity > 0) || zeroQuantity)) {
                 let o = {
                     $key: item,
-                    name: data[item].name,
-                    price: data[item].price,
-                    quantity: data[item].quantity,
-                    total: data[item].total,
-                    unity: data[item].unity,
-                    oldTotal: data[item].oldTotal || 0,
-                    oldQuantity: data[item].oldQuantity || 0,
-                    status: data[item].status || 0
+                    name: data[ item ].name,
+                    price: data[ item ].price,
+                    quantity: data[ item ].quantity,
+                    total: data[ item ].total,
+                    unity: data[ item ].unity,
+                    oldTotal: data[ item ].oldTotal || 0,
+                    oldQuantity: data[ item ].oldQuantity || 0,
+                    status: data[ item ].status || 0
                 };
                 keys.push( o );
             }
@@ -59,16 +59,15 @@ export class OrderUtils {
      * @returns {any}
      */
     static reformatImgUrl = (product: any, type: string): any => {
-        const url = `/assets/product-img/${type}/`;
-
+        const URL = `/assets/product-img/${type}/`;
         return Object.assign( {}, product, {
-            imgName: url + product.imgName
+            imgName: URL + product.imgName
         } )
     };
 
     static getSuperTotal = (data: any, param: string) => {
         return data.reduce( (acc, prod) => {
-            return acc + prod[param];
+            return acc + prod[ param ];
         }, 0 );
     };
 
@@ -79,14 +78,14 @@ export class OrderUtils {
     };
 
     private static sumQuantities = (list, order) => {
-        const index = list.map( (e) => {
+        const INDEX = list.map( (e) => {
             return e.name || '';
         } ).indexOf( order.name );
 
-        if (index === -1) {
+        if (INDEX === -1) {
             list.push( order );
         } else {
-            var prod = list[index];
+            var prod = list[ INDEX ];
             prod.quantity += order.quantity * 1e2 / 1e2;
             prod.total += order.total * 1e2 / 1e2;
         }

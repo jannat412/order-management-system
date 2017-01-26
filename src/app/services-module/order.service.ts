@@ -10,7 +10,7 @@ import {ConfigService} from './config.service';
 import {IOrder} from '../models/order';
 import {IOrderLine} from '../models/orderLine';
 
-import {OrderUtils, ObjectUtils} from '../../utils/utils';
+import {OrderUtils, ObjectUtils} from '../utils/utils';
 
 @Injectable()
 export class OrderService {
@@ -169,24 +169,24 @@ export class OrderService {
      * check if order exists and creates or updates it
      */
     saveOrder = (deliverInfo: any) => {
-        this.userOrderKey ? this.updateOrder(deliverInfo) : this.createNewOrder(deliverInfo);
+        this.userOrderKey ? this.updateOrder( deliverInfo ) : this.createNewOrder( deliverInfo );
     };
 
     /**
      * pushes a new order
      */
     private createNewOrder = (deliverInfo: any) => {
-        const orders = this.db.list( '/orders' );
-        const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
-        const order: IOrder = {
+        const FILTERED_ORDER = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
+        const ORDER: IOrder = {
             weekOrderKey: this.currentOrderKey,
-            order: filteredOrder,
+            order: FILTERED_ORDER,
             deliverInfo: deliverInfo || {},
             user: this.uid,
             timestamp: database[ 'ServerValue' ][ 'TIMESTAMP' ],
             checked: false
         };
-        orders.push( order )
+        this.db.list( '/orders' )
+            .push( ORDER )
             .then( keyData => {
                 this.saveOrderPerUser( keyData );
                 this.saveOrderPerWeekOrder( keyData );
@@ -198,13 +198,13 @@ export class OrderService {
      * updates the orders/{orderKey} node
      */
     private updateOrder = (deliverInfo: any) => {
-        const order = this.db.object( `/orders/${this.userOrderKey}` );
-        const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
-        order.update( {
-            order: filteredOrder,
-            deliverInfo: deliverInfo || {},
-            timestamp: database[ 'ServerValue' ][ 'TIMESTAMP' ]
-        } )
+        const FILTERED_ORDER = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
+        this.db.object( `/orders/${this.userOrderKey}` )
+            .update( {
+                order: FILTERED_ORDER,
+                deliverInfo: deliverInfo || {},
+                timestamp: database[ 'ServerValue' ][ 'TIMESTAMP' ]
+            } )
             .then( () => {
                 this.saveOrderEmitter.emit( {status: true, message: 'update'} );
             } );
@@ -215,9 +215,9 @@ export class OrderService {
      * @param keyData
      */
     private saveOrderPerUser = (keyData) => {
-        const ordersPerUser = database().ref( `/ordersPerUser/${this.uid}` );
-        const ordersPerUserAssociation = ordersPerUser.child( this.currentOrderKey );
-        ordersPerUserAssociation.set( keyData.key );
+        database().ref( `/ordersPerUser/${this.uid}` )
+            .child( this.currentOrderKey )
+            .set( keyData.key );
     };
 
     /**
@@ -225,9 +225,9 @@ export class OrderService {
      * @param keyData
      */
     private saveOrderPerWeekOrder = (keyData) => {
-        const orderPerWeekOrders = database().ref( `/weekOrder/${this.currentOrderKey}/orders` );
-        const ordersPerWeekAssociation = orderPerWeekOrders.child( keyData.key );
-        ordersPerWeekAssociation.set( true );
+        database().ref( `/weekOrder/${this.currentOrderKey}/orders` )
+            .child( keyData.key )
+            .set( true );
     };
 
 }

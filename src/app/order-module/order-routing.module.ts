@@ -10,4 +10,4 @@ const ORDER_ROUTES: Routes = [
 
 ];
 
-export const orderRouting = RouterModule.forChild( ORDER_ROUTES );
+export const ORDER_ROUTING = RouterModule.forChild( ORDER_ROUTES );

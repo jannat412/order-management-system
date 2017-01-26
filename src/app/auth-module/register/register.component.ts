@@ -3,7 +3,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {FirebaseAuthState} from 'angularfire2';
 
 import {AuthService} from '../../services-module/auth.service';
-import {ValidationUtils} from '../../../utils/utils';
+import {ValidationUtils} from '../../utils/utils';
 
 @Component( {
     selector: 'oms-register',

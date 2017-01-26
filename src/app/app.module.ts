@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import '../rxjs-extensions';
 
 import {AngularFireModule, WindowLocation} from 'angularfire2';
-import {FirebaseConfig, FirebaseAuthConfig} from '../config/firebase.config';
+import {FIREBASE_CONFIG, FIREBASE_AUTH_CONFIG} from '../config/firebase.config';
 
 import {mainRouting} from './app-routing.module';
 
@@ -31,7 +31,7 @@ import {RootComponent} from './root/root.component';
     ],
     imports: [
         BrowserModule,
-        AngularFireModule.initializeApp( FirebaseConfig, FirebaseAuthConfig ),
+        AngularFireModule.initializeApp( FIREBASE_CONFIG, FIREBASE_AUTH_CONFIG ),
         ServicesModule.forRoot(),
         AuthModule,
         mainRouting

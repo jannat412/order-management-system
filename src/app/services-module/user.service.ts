@@ -49,8 +49,8 @@ export class UserService {
     };
 
     setUserActive = (value: boolean, uid: string) => {
-        const user = this.db.object( `/users/${uid}` );
-        user.update( {active: value} );
+        this.db.object( `/users/${uid}` )
+            .update( {active: value} );
     };
 
     getUserActive = (): Observable<any> => {

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {adminRouting} from './admin-routing.module';
+import {ADMIN_ROUTING} from './admin-routing.module';
 import {AdminBoxComponent} from './boxes/admin-box/admin-box.component';
 import {ServicesModule} from '../services-module/services.module';
 import {AdminHomeComponent} from './admin-home.component';
@@ -26,7 +26,7 @@ import {UiSwitchModule} from 'angular2-ui-switch';
         FormsModule,
         ReactiveFormsModule,
         UiSwitchModule,
-        adminRouting
+        ADMIN_ROUTING
     ],
     declarations: [
         AdminHomeComponent,
@@ -44,5 +44,4 @@ import {UiSwitchModule} from 'angular2-ui-switch';
     ],
     providers: []
 } )
-export default class AdminModule {
-}
+export default class AdminModule {}
