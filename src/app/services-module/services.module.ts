@@ -55,7 +55,8 @@ export class ServicesModule {
                 UserService,
                 ProductsService,
                 CategoriesService,
-                AdminUserService
+                AdminUserService,
+                ResumeDataService
             ]
         }
     }

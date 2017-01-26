@@ -44,6 +44,7 @@ export class AdminOrderService {
         return this.db.object( `orders/${orderKey}` )
             .startWith( {
                 order: {},
+                deliverInfo: {},
                 user: '',
                 weekOrderKey: '',
                 checked: false

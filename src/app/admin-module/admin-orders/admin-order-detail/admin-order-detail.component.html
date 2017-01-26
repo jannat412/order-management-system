@@ -21,10 +21,17 @@
                     <small>{{order.$key}}</small>
                     <br><strong>Data registre:</strong>
                     <small>{{order.timestamp | date:'dd/MM/yyyy'}} a les {{order.timestamp | date:'hh:mm'}} h</small>
-                    <div *ngIf="comment?.trim().length">
-                        <strong>Comentaris:</strong>
-                        <small>“{{comment}}“</small>
+                    <div *ngIf="deliverData?.deliverType === 'home'">
+                        <strong>Entregar en: {{deliverData?.address}}</strong>
                     </div>
+                    <div *ngIf="deliverData?.deliverType === 'center'">
+                        <strong>Recollida per: {{selectedCenter.desc}}</strong>
+                    </div>
+                    <div *ngIf="deliverData?.comment?.trim().length">
+                        <strong>Comentaris:</strong>
+                        <small>“{{deliverData?.comment}}“</small>
+                    </div>
+
                 </div>
             </div>
             <div class="panel-body">
