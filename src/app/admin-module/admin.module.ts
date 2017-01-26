@@ -41,7 +41,6 @@ import {UiSwitchModule} from 'angular2-ui-switch';
         AdminOrderProductAddComponent,
         AdminUsersComponent,
         AdminUserAddComponent
-    ],
-    providers: []
+    ]
 } )
 export default class AdminModule {}

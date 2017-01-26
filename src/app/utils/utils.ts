@@ -24,8 +24,9 @@ export class NumberUtils {
 }
 
 export class ValidationUtils {
-    static email = `([a-zA-Z0-9_.]{1}[a-zA-Z0-9_.]*)((@[a-zA-Z]{2}[a-zA-Z]*)[\\\.]([a-zA-Z]{2}|[a-zA-Z]{3}))`;
-    static cp = `^([1-9]{2}|[0-9][1-9]|[1-9][0-9])[0-9]{3}$`;
+    static email = /([a-zA-Z0-9_.]{1}[a-zA-Z0-9_.]*)((@[a-zA-Z]{2}[a-zA-Z]*)[\\\.]([a-zA-Z]{2}|[a-zA-Z]{3}))/;
+    static cp = /^([1-9]{2}|[0-9][1-9]|[1-9][0-9])[0-9]{3}$/;
+    static phone = /^[9|6]{1}([\d]{2})([-| ]*[\d]{3}[-| ]*)([\d]{3})$/;
 }
 
 export class OrderUtils {

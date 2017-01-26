@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserAdminComponent} from './user-admin/user-admin.component';
 import {USER_ROUTING} from './user-routing.module';
+import {DirectivesModule} from '../directives/directives.module';
 
 @NgModule({
     declarations: [
@@ -11,12 +12,9 @@ import {USER_ROUTING} from './user-routing.module';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
+        DirectivesModule,
         USER_ROUTING
-    ],
-    exports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule
     ]
 })
 export default class UserModule {}

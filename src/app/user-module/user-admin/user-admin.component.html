@@ -1,22 +1,34 @@
 <div class="jumbotron">
     <div class="page-header">
         <h1><span class="glyphicon glyphicon-user"
-                  aria-hidden="true"></span> Carlos Matheu</h1>
+                  aria-hidden="true"></span>{{user?.name}} {{user?.secondName}}
+        </h1>
+        <small class="label label-success">{{user?.role}}</small>
     </div>
     <div class="main-center">
-        <form class="form-horizontal">
+        <form class="form-horizontal"
+              novalidate
+              autocomplete="off"
+              [formGroup]="userForm">
+
             <div class="form-group">
                 <div class="col-xs-12 col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i aria-hidden="true" class="fa fa-user"></i></span>
-                        <input class="form-control" formcontrolname="name"
-                               name="name"
-                               placeholder="Nom *" type="text">
-                        <input class="form-control" formcontrolname="secondName"
-                               name="secondName" placeholder="Cognom(s) *" type="text">
+                        <input formControlName="name"
+                               type="text" class="form-control"
+                               required name="name"
+                               selectOnFocus
+                               placeholder="Nom *">
+                        <input formControlName="secondName"
+                               type="text" class="form-control"
+                               required name="secondName"
+                               selectOnFocus
+                               placeholder="Cognom(s) *">
                     </div>
                 </div>
             </div>
+
 
             <div class="form-group">
                 <div class="col-xs-12 col-md-12">
@@ -24,16 +36,19 @@
                         <span class="input-group-addon"><i aria-hidden="true" class="fa fa-map-marker"></i></span>
                         <div class="col-md-6 col-sm-12">
                             <input class="form-control col-md-12"
-                                   formcontrolname="address" name="address"
+                                   formControlName="address" name="address"
+                                   selectOnFocus
                                    placeholder="Adreça"
                                    type="text">
                         </div>
                         <div class="col-md-2 col-sm-4">
-                            <input class="form-control" formcontrolname="cp"
+                            <input class="form-control" formControlName="cp"
+                                   selectOnFocus
                                    name="cp" placeholder="CP" type="text">
                         </div>
                         <div class="col-md-4 col-sm-8">
-                            <input class="form-control" formcontrolname="city"
+                            <input class="form-control" formControlName="city"
+                                   selectOnFocus
                                    name="city" placeholder="Ciutat" type="text">
                         </div>
                     </div>
@@ -44,7 +59,9 @@
                 <div class="col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i aria-hidden="true" class="fa fa-envelope-o"></i></span>
-                        <input class="form-control" formcontrolname="email" name="email" placeholder="Email *"
+                        <input class="form-control" formControlName="email"
+                               name="email" required selectOnFocus
+                               placeholder="Email *"
                                type="email">
                     </div>
                 </div>
@@ -54,32 +71,34 @@
                 <div class="col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i aria-hidden="true" class="fa fa-phone"></i></span>
-                        <input class="form-control" formcontrolname="telèfon" name="telèfon" placeholder="Telèfon"
-                               type="tel">
+                        <input class="form-control" formControlName="tel"
+                               name="tel" placeholder="Telèfon"
+                               selectOnFocus
+                               type="text">
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <div class="input-group image-preview">
-                        <span class="input-group-addon"><i aria-hidden="true" class="fa fa-picture-o"></i></span>
-                        <input type="text" class="form-control image-preview-filename" disabled="disabled">
-                        <span class="input-group-btn">
-                    <!-- image-preview-clear button -->
-                            <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                                <span class="glyphicon glyphicon-remove"></span> Clear
-                            </button>
-                            <!-- image-preview-input -->
-                            <div class="btn btn-success image-preview-input">
-                                <i aria-hidden="true" class="fa fa-folder-open-o"></i>
-                                <span class="image-preview-input-title"></span>
-                                <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
-                                <!-- rename it -->
-                            </div>
-                        </span>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="form-group">-->
+            <!--<div class="col-xs-12">-->
+            <!--<div class="input-group image-preview">-->
+            <!--<span class="input-group-addon"><i aria-hidden="true" class="fa fa-picture-o"></i></span>-->
+            <!--<input type="text" class="form-control image-preview-filename" disabled="disabled">-->
+            <!--<span class="input-group-btn">-->
+            <!--&lt;!&ndash; image-preview-clear button &ndash;&gt;-->
+            <!--<button type="button" class="btn btn-default image-preview-clear" style="display:none;">-->
+            <!--<span class="glyphicon glyphicon-remove"></span> Clear-->
+            <!--</button>-->
+            <!--&lt;!&ndash; image-preview-input &ndash;&gt;-->
+            <!--<div class="btn btn-success image-preview-input">-->
+            <!--<i aria-hidden="true" class="fa fa-folder-open-o"></i>-->
+            <!--<span class="image-preview-input-title"></span>-->
+            <!--<input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>-->
+            <!--&lt;!&ndash; rename it &ndash;&gt;-->
+            <!--</div>-->
+            <!--</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
             <!-- Button -->
             <div class="alert alert-danger">{{errorMessage}}
             </div>

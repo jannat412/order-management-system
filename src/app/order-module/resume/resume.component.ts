@@ -88,14 +88,9 @@ export class ResumeComponent implements OnInit, OnDestroy {
             .subscribe( data => {
                 this.productLines = data.order;
                 this.deliverData = data.deliverInfo;
-                this.onChangeCenter(this.deliverData.center);
+                this.onChangeCenter( this.deliverData.center );
 
-                this.resumeForm.patchValue( {
-                    deliverType: this.deliverData.deliverType,
-                    comment: this.deliverData.comment,
-                    address: this.deliverData.address || this.officialAddress,
-                    center: this.selectedCenter.value
-                } );
+                this.resumeForm.patchValue( this.deliverData );
 
             } );
 
