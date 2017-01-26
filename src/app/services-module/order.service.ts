@@ -20,7 +20,7 @@ export class OrderService {
     private currentOrderKey: string;
     private userOrderKey: string;
     private order = <IOrderLine>{};
-    private comment: string = '';
+    private deliverInfo: any;
     pushTotalAmount = new EventEmitter<number>();
     emittedOrder = new EventEmitter<any>();
     lineDataEmitter = new EventEmitter<boolean>();
@@ -55,8 +55,8 @@ export class OrderService {
     };
 
     private checkTempProductOrder = (item) => {
-        if (!this.order[item.$key] && item.$value !== null) {
-            this.order[item.$key] = {
+        if (!this.order[ item.$key ] && item.$value !== null) {
+            this.order[ item.$key ] = {
                 name: item.name,
                 price: item.price,
                 unity: item.unity,
@@ -70,14 +70,19 @@ export class OrderService {
      * get product lines for current user and order
      * @returns {Observable<R>}
      */
-    getOrderLinesByUser = (): Observable<IOrderLine[]> => {
+    getOrderLinesByUser = (): Observable<any> => {
         return this.checkIfOrderExists()
             .flatMap( (userOrderKey) => {
                 this.userOrderKey = userOrderKey;
                 return this.db.object( `/orders/${userOrderKey}` );
             } )
             .map( (data) => {
-                this.comment = data.comment;
+                this.deliverInfo = data.deliverInfo || {
+                        deliverType: '',
+                        comment: '',
+                        center: '',
+                        address: ''
+                    };
                 this.checkTempOrder( OrderUtils.orderListToArray( data.order ) );
                 this.onChangeOrderEmit();
                 data.order = OrderUtils.orderListToArray( this.order );
@@ -97,14 +102,14 @@ export class OrderService {
             } )
             .map( data => {
                 this.checkTempProductOrder( data );
-                if (!this.order[data.$key]) {
+                if (!this.order[ data.$key ]) {
                     return {
                         quantity: 0,
                         total: 0
                     }
                 }
                 this.onChangeOrderEmit();
-                return this.order[data.$key];
+                return this.order[ data.$key ];
             } );
     };
 
@@ -113,7 +118,7 @@ export class OrderService {
      */
     private calculateTotalAmount = (): void => {
         this.totalAmount = Math.round( Object.keys( this.order ).reduce( (sum, key) => {
-                    return sum + (this.order[key].total || 0);
+                    return sum + (this.order[ key ].total || 0);
                 }, 0 ) * 1e2 ) / 1e2;
     };
 
@@ -123,14 +128,14 @@ export class OrderService {
      * @param productLine
      */
     addProductLine = (productLine) => {
-        this.order[productLine.$key] = {
+        this.order[ productLine.$key ] = {
             name: productLine.name,
             price: productLine.price,
             unity: productLine.unity,
             quantity: productLine.quantity,
             total: productLine.total,
-            oldQuantity : productLine.quantity,
-            oldTotal : productLine.total
+            oldQuantity: productLine.quantity,
+            oldTotal: productLine.total
         };
         this.onChangeOrderEmit();
     };
@@ -156,31 +161,29 @@ export class OrderService {
 
     /************ SAVE TO FIREBASE ************/
 
-    saveComment = (comment: string) => this.comment = comment;
-
-    getComment = (): string => this.comment || '';
+    getDeliverInfo = (): string => this.deliverInfo || {};
 
     getUser = (): string => this.uid;
 
     /**
      * check if order exists and creates or updates it
      */
-    saveOrder = () => {
-        this.userOrderKey ? this.updateOrder() : this.createNewOrder();
+    saveOrder = (deliverInfo: any) => {
+        this.userOrderKey ? this.updateOrder(deliverInfo) : this.createNewOrder(deliverInfo);
     };
 
     /**
      * pushes a new order
      */
-    private createNewOrder = () => {
+    private createNewOrder = (deliverInfo: any) => {
         const orders = this.db.list( '/orders' );
         const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
         const order: IOrder = {
             weekOrderKey: this.currentOrderKey,
             order: filteredOrder,
+            deliverInfo: deliverInfo || {},
             user: this.uid,
-            comment: this.comment,
-            timestamp: database['ServerValue']['TIMESTAMP'],
+            timestamp: database[ 'ServerValue' ][ 'TIMESTAMP' ],
             checked: false
         };
         orders.push( order )
@@ -194,13 +197,13 @@ export class OrderService {
     /**
      * updates the orders/{orderKey} node
      */
-    private updateOrder = () => {
+    private updateOrder = (deliverInfo: any) => {
         const order = this.db.object( `/orders/${this.userOrderKey}` );
         const filteredOrder = ObjectUtils.filterObjectArray( this.order, line => line.quantity > 0 );
         order.update( {
             order: filteredOrder,
-            comment: this.comment,
-            timestamp: database['ServerValue']['TIMESTAMP']
+            deliverInfo: deliverInfo || {},
+            timestamp: database[ 'ServerValue' ][ 'TIMESTAMP' ]
         } )
             .then( () => {
                 this.saveOrderEmitter.emit( {status: true, message: 'update'} );

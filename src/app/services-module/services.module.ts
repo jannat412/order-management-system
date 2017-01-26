@@ -13,6 +13,7 @@ import {AdminTypeService} from './admin-type.service';
 import {AdminOrderService} from './admin-order.service';
 import {AdminUserService} from './admin-user.service';
 import {ActiveUserGuard} from './active-user.guard';
+import {ResumeDataService} from './resume-data.service';
 
 @NgModule({})
 
@@ -39,7 +40,8 @@ export class ServicesModule {
             providers: [
                 ProductsService,
                 CategoriesService,
-                TagsService
+                TagsService,
+                ResumeDataService
             ]
         }
     }

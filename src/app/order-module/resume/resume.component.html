@@ -24,34 +24,37 @@
                     <div class="col-md-4">
                         <div class="radio-inline" *ngFor="let del of deliverMethods">
                             <label>
-                                <input formControlName="deliver"
-                                       type="radio" name="deliver"
-                                       [value]="del.value">
-                                {{del.desc}}
+                                <input formControlName="deliverType"
+                                       type="radio" name="deliverType"
+                                       [value]="del?.value">
+                                {{del?.desc}}
                             </label>
                         </div>
                     </div>
 
                     <!-- Select Multiple -->
-                    <div class="form-group" *ngIf="selectedDeliveryType.value == 'center'">
-                        <label class="col-md-4 control-label" for="center">Lloc de recollida</label>
+                    <div class="form-group" *ngIf="selectedDeliveryType?.value == 'center'">
+                        <label class="col-md-4 control-label" for="center">
+                            Lloc de recollida
+                        </label>
                         <div class="col-md-4">
                             <select formControlName="center" id="center"
                                     class="form-control">
                                 <option *ngFor="let center of centers"
-                                        [value]="center.value"
+                                        [value]="center?.value"
                                         class="form-control">
-                                    {{center.desc}}
+                                    {{center?.desc}}
                                 </option>
                             </select>
                             <span class="help-block">
-                                A partir de les 18h del dia de repartiment (dijous normalment).
+                                 {{selectedCenter.address}}<br>
+                                 A partir de les 18h del dia de repartiment (dijous normalment).
                             </span>
                         </div>
                     </div>
 
                     <!-- Text input-->
-                    <div *ngIf="selectedDeliveryType.value === 'home'"
+                    <div *ngIf="selectedDeliveryType?.value === 'home'"
                          class="form-group">
                         <label class="col-md-4 control-label"
                                for="address">Adreça d'entrega:</label>
@@ -66,37 +69,19 @@
                         </div>
                     </div>
 
-                    <!-- Text input-->
-                    <div *ngIf="selectedDeliveryType.value === 'home'"
-                         class="form-group">
-                        <label class="col-md-4 control-label">Hora:</label>
-                        <div class="col-md-4">
-                            Entre les <input formControlName="deliveryTime0"
-                                             type="time"
-                                             min="17:00"
-                                             max="22:30"
-                                             step="900"
-                                             id="deliveryTime0">
-                            i les <input formControlName="deliveryTime1"
-                                         type="time"
-                                         min="17:30"
-                                         max="23:00"
-                                         step="900"
-                                         id="deliveryTime1">
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label class="col-md-4 control-label"
-                               for="comment">Comentaris</label>
-                        <div class="col-md-6">
+                               for="comment">Comentaris
+                            <span *ngIf="selectedDeliveryType?.value === 'home'">(dia i hora per fer-te l'entrega)</span>
+                            </label>
+                            <div class="col-md-6">
                         <textarea formControlName="comment"
                                   class="form-control"
                                   rows="3" id="comment"></textarea>
-                            <span class="help-block">
-                            Si tens alguna indicació sobre l'entrega, ho pots indicar aquí.
-                        </span>
-                        </div>
+                                <span class="help-block">
+                                    Si tens qualsevol comentari adicional sobre l'entrega ho pots indicar aquí.
+                                </span>
+                            </div>
                     </div>
 
                     <table class="table table-striped">
@@ -134,7 +119,6 @@
                         </a>
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     <a class="btn btn-link btn-sm"

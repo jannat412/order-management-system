@@ -47,7 +47,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
                 this.orderLines = OrderUtils.orderListToArray( orderProducts, true );
 
                 this.userId = data.user;
-                this.comment = this.order.comment;
+                //this.comment = this.order.comment;
                 this.total = OrderUtils.getSuperTotal( this.orderLines, 'total' );
                 this.oldTotal = OrderUtils.getSuperTotal( this.orderLines, 'oldTotal' );
                 // revision done for current order

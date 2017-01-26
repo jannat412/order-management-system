@@ -7,6 +7,9 @@ import {UserService} from '../../services-module/user.service';
 import {IOrderLine} from '../../models/orderLine';
 import {AuthService} from '../../services-module/auth.service';
 import {IUser} from '../../models/user';
+import {ResumeDataService} from '../../services-module/resume-data.service';
+import {IDeliverMethod} from '../../models/deliverMethod';
+import {ICenter} from '../../models/center';
 
 @Component( {
     selector: 'oms-resume',
@@ -15,7 +18,12 @@ import {IUser} from '../../models/user';
 export class ResumeComponent implements OnInit, OnDestroy {
     resumeForm: FormGroup;
     superTotal: number = 0;
-    deliverData: any;
+    deliverData: any = {
+        deliverType: '',
+        comment: '',
+        center: '',
+        address: ''
+    };
     orderSaved: boolean = false;
     currentOrderDate: string;
     currentDateSubscription: Subscription;
@@ -25,86 +33,99 @@ export class ResumeComponent implements OnInit, OnDestroy {
     userAddressSubscription: Subscription;
     productLines: IOrderLine[] = [];
     user: IUser;
-    deliverMethods: any[] = [
-        {
-            value: 'center',
-            desc: 'Ja passo jo a recollir-ho'
-        },
-        {
-            value: 'home',
-            desc: 'Porteu-m\'ho a casa'
-        } ];
-
-    centers: any[] = [
-        {
-            value: 'nou-barris',
-            desc: 'Nou Barris'
-        },
-        {
-            value: 'gracia',
-            desc: 'Gràcia'
-        },
-        {
-            value: 'sant-andreu',
-            desc: 'Sant Andreu'
-        },
-    ];
-    selectedDeliveryType = this.deliverMethods[ 0 ];
-    selectedCenter = this.centers[ 0 ];
-
+    deliverMethods: IDeliverMethod[] = [];
+    centers: ICenter[] = [];
+    selectedDeliveryType: IDeliverMethod;
+    selectedCenter: ICenter;
+    officialAddress: string;
 
     constructor(private orderService: OrderService,
                 private configService: ConfigService,
                 private authService: AuthService,
                 private userService: UserService,
+                private resumeDataService: ResumeDataService,
                 private fb: FormBuilder) {
     }
 
     saveOrder = () => {
-        console.log( this.resumeForm );
-        //this.orderService.saveComment( this.comment );
-        //this.orderService.saveOrder();
+        this.orderService.saveOrder( this.resumeForm.value );
     };
 
     ngOnInit() {
+        // Form Builder
         this.resumeForm = this.fb.group( {
-            deliver: [ this.selectedDeliveryType.value, Validators.required ],
-            center: [ this.selectedCenter.value, Validators.required ],
+            deliverType: [ '', Validators.required ],
+            center: [ '', Validators.required ],
             address: [ {value: '', disabled: false}, Validators.required ],
-            deliveryTime0: ['17:00', Validators.required],
-            deliveryTime1: ['21:00', Validators.required],
             comment: ''
         } );
 
-        this.onChangeTypeOfDelivery();
-
-        this.resumeForm.get( 'deliver' ).valueChanges
-            .subscribe( value => this.onChangeTypeOfDelivery( value ) );
-
-        this.linesSubscription = this.orderService.getOrderLinesByUser()
-            .subscribe( data => {
-                this.productLines = data.order;
-                this.deliverData = data.deliverData;
+        // Populate radio btns
+        this.resumeDataService.getDeliverMethods()
+            .subscribe( methods => {
+                this.deliverMethods = methods;
+                this.onChangeTypeOfDelivery();
                 this.resumeForm.patchValue( {
-                    comment: data.comment
+                    deliverType: this.selectedDeliveryType.value
                 } );
             } );
 
+        // Populate select field
+        this.resumeDataService.getCenters()
+            .subscribe( centers => {
+                this.centers = centers;
+                this.onChangeCenter();
+                this.resumeForm.patchValue( {
+                    center: this.selectedCenter.value
+                } );
+            } );
+
+        // listen for type changes (radio btn)
+        this.resumeForm.get( 'deliverType' ).valueChanges
+            .subscribe( value => this.onChangeTypeOfDelivery( value ) );
+        // listen for center changes (select field)
+        this.resumeForm.get( 'center' ).valueChanges
+            .subscribe( value => this.onChangeCenter( value ) );
+
+        // get firebase order data
+        this.linesSubscription = this.orderService.getOrderLinesByUser()
+            .subscribe( data => {
+                this.productLines = data.order;
+                this.deliverData = data.deliverInfo;
+                this.onChangeCenter(this.deliverData.center);
+
+                this.resumeForm.patchValue( {
+                    deliverType: this.deliverData.deliverType,
+                    comment: this.deliverData.comment,
+                    address: this.deliverData.address || this.officialAddress,
+                    center: this.selectedCenter.value
+                } );
+
+            } );
+
+        // current final date for current week order
         this.currentDateSubscription = this.configService.getCurrentOrderDate()
             .subscribe( data => this.currentOrderDate = data.limitDate );
 
+        // listen to emmit observable from order Service when order saved to
+        // show and hide template areas
         this.saveSubscription = this.orderService.saveOrderEmitter
             .subscribe( data => this.orderSaved = data.status || false );
 
+        // total amount of order
         this.totalAmountSubscription = this.orderService.pushTotalAmount
             .subscribe( data => this.superTotal = data );
 
+        // official address from user profile
         this.userAddressSubscription = this.authService.getUserId()
             .flatMap( uid => this.userService.getUserData( uid ) )
             .subscribe( user => {
-                this.resumeForm.patchValue( {
-                    address: `${user.address}, ${user.city} (${user.cp})`
-                } );
+                this.officialAddress = `${user.address}, ${user.city} (${user.cp})`;
+                if (!this.deliverData.address.length) {
+                    this.resumeForm.patchValue( {
+                        address: this.officialAddress
+                    } );
+                }
             } );
     }
 
@@ -117,23 +138,25 @@ export class ResumeComponent implements OnInit, OnDestroy {
     }
 
     onChangeTypeOfDelivery = (deliveryType: string = 'center') => {
-
         if (deliveryType === 'home') {
             this.resumeForm.get( 'address' ).enable();
             this.resumeForm.get( 'center' ).disable();
-            this.resumeForm.get( 'deliveryTime0' ).enable();
-            this.resumeForm.get( 'deliveryTime1' ).enable();
         } else {
             this.resumeForm.get( 'address' ).disable();
             this.resumeForm.get( 'center' ).enable();
-            this.resumeForm.get( 'deliveryTime0' ).disable();
-            this.resumeForm.get( 'deliveryTime1' ).disable();
         }
 
         this.selectedDeliveryType = this.deliverMethods
-                .filter( item => {
+                .find( item => {
                     return item.value === deliveryType;
-                } )[ 0 ] || this.selectedDeliveryType;
+                } ) || this.selectedDeliveryType;
+    };
+
+    onChangeCenter = (center: string = 'nou-barris') => {
+        this.selectedCenter = this.centers
+                .find( item => {
+                    return item.value === center;
+                } ) || this.selectedCenter;
     };
 
 }
