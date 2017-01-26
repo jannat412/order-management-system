@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'oms-user-admin',
-  templateUrl: './user-admin.component.html'
+  templateUrl: './user-admin.component.html',
+  styleUrls: ['./user-admin.component.scss']
 })
 export class UserAdminComponent implements OnInit {
 

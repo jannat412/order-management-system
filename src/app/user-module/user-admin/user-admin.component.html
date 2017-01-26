@@ -1,3 +1,90 @@
-<p>
-  user-admin works!
-</p>
+<div class="jumbotron">
+    <div class="page-header">
+        <h1><span class="glyphicon glyphicon-user"
+                  aria-hidden="true"></span> Carlos Matheu</h1>
+    </div>
+    <div class="main-center">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-12 col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i aria-hidden="true" class="fa fa-user"></i></span>
+                        <input class="form-control" formcontrolname="name"
+                               name="name"
+                               placeholder="Nom *" type="text">
+                        <input class="form-control" formcontrolname="secondName"
+                               name="secondName" placeholder="Cognom(s) *" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-md-12">
+                    <div class="input-group no-gutter">
+                        <span class="input-group-addon"><i aria-hidden="true" class="fa fa-map-marker"></i></span>
+                        <div class="col-md-6 col-sm-12">
+                            <input class="form-control col-md-12"
+                                   formcontrolname="address" name="address"
+                                   placeholder="Adreça"
+                                   type="text">
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <input class="form-control" formcontrolname="cp"
+                                   name="cp" placeholder="CP" type="text">
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input class="form-control" formcontrolname="city"
+                                   name="city" placeholder="Ciutat" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i aria-hidden="true" class="fa fa-envelope-o"></i></span>
+                        <input class="form-control" formcontrolname="email" name="email" placeholder="Email *"
+                               type="email">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i aria-hidden="true" class="fa fa-phone"></i></span>
+                        <input class="form-control" formcontrolname="telèfon" name="telèfon" placeholder="Telèfon"
+                               type="tel">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group image-preview">
+                        <span class="input-group-addon"><i aria-hidden="true" class="fa fa-picture-o"></i></span>
+                        <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                        <span class="input-group-btn">
+                    <!-- image-preview-clear button -->
+                            <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                <span class="glyphicon glyphicon-remove"></span> Clear
+                            </button>
+                            <!-- image-preview-input -->
+                            <div class="btn btn-success image-preview-input">
+                                <i aria-hidden="true" class="fa fa-folder-open-o"></i>
+                                <span class="image-preview-input-title"></span>
+                                <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
+                                <!-- rename it -->
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Button -->
+            <div class="alert alert-danger">{{errorMessage}}
+            </div>
+            <button type="button" class="btn btn-primary">Enviar</button>
+        </form>
+
+    </div>
+</div>
