@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class AdminTypeService {
 
-    types = {
+    private types = {
         mainOrder: {
             name: 'comanda general',
             icon: 'glyphicon-grain',

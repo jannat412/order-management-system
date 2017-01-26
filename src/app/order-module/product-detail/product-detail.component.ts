@@ -61,7 +61,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.orderLineSubscription.unsubscribe();
     }
 
-    getOrderLine = () => {
+    private getOrderLine = () => {
         this.orderLineSubscription = this.orderService
             .getProductOrderLine( this.key ).subscribe(
                 (userOrderProduct: IOrderLine) => {
@@ -71,7 +71,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             );
     };
 
-    getProduct = () => {
+    private getProduct = () => {
         this.productSubscription = this.productsService
             .getProduct( this.key )
             .subscribe(
@@ -83,7 +83,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             );
     };
 
-    getCategory = () => {
+    private getCategory = () => {
         this.categorySubscription = this.categoriesService
             .getCategoryForProduct( this.product.categoryKey )
             .subscribe(
@@ -92,7 +92,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             );
     };
 
-    getTags = () => {
+    private getTags = () => {
         this.tagSubscription = this.tagsService
             .getTagsForProduct( this.key )
             .subscribe(
@@ -101,7 +101,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             );
     };
 
-    createCounterData = (): ICounterData => {
+    private createCounterData = (): ICounterData => {
         return {
             valuePerUnit: this.product.price,
             quantity: this.userOrderProduct.quantity || 0,
@@ -111,7 +111,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         };
     };
 
-    updateOrderProductLine = (counterData: any) => {
+    private updateOrderProductLine = (counterData: any) => {
         this.orderService.addProductLine( {
             $key: this.product.$key,
             name: this.product.name,
@@ -122,7 +122,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         } );
     };
 
-    goBack = () => {
+    private goBack = () => {
         this.location.back();
     };
 

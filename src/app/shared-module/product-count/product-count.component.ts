@@ -13,12 +13,12 @@ export class ProductCountComponent {
     private total: number;
     private quantity: number;
 
-    printValue = (prop: string): number => {
+    private printValue = (prop: string): number => {
         return NumberUtils.isNumber( this[prop] ) ?
             this[prop] : this.counterData[prop];
     };
 
-    updateTotal = (qnty?: number): void => {
+    private updateTotal = (qnty?: number): void => {
         this.quantity = NumberUtils.isNumber( qnty ) ? qnty : this.counterData.quantity;
         this.total = Math.round(
                 this.quantity * this.counterData.valuePerUnit * 100 ) / 100;

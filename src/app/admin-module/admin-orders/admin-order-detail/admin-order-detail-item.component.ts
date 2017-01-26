@@ -19,9 +19,9 @@ enum Status {
     templateUrl: './admin-order-detail-item.component.html'
 } )
 export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestroy {
-    @Input() orderLine: IOrderLine = null;
-    @Input() index: number;
-    @Input() orderKey: string;
+    @Input() private orderLine: IOrderLine = null;
+    @Input() private index: number;
+    @Input() private orderKey: string;
 
     private product: IProduct;
     private category: ICategory;
@@ -63,7 +63,7 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
         this.categorySubscription.unsubscribe();
     }
 
-    createCounterData = (): ICounterData => {
+    private createCounterData = (): ICounterData => {
 
         return {
             valuePerUnit: this.product.price,
@@ -74,14 +74,14 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
         };
     };
 
-    updateOrderProductLine = (counterData: any) => {
+    private updateOrderProductLine = (counterData: any) => {
         this.offset = counterData.quantity - this.orderLine.quantity;
         this.modified = this.offset !== 0;
         this.tempQuantity = this.modified ? counterData.quantity : null;
         this.tempTotal = this.modified ? counterData.total : null;
     };
 
-    lineOk = () => {
+    private lineOk = () => {
         if (this.modified) {
             this.orderLine.quantity = this.tempQuantity;
             this.orderLine.total = this.tempTotal;
@@ -94,7 +94,7 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
         this.updateOrder();
     };
 
-    lineKo = () => {
+    private lineKo = () => {
         this.orderLine.quantity = 0;
         this.orderLine.total = 0;
         this.tempQuantity = null;
@@ -103,7 +103,7 @@ export class AdminOrderDetailItemComponent implements OnInit, OnChanges, OnDestr
         this.updateOrder();
     };
 
-    reset = () => {
+    private reset = () => {
         if (this.modified) {
             this.orderLine.quantity = this.orderLine.oldQuantity;
             this.orderLine.total = this.orderLine.oldTotal;

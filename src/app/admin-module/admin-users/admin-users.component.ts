@@ -23,7 +23,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
         this.usersSubscription.unsubscribe();
     }
 
-    userActiveChange = (event: boolean, userKey: string) => {
+    private userActiveChange = (event: boolean, userKey: string) => {
         this.userService.setUserActive(event, userKey);
     }
 

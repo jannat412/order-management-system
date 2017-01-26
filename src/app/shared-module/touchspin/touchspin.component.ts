@@ -12,19 +12,19 @@ export class TouchspinComponent {
     private minimum: number = 0;
     private maximum: number = 100;
 
-    decrement = (): void => {
+    private decrement = (): void => {
         if (this.value > this.minimum) {
             this.updateValue( this.value - this.step );
         }
     };
 
-    increment = (): void => {
+    private increment = (): void => {
         if (this.value < this.maximum) {
             this.updateValue( this.value + this.step );
         }
     };
 
-    updateValue = (calc: number): void => {
+    private updateValue = (calc: number): void => {
         this.value = Math.round( calc * 100 ) / 100;
         this.touchspinChange.emit( this.value );
     };

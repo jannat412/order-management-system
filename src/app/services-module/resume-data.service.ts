@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class ResumeDataService {
 
-    deliverMethods: IDeliverMethod[] = [
+    private deliverMethods: IDeliverMethod[] = [
         {
             value: 'center',
             desc: 'Ja passo jo a recollir-ho'
@@ -17,7 +17,7 @@ export class ResumeDataService {
             desc: 'Porteu-m\'ho a casa'
         } ];
 
-    centers: ICenter[] = [
+    private centers: ICenter[] = [
         {
             value: 'nou-barris',
             desc: 'Nou Barris',

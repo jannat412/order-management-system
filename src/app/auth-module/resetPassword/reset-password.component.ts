@@ -9,13 +9,13 @@ import {AuthService} from '../../services-module/auth.service';
     templateUrl: './reset-password.component.html'
 } )
 export class ResetPasswordComponent implements OnInit, OnDestroy {
-    resetPasswordForm: FormGroup;
-    errorMessage: string;
-    showError: boolean = false;
-    email: string;
-    mode: string;
-    oobCode: string;
-    resetPasswordSubscription: Subscription;
+    private resetPasswordForm: FormGroup;
+    private errorMessage: string;
+    private showError: boolean = false;
+    private email: string;
+    private mode: string;
+    private oobCode: string;
+    private resetPasswordSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
@@ -49,7 +49,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         this.resetPasswordSubscription.unsubscribe();
     }
 
-    onResetFormSubmit = () => {
+    private onResetFormSubmit = () => {
         this.authService
             .confirmPasswordReset(
                 this.oobCode,

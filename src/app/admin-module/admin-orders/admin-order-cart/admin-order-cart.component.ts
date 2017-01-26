@@ -10,11 +10,11 @@ import {AdminOrderService} from '../../../services-module/admin-order.service';
     templateUrl: './admin-order-cart.component.html'
 } )
 export class AdminOrderCartComponent implements OnChanges, OnDestroy {
-    @Input() total: number = 0;
-    @Input() oldTotal: number = 0;
-    @Input() userId: string;
-    @Input() orderRevised: boolean;
-    @Input() orderKey: string;
+    @Input() private total: number = 0;
+    @Input() private oldTotal: number = 0;
+    @Input() private userId: string;
+    @Input() private orderRevised: boolean;
+    @Input() private orderKey: string;
     private user: IUser = {
         name: '',
         secondName: '',
@@ -45,7 +45,7 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
         this.userSubscription.unsubscribe();
     }
 
-    closeOrder = () => {
+    private closeOrder = () => {
         this.router.navigate( ['admin/comandes'] );
     };
 }

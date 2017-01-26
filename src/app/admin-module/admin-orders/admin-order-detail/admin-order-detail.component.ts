@@ -24,7 +24,7 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
         center: '',
         address: ''
     };
-    centers: ICenter[] = [];
+    private centers: ICenter[] = [];
     private selectedCenter: ICenter;
     private total: number;
     private oldTotal: number;
@@ -88,11 +88,11 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
         this.configCurrentOrderSubscription.unsubscribe();
     }
 
-    goBack = () => {
+    private goBack = () => {
         this.location.back();
     };
 
-    onChangeCenter = (center: string = 'nou-barris') => {
+    private onChangeCenter = (center: string = 'nou-barris') => {
         this.selectedCenter = this.centers
                 .find( item => {
                     return item.value === center;

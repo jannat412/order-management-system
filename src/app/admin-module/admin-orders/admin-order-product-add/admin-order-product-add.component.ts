@@ -7,8 +7,8 @@ import {IProduct} from '../../../models/product';
     templateUrl: './admin-order-product-add.component.html'
 } )
 export class AdminOrderProductAddComponent implements OnInit {
-    @Input() orderKey: string;
-    @Input() usedProducts: string[] = [];
+    @Input() private orderKey: string;
+    @Input() private usedProducts: string[] = [];
     private listFilter: string;
     private products: IProduct[] = [];
     private emptyList: boolean = false;
@@ -19,7 +19,7 @@ export class AdminOrderProductAddComponent implements OnInit {
     ngOnInit() {
     }
 
-    search = (): void => {
+    private search = (): void => {
         // search products activated and not used by string
         this.adminOrderService
             .getFilteredProducts( this.orderKey, this.listFilter, this.usedProducts )
@@ -34,12 +34,12 @@ export class AdminOrderProductAddComponent implements OnInit {
                 } );
     };
 
-    clear = (): void => {
+    private clear = (): void => {
         this.listFilter = '';
         this.search();
     };
 
-    addProduct = (product: IProduct) => {
+    private addProduct = (product: IProduct) => {
         this.adminOrderService.addProductToOrder(product, this.orderKey);
         this.clear();
     };

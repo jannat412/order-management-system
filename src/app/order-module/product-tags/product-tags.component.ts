@@ -8,9 +8,9 @@ import {TagsService} from '../../services-module/tags.service';
     templateUrl: './product-tags.component.html'
 } )
 export class ProductTagsComponent implements OnInit {
-    @Input() productKey: string;
-    errorMessage: string;
-    tags: ITag[];
+    @Input() private productKey: string;
+    private errorMessage: string;
+    private tags: ITag[];
 
     constructor(private tagsService: TagsService) {}
 

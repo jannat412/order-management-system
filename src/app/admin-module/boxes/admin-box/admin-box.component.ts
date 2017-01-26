@@ -1,15 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'oms-admin-box',
   templateUrl: './admin-box.component.html'
 })
-export class AdminBoxComponent implements OnInit {
+export class AdminBoxComponent {
 
-  @Input() adminType;
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Input() private adminType;
 
 }

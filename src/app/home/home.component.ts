@@ -8,11 +8,11 @@ import {Subscription} from 'rxjs';
 } )
 export class HomeComponent implements OnInit {
 
-    activeSubscription: Subscription;
-    orderDateSubscription: Subscription;
-    isActive: boolean = false;
-    currentOrderDate: string;
-    activeLabel: string;
+    private activeSubscription: Subscription;
+    private orderDateSubscription: Subscription;
+    private isActive: boolean = false;
+    private currentOrderDate: string;
+    private activeLabel: string;
 
     constructor(private configService: ConfigService) {}
 

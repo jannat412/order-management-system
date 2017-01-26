@@ -6,7 +6,7 @@ import {UserService} from './user.service';
 @Injectable()
 export class AdminGuard implements CanActivate, CanActivateChild {
 
-    result: boolean = false;
+    private result: boolean = false;
 
     constructor(private userService: UserService, private router: Router) {}
 

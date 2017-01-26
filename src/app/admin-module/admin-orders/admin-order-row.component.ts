@@ -11,12 +11,12 @@ import {Subscription} from 'rxjs/Subscription';
 } )
 export class AdminOrderRowComponent implements OnInit {
 
-    @Input() order: IOrder;
-    @Input() index: number;
-    totalAmount: number = 0;
-    products: IOrderLine[] = [];
-    user: IUser;
-    userSubscription: Subscription;
+    @Input() private order: IOrder;
+    @Input() private index: number;
+    private totalAmount: number = 0;
+    private products: IOrderLine[] = [];
+    private user: IUser;
+    private userSubscription: Subscription;
 
     constructor(private userService: UserService) {
     }

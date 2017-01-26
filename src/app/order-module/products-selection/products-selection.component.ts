@@ -9,7 +9,7 @@ export class ProductsSelectionComponent implements OnInit {
     private selectedFilterStatus: boolean = false;
     private activeMessage: string;
 
-    onSelectedFilter = () => {
+    private onSelectedFilter = () => {
         this.selectedFilterStatus = !this.selectedFilterStatus;
         this.filterBySelected.emit( this.selectedFilterStatus );
         this.activeMessage = this.getMessage();

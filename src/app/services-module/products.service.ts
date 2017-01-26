@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
-import {ICategory} from '../models/category';
 import {IProduct} from '../models/product';
 import {OrderUtils} from '../utils/utils';
 
 @Injectable()
 export class ProductsService {
-    categories: ICategory[];
 
-    constructor(private db: AngularFireDatabase) {}
+    constructor(private db: AngularFireDatabase) {
+    }
 
     /**
      * get list of products ordered by categories

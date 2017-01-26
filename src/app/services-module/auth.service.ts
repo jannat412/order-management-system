@@ -9,7 +9,7 @@ import {FIREBASE_CONFIG} from '../../config/firebase.config';
 
 @Injectable()
 export class AuthService {
-    secondaryFb = initializeApp( FIREBASE_CONFIG, "secondary" );
+    private secondaryFb = initializeApp( FIREBASE_CONFIG, "secondary" );
 
     constructor(private af: AngularFire,
                 private db: AngularFireDatabase) {

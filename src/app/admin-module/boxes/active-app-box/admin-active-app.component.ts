@@ -8,24 +8,24 @@ import {Subscription} from 'rxjs/Subscription';
 } )
 export class AdminActiveAppComponent implements OnInit, OnDestroy {
 
-    configActiveSubscription: Subscription;
-    configCurrentOrderSubscription: Subscription;
-    isActive: boolean = false;
-    activeLabel: string = '';
-    buttonLabel: string = '';
-    errorMessage: any;
-    currentOrderDate: string;
+    private configActiveSubscription: Subscription;
+    private configCurrentOrderSubscription: Subscription;
+    private isActive: boolean = false;
+    private activeLabel: string = '';
+    private buttonLabel: string = '';
+    private errorMessage: any;
+    private currentOrderDate: string;
 
     constructor(
         private configService: ConfigService) {}
 
-    updateLabels = () => {
+    private updateLabels = () => {
         this.buttonLabel = this.isActive ? 'Desactivar' : 'Activar';
         this.activeLabel =
             'Comanda ' + (this.isActive ? 'activada' : 'desactivada');
     };
 
-    toggleActivation = () => {
+    private toggleActivation = () => {
         this.isActive = !this.isActive;
         this.configService.setActive( this.isActive, this.currentOrderDate );
     };

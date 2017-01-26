@@ -16,28 +16,28 @@ import {ICenter} from '../../models/center';
     templateUrl: './resume.component.html'
 } )
 export class ResumeComponent implements OnInit, OnDestroy {
-    resumeForm: FormGroup;
-    superTotal: number = 0;
-    deliverData: any = {
+    private resumeForm: FormGroup;
+    private superTotal: number = 0;
+    private deliverData: any = {
         deliverType: '',
         comment: '',
         center: '',
         address: ''
     };
-    orderSaved: boolean = false;
-    currentOrderDate: string;
-    currentDateSubscription: Subscription;
-    linesSubscription: Subscription;
-    saveSubscription: Subscription;
-    totalAmountSubscription: Subscription;
-    userAddressSubscription: Subscription;
-    productLines: IOrderLine[] = [];
-    user: IUser;
-    deliverMethods: IDeliverMethod[] = [];
-    centers: ICenter[] = [];
-    selectedDeliveryType: IDeliverMethod;
-    selectedCenter: ICenter;
-    officialAddress: string;
+    private orderSaved: boolean = false;
+    private currentOrderDate: string;
+    private currentDateSubscription: Subscription;
+    private linesSubscription: Subscription;
+    private saveSubscription: Subscription;
+    private totalAmountSubscription: Subscription;
+    private userAddressSubscription: Subscription;
+    private productLines: IOrderLine[] = [];
+    private user: IUser;
+    private deliverMethods: IDeliverMethod[] = [];
+    private centers: ICenter[] = [];
+    private selectedDeliveryType: IDeliverMethod;
+    private selectedCenter: ICenter;
+    private officialAddress: string;
 
     constructor(private orderService: OrderService,
                 private configService: ConfigService,
@@ -46,10 +46,6 @@ export class ResumeComponent implements OnInit, OnDestroy {
                 private resumeDataService: ResumeDataService,
                 private fb: FormBuilder) {
     }
-
-    saveOrder = () => {
-        this.orderService.saveOrder( this.resumeForm.value );
-    };
 
     ngOnInit() {
         // Form Builder
@@ -137,7 +133,7 @@ export class ResumeComponent implements OnInit, OnDestroy {
         this.userAddressSubscription.unsubscribe();
     }
 
-    onChangeTypeOfDelivery = (deliveryType: string = 'center') => {
+    private onChangeTypeOfDelivery = (deliveryType: string = 'center') => {
         if (deliveryType === 'home') {
             this.resumeForm.get( 'address' ).enable();
             this.resumeForm.get( 'center' ).disable();
@@ -152,11 +148,15 @@ export class ResumeComponent implements OnInit, OnDestroy {
                 } ) || this.selectedDeliveryType;
     };
 
-    onChangeCenter = (center: string = 'nou-barris') => {
+    private onChangeCenter = (center: string = 'nou-barris') => {
         this.selectedCenter = this.centers
                 .find( item => {
                     return item.value === center;
                 } ) || this.selectedCenter;
+    };
+
+    private saveOrder = () => {
+        this.orderService.saveOrder( this.resumeForm.value );
     };
 
 }

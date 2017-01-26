@@ -12,8 +12,8 @@ import {ICounterData} from '../../models/counterData';
     templateUrl: './product-list-item.component.html'
 } )
 export class ProductListItemComponent implements OnInit, OnDestroy {
-    @Input() product: IProduct;
-    @Input() productOrderLine: IOrderLine;
+    @Input() private product: IProduct;
+    @Input() private productOrderLine: IOrderLine;
     private category: ICategory;
     private categorySubscription: Subscription;
     private categoryName: string;
@@ -37,7 +37,7 @@ export class ProductListItemComponent implements OnInit, OnDestroy {
         this.categorySubscription.unsubscribe();
     }
 
-    createCounterData = (): ICounterData => {
+    private createCounterData = (): ICounterData => {
         this.isProductSelected( this.productOrderLine.quantity );
         return {
             valuePerUnit: this.product.price,
@@ -48,7 +48,7 @@ export class ProductListItemComponent implements OnInit, OnDestroy {
         };
     };
 
-    updateOrderProductLine = (counterData: any) => {
+    private updateOrderProductLine = (counterData: any) => {
         this.isProductSelected( counterData.quantity );
         this.orderService.addProductLine( {
             $key: this.product.$key,
@@ -60,16 +60,16 @@ export class ProductListItemComponent implements OnInit, OnDestroy {
         } );
     };
 
-    isProductSelected = (quantity: number) => {
+    private isProductSelected = (quantity: number) => {
         this.product.selected = quantity > 0;
-    }
+    };
 
-    setRowClasses = () => {
+    private setRowClasses = () => {
         return {
             [this.categoryName]: true,
             'selected': this.product.selected,
             'enabled': this.product.active
         }
-    }
+    };
 
 }

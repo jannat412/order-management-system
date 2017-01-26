@@ -10,13 +10,13 @@ import {ValidationUtils} from '../../utils/utils';
     templateUrl: './login.component.html'
 } )
 export class LoginComponent implements OnInit, OnDestroy {
-    loginForm: FormGroup;
-    errorMessage: string;
-    showError: boolean = false;
-    showForm: boolean = true;
-    resetOk: boolean = false;
-    routeSubscription: Subscription;
-    loginSubscription: Subscription;
+    private loginForm: FormGroup;
+    private errorMessage: string;
+    private showError: boolean = false;
+    private showForm: boolean = true;
+    private resetOk: boolean = false;
+    private routeSubscription: Subscription;
+    private loginSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private authService: AuthService,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) {
     }
 
-    onLoginFormSubmit() {
+    private onLoginFormSubmit() {
         this.loginSubscription =
             this.authService.loginUser( this.loginForm.value )
                 .subscribe( () => {

@@ -6,7 +6,7 @@ import {ConfigService} from './config.service';
 @Injectable()
 export class InactiveGuard implements CanActivate, CanActivateChild {
 
-    result: boolean = false;
+    private result: boolean = false;
 
     constructor(private configService: ConfigService, private router: Router) {
     }

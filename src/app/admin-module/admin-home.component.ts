@@ -9,7 +9,7 @@ export class AdminHomeComponent {
 
   constructor(private adminTypeService: AdminTypeService) { }
 
-  adminType = (type: string) => {
+  private adminType = (type: string) => {
     return this.adminTypeService.getAdminType(type);
   };
 

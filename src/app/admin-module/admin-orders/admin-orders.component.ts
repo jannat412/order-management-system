@@ -11,12 +11,12 @@ import {Router} from '@angular/router';
 } )
 export class AdminOrdersComponent implements OnInit, OnDestroy {
 
-    orders: IOrder[];
-    currentOrderDate: string;
-    isActive: boolean = false;
-    currentOrdersSubscription: Subscription;
-    configActiveSubscription: Subscription;
-    configCurrentOrderSubscription: Subscription;
+    private orders: IOrder[];
+    private currentOrderDate: string;
+    private isActive: boolean = false;
+    private currentOrdersSubscription: Subscription;
+    private configActiveSubscription: Subscription;
+    private configCurrentOrderSubscription: Subscription;
 
     constructor(private router:Router,
                 private adminOrderService: AdminOrderService,
@@ -49,7 +49,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
         this.configCurrentOrderSubscription.unsubscribe();
     }
 
-    gotoOrderDetail = (key: string): void => {
+    private gotoOrderDetail = (key: string): void => {
         this.router.navigate(['admin/comandes', key]);
     };
 

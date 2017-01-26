@@ -12,12 +12,12 @@ export class NameFilterInputComponent {
         this.filterBy = new EventEmitter<string>();
     }
 
-    filterName = (): void => this.filterBy.emit( this.listFilter );
+    private filterName = (): void => this.filterBy.emit( this.listFilter );
 
     /* TODO make success or error style if filtering return or not something*/
-    setClasses = (): string =>  'alert alert-success';
+    private setClasses = (): string =>  'alert alert-success';
 
-    clear = (): void => {
+    public clear = (): void => {
         this.listFilter = '';
         this.filterName();
     };

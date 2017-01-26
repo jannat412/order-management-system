@@ -22,7 +22,7 @@
                     <br><strong>Data registre:</strong>
                     <small>{{order.timestamp | date:'dd/MM/yyyy'}} a les {{order.timestamp | date:'hh:mm'}} h</small>
                     <div *ngIf="deliverData?.deliverType === 'home'">
-                        <strong>Entregar en: {{deliverData?.address}}</strong>
+                        <strong>Entregar en:</strong> <small>{{deliverData?.address}}</small>
                     </div>
                     <div *ngIf="deliverData?.deliverType === 'center'">
                         <strong>Recollida per: {{selectedCenter.desc}}</strong>

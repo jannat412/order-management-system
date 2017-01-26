@@ -21,7 +21,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     @ViewChild( CategoryFilterMenuComponent )
     private categoryFilterComponent: CategoryFilterMenuComponent;
 
-    listProductTitle: string = 'Llistat de productes';
+    private listProductTitle: string = 'Llistat de productes';
     private listFilter: string = '';
     private categoryFilter: string = '';
     private activeFilter: boolean = true;
@@ -65,19 +65,19 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         this.linesSubscription.unsubscribe();
     }
 
-    doFilter = (str: string) => {
+    private doFilter = (str: string) => {
         this.listFilter = str;
     };
 
-    doFilterCategory = (categoryKey: string) => {
+    private  doFilterCategory = (categoryKey: string) => {
         this.categoryFilter = categoryKey;
     };
 
-    doFilterActive = (active: boolean) => {
+    private doFilterActive = (active: boolean) => {
         this.activeFilter = active;
     };
 
-    doFilterSelected = (selected: boolean) => {
+    private doFilterSelected = (selected: boolean) => {
         // reset all filters
         this.nameFilterComponent.clear();
         this.categoryFilterComponent.onFilterCategory( '' );
@@ -85,7 +85,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         this.selectedFilter = selected;
     };
 
-    getProductOrderLine = (productKey: string): any => {
+    private getProductOrderLine = (productKey: string): any => {
         return this.userOrderProducts.filter( (product) => {
                 return product[ '$key' ] === productKey;
             } )[ 0 ] || {

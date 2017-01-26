@@ -9,10 +9,10 @@ import {ValidationUtils} from '../../utils/utils';
     templateUrl: './forgot-password.component.html'
 } )
 export class ForgotPasswordComponent implements OnInit {
-    resetPasswordForm: FormGroup;
-    errorMessage: string;
-    showError: boolean = false;
-    showOk: boolean = false;
+    private resetPasswordForm: FormGroup;
+    private errorMessage: string;
+    private showError: boolean = false;
+    private showOk: boolean = false;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
@@ -31,7 +31,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     }
 
-    onResetFormSubmit = () => {
+    private onResetFormSubmit = () => {
         let self = this;
         this.authService
             .verifyRegistration( this.resetPasswordForm.value.email )

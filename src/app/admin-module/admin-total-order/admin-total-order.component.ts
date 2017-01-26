@@ -10,12 +10,12 @@ import {OrderUtils, ArrayUtils} from '../../utils/utils';
 } )
 export class AdminTotalOrderComponent implements OnInit, OnDestroy {
 
-    products;
-    currentOrderDate: string;
-    isActive: boolean = false;
-    configActiveSubscription: Subscription;
-    configCurrentOrderSubscription: Subscription;
-    currentOrderSubscription: Subscription;
+    private products;
+    private currentOrderDate: string;
+    private isActive: boolean = false;
+    private configActiveSubscription: Subscription;
+    private configCurrentOrderSubscription: Subscription;
+    private currentOrderSubscription: Subscription;
 
     constructor(private adminOrderService: AdminOrderService,
                 private configService: ConfigService) {

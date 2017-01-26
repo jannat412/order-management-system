@@ -12,14 +12,14 @@ import {IUser} from '../models/user';
 } )
 export class HeaderComponent implements OnInit, OnDestroy {
 
-    configSubscription: Subscription;
-    adminSubscription: Subscription;
-    userSubscription: Subscription;
-    authSubscription: Subscription;
-    authInfo: boolean = false;
-    admin: boolean = false;
-    active: boolean = false;
-    user: IUser;
+    private configSubscription: Subscription;
+    private adminSubscription: Subscription;
+    private userSubscription: Subscription;
+    private authSubscription: Subscription;
+    private authInfo: boolean = false;
+    private admin: boolean = false;
+    private active: boolean = false;
+    private user: IUser;
 
     constructor(private authService: AuthService,
                 private userService: UserService,
