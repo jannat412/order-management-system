@@ -55,13 +55,11 @@ export class OrderService {
     };
 
     private checkTempProductOrder = (item) => {
-        if (!this.order[ item.$key ] && item.$value !== null) {
-            this.order[ item.$key ] = {
-                name: item.name,
-                price: item.price,
-                unity: item.unity,
-                quantity: item.quantity,
-                total: item.total
+        let {$key, name, price, unity, quantity, total} = item;
+
+        if (!this.order[ $key ] && item.$value !== null) {
+            this.order[ $key ] = {
+                name, price, unity, quantity, total
             };
         }
     };
@@ -128,15 +126,8 @@ export class OrderService {
      * @param productLine
      */
     addProductLine = (productLine) => {
-        this.order[ productLine.$key ] = {
-            name: productLine.name,
-            price: productLine.price,
-            unity: productLine.unity,
-            quantity: productLine.quantity,
-            total: productLine.total,
-            oldQuantity: productLine.quantity,
-            oldTotal: productLine.total
-        };
+        let {$key, name, price, unity, quantity, total} = productLine;
+        this.order[ $key ] = {name, price, unity, quantity, total};
         this.onChangeOrderEmit();
     };
 
