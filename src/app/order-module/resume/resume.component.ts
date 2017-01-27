@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {ConfigService} from '../../services-module/config.service';
 import {OrderService} from '../../services-module/order.service';
 import {UserService} from '../../services-module/user.service';
-import {IOrderLine} from '../../models/orderLine';
+import {IOrderLine} from '../../models/item';
 import {AuthService} from '../../services-module/auth.service';
 import {IUser} from '../../models/user';
 import {ResumeDataService} from '../../services-module/resume-data.service';

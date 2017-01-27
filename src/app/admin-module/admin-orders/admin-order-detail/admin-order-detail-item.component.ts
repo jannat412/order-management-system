@@ -1,11 +1,10 @@
 import {Component, Input, OnInit, OnDestroy, OnChanges} from '@angular/core';
-import {IProduct} from '../../../models/product';
+import {IProduct, IOrderLine} from '../../../models/item';
 import {ProductsService} from '../../../services-module/products.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ICounterData} from '../../../models/counterData';
 import {CategoriesService} from '../../../services-module/categories.service';
 import {ICategory} from '../../../models/category';
-import {IOrderLine} from '../../../models/orderLine';
 import {AdminOrderService} from '../../../services-module/admin-order.service';
 
 enum Status {

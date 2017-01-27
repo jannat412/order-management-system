@@ -7,4 +7,5 @@ export interface IUser {
     cp?: string;
     district?: string;
     tel?: number;
+    email: string;
 }

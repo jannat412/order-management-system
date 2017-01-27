@@ -23,6 +23,7 @@ export class AdminOrderCartComponent implements OnChanges, OnDestroy {
         city: '',
         cp: '',
         district: '',
+        email: '',
         tel: null
     };
     private userSubscription: Subscription;

@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {ProductsService} from '../../services-module/products.service';
-import {IProduct} from '../../models/product';
+import {IProduct, IOrderLine} from '../../models/item';
 import {NameFilterInputComponent} from '../name-filter-input/name-filter-input.component';
 import {CategoryFilterMenuComponent} from '../category-filter-menu/category-filter-menu.component';
 import {OrderService} from '../../services-module/order.service';
-import {IOrderLine} from '../../models/orderLine';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component( {

@@ -6,12 +6,11 @@ import {ProductsService} from '../../services-module/products.service';
 import {CategoriesService} from '../../services-module/categories.service';
 import {TagsService} from '../../services-module/tags.service';
 
-import {IProduct} from '../../models/product';
+import {IProduct, IOrderLine} from '../../models/item';
 import {ITag} from '../../models/tag';
 import {ICategory} from '../../models/category';
 import {ICounterData} from '../../models/counterData';
 import {OrderService} from '../../services-module/order.service';
-import {IOrderLine} from '../../models/orderLine';
 import {Location} from '@angular/common';
 
 @Component( {

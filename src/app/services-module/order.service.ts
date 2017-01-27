@@ -8,7 +8,7 @@ import {AuthService} from './auth.service';
 import {ConfigService} from './config.service';
 
 import {IOrder} from '../models/order';
-import {IOrderLine} from '../models/orderLine';
+import {IOrderLine} from '../models/item';
 
 import {OrderUtils, ObjectUtils} from '../utils/utils';
 

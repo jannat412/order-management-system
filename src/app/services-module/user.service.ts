@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
@@ -6,6 +6,8 @@ import {IUser} from '../models/user';
 
 @Injectable()
 export class UserService {
+
+    updateOrderEmitter = new EventEmitter<any>();
 
     constructor(private db: AngularFireDatabase,
                 private authService: AuthService) {
@@ -57,4 +59,14 @@ export class UserService {
         return this.authService.getUserId()
             .flatMap( uid => this.db.object( `/users/${uid}/active` ) );
     };
+
+    saveUserData = (uid: string, data: any) => {
+        this.authService.onSaveUserInfo(data.email);
+        return this.db.object( `users/${uid}` ).set( data );
+    };
+
+    updateUserData = (uid: string, userData: IUser) => {
+        return this.db.object( `users/${uid}` ).update( userData );
+    };
+
 }

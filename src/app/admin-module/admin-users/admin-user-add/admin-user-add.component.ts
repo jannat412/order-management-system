@@ -3,6 +3,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ValidationUtils} from '../../../utils/utils';
 import {AuthService} from '../../../services-module/auth.service';
 import {Router} from '@angular/router';
+import {UserService} from '../../../services-module/user.service';
 
 @Component( {
     selector: 'oms-admin-user-add',
@@ -16,6 +17,7 @@ export class AdminUserAddComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private authService: AuthService,
+                private userService: UserService,
                 private router: Router) {
     }
 
@@ -53,7 +55,7 @@ export class AdminUserAddComponent implements OnInit {
                     const UID = user.uid;
                     userData.role = 'soci';
                     userData.active = true;
-                    this.authService.saveUserInfo( UID, userData )
+                    this.userService.saveUserData( UID, userData )
                         .then(
                             () => {
                                 this.router.navigate( ['../admin/socis'] )

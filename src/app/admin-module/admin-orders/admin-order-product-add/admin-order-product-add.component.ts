@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AdminOrderService} from '../../../services-module/admin-order.service';
-import {IProduct} from '../../../models/product';
+import {IProduct} from '../../../models/item';
 
 @Component( {
     selector: 'oms-admin-order-product-add',

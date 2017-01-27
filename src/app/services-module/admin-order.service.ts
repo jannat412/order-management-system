@@ -4,8 +4,7 @@ import {ConfigService} from './config.service';
 import {database} from 'firebase';
 import {AngularFireDatabase} from 'angularfire2';
 import {IOrder} from '../models/order';
-import {IOrderLine} from '../models/orderLine';
-import {IProduct} from '../models/product';
+import {IProduct, IOrderLine} from '../models/item';
 import {OrderUtils} from '../utils/utils';
 
 @Injectable()

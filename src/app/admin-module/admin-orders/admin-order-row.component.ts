@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {IOrder} from '../../models/order';
-import {IOrderLine} from '../../models/orderLine';
+import {IOrderLine} from '../../models/item';
 import {IUser} from '../../models/user';
 import {UserService} from '../../services-module/user.service';
 import {Subscription} from 'rxjs/Subscription';

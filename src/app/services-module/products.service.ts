@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
-import {IProduct} from '../models/product';
+import {IProduct} from '../models/item';
 import {OrderUtils} from '../utils/utils';
 
 @Injectable()

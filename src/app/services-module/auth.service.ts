@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {initializeApp} from 'firebase';
-import {AngularFire, FirebaseAuthState, AngularFireDatabase} from 'angularfire2';
+import {AngularFire, FirebaseAuthState} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {IAuth} from '../models/auth';
@@ -11,9 +11,7 @@ import {FIREBASE_CONFIG} from '../../config/firebase.config';
 export class AuthService {
     private secondaryFb = initializeApp( FIREBASE_CONFIG, "secondary" );
 
-    constructor(private af: AngularFire,
-                private db: AngularFireDatabase) {
-    }
+    constructor(private af: AngularFire) {}
 
     /**
      * login
@@ -64,7 +62,7 @@ export class AuthService {
     };
 
     verifyRegistration = (email) => {
-       return this.secondaryFb.auth().sendPasswordResetEmail(email);
+        return this.secondaryFb.auth().sendPasswordResetEmail( email );
     };
 
     createUser = (userData) => {
@@ -74,8 +72,8 @@ export class AuthService {
         );
     };
 
-    saveUserInfo = (uid, data) => {
-        this.verifyRegistration(data.email)
+    onSaveUserInfo = (email) => {
+        this.verifyRegistration( email )
             .then(
                 function (e) {
                     console.log( 'email sent', e );
@@ -84,18 +82,14 @@ export class AuthService {
                 }
             );
         this.secondaryFb.auth().signOut();
-        return this.db.object( `users/${uid}` ).set( data );
     };
 
     verifyOnReset = (code: string) => {
-        return auth().verifyPasswordResetCode(code);
+        return auth().verifyPasswordResetCode( code );
     };
 
     confirmPasswordReset = (code: string, newPassword: string) => {
-        return auth().confirmPasswordReset(code, newPassword);
+        return auth().confirmPasswordReset( code, newPassword );
     };
 
-    updateUser = () => {
-
-    }
 }

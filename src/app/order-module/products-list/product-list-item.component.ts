@@ -2,9 +2,8 @@ import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {OrderService} from '../../services-module/order.service';
 import {CategoriesService} from '../../services-module/categories.service';
-import {IProduct} from '../../models/product';
+import {IProduct, IOrderLine} from '../../models/item';
 import {ICategory} from '../../models/category';
-import {IOrderLine} from '../../models/orderLine';
 import {ICounterData} from '../../models/counterData';
 
 @Component( {

@@ -4,6 +4,7 @@ import {AuthService} from '../../services-module/auth.service';
 import {ValidationUtils} from '../../utils/utils';
 import {UserService} from '../../services-module/user.service';
 import {IUser} from '../../models/user';
+import {Subscription} from 'rxjs';
 
 @Component( {
     selector: 'oms-user-admin',
@@ -17,6 +18,8 @@ export class UserAdminComponent implements OnInit {
     private errorMessage: string;
     private showError: boolean = false;
     private error: Error;
+    private orderSaved: boolean = false;
+    private updateSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private authService: AuthService,
@@ -57,13 +60,20 @@ export class UserAdminComponent implements OnInit {
                 this.userForm.patchValue( user );
             } );
 
+        this.updateSubscription = this.userService.updateOrderEmitter
+            .subscribe( data => this.orderSaved = data.status || false );
     }
 
     onUserFormSubmit = () => {
         let userData = this.userForm.value;
-
-        // update user
-
+        console.log( this.user );
+        console.log( userData );
+        this.userService.updateUserData( this.user[ '$key' ], userData )
+            .then( () => {
+                    console.log( 'done' );
+                },
+                (err) => console.error( err )
+            );
     };
 
 }

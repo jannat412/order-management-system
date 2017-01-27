@@ -1,3 +1,5 @@
+import {IOrderLine} from './item';
+
 export interface IOrder {
     order: any;
     user: string;
